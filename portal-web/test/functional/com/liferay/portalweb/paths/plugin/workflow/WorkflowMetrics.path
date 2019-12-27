@@ -181,7 +181,7 @@
 </tr>
 <tr>
 	<td>METRICS_WORKFLOW_PROCESS_NAME</td>
-	<td>//td//span[contains(text(),'${key_workflowProcessName}')]</td>
+	<td>//td//a[contains(text(),'${key_workflowProcessName}')]</td>
 	<td></td>
 </tr>
 <tr>
