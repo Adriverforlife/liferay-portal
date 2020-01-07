@@ -53,14 +53,14 @@ definition {
 	test ViewTopAsigneePerformance {
 		property portal.acceptance = "false";
 
-		// ProductMenu.gotoPortlet(
-		// 	category = "Configuration",
-		// 	panel = "Site Administration",
-		// 	portlet = "Workflow");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
 
-		// Workflow.configureWorkflow(
-		// 	workflowDefinition = "Single Approver",
-		// 	workflowResourceValue = "Blogs Entry");
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
 
 		// JSONBlog.addEntry(
 		// 	entryContent = "Blogs Entry1 Content",
@@ -92,9 +92,9 @@ definition {
 		// 	panel = "Control Panel",
 		// 	portlet = "Metrics");
 
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+		// WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+		// Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
 
 		// WorkflowMetrics.viewPerformanceByAssignee(
 		// 	assignee = "Test Test",
@@ -102,13 +102,30 @@ definition {
 		// 	taskCount = "1");
 
 
-		// WorkflowMetrics.createTenUsersAndAssignInstances();
-		// WorkflowMetrics.executeWorkflowScript(scriptName = "CompleteTasksAssignedToUsers.groovy");
+		// WorkflowMetrics.executeWorkflowScript(scriptName = "addTenUsersWithRoles.groovy");
 
-		AssertElementPresent(
-			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
-			key_rowNumber = "10");
-		////div[5]//div[1]//div[2]//div[1]//table[1]//tbody[1]//tr[10]//td[1]
+		// WorkflowMetrics.createTenUsersAndAssignInstances();
+
+		// WorkflowMetrics.executeWorkflowScript(scriptName = "assignOpenTasksToUsers.groovy");
+
+		WorkflowMetrics.executeWorkflowScript(scriptName = "CompleteTasksAssignedToUsers.groovy");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		// AssertElementPresent(
+		// 	locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
+		// 	key_rowNumber = "10");
+
+		// AssertElementNotPresent(
+		// 	locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
+		// 	key_rowNumber = "11");
+
+		// AssertElementPresent(
+		// 	locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
+		// 	key_assigneesNumber = "11");
+
 
 	}
 
