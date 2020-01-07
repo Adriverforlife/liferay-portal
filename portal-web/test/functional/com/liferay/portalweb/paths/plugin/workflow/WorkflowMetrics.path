@@ -210,6 +210,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION</td>
+	<td>xpath=(//div[5]//div[1]//div[2]//div[1]//table[1]//tbody[1]//tr[${key_rowNumber}]//td[1])</td>
+	<td></td>
+</tr>
+<tr>
 	<td>METRICS_PERFORMANCE_TAB</td>
 	<td>//a[contains(@href, 'performance')]</td>
 	<td></td>
