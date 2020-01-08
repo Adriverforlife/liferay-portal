@@ -296,7 +296,7 @@ definition {
 		var key_endDateRange = "${endDateRange}";
 		var key_startDateRange = "${startDateRange}";
 
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_STEP_RANGE_DROPDOWN");
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_STEP_DATE_RANGE_DROPDOWN");
 
 		Click(locator1 = "WorkflowMetrics#METRICS_COMPLETION_VELOCITY_DATE_RANGE_DROPDOWN_OPTION");
 
