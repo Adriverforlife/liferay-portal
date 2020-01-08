@@ -119,12 +119,12 @@
 	<td></td>
 </tr>
 <tr>
-	<td>METRICS_PERFORMANCE_BY_STEP_DATE_RANGE_DROPDOWN</td>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_DATE_RANGE_DROPDOWN</td>
 	<td>xpath=(//button[contains(@class, 'dropdown-toggle')]//span[contains(@class, 'navbar-text-truncate')])[6]</td>
 	<td></td>
 </tr>
 <tr>
-	<td>METRICS_PERFORMANCE_BY_STEP_VIEW_STEPS_DROPDOWN</td>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_VIEW_STEPS_DROPDOWN</td>
 	<td>xpath=(//button[contains(@class, 'dropdown-toggle')]//span[contains(@class, 'navbar-text-truncate')])[5]</td>
 	<td></td>
 </tr>
@@ -181,6 +181,13 @@
 <tr>
 	<td>METRICS_SLA_BREACHED_VALUE</td>
 	<td>//tr[contains(*, '${rowName}')]//td[@data-testid='slaBreached']</td>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_DROPDOWN_STEP_REVIEW</td>
+	<td>//div[contains(@class, 'dropdown-menu')]//span[contains(text(),'Review')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_DROPDOWN_STEP_UPDATE</td>
+	<td>//div[contains(@class, 'dropdown-menu')]//span[contains(text(),'Update')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -200,8 +207,13 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_OVERDUE_STATE</td>
 	<td>//p[contains(.,'There are no assigned items overdue at the moment.')]</td>
+=======
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_RESULTS</td>
+	<td>//span[contains(text(),'Performance by Assignee')]/ancestor::div[contains(@data-testid, 'panelHeader')]/following-sibling::div//p[contains(.,'No results were found.')]</td>
+>>>>>>> LRQA-53631 Added steps to check if inactive users are listed on Performance by Assignee Table.
 	<td></td>
 </tr>
 <tr>

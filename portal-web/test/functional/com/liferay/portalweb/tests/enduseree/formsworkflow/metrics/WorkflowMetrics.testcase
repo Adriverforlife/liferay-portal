@@ -53,80 +53,73 @@ definition {
 	test ViewTopAsigneePerformance {
 		property portal.acceptance = "false";
 
-		// ProductMenu.gotoPortlet(
-		// 	category = "Configuration",
-		// 	panel = "Site Administration",
-		// 	portlet = "Workflow");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
 
-		// Workflow.configureWorkflow(
-		// 	workflowDefinition = "Single Approver",
-		// 	workflowResourceValue = "Blogs Entry");
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
 
-		// JSONBlog.addEntry(
-		// 	entryContent = "Blogs Entry1 Content",
-		// 	entryTitle = "Blogs Entry Title");
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry Title");
 
-		// JSONBlog.addEntry(
-		// 	entryContent = "Blogs Entry1 Content",
-		// 	entryTitle = "Blogs Entry Unapproved");
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry Unapproved");
 
-		// UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
 
-		// Workflow.assignToMeTaskByActions(
-		// 	workflowAssetTitle = "Blogs Entry Title",
-		// 	workflowAssetType = "Blogs Entry",
-		// 	workflowTask = "Review");
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
 
-		// Workflow.approveTaskByActions(
-		// 	workflowAssetTitle = "Blogs Entry Title",
-		// 	workflowAssetType = "Blogs Entry",
-		// 	workflowTask = "Review");
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
 
-		// Workflow.assignToMeTaskByActions(
-		// 	workflowAssetTitle = "Blogs Entry Unapproved",
-		// 	workflowAssetType = "Blogs Entry",
-		// 	workflowTask = "Review");
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Unapproved",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
 
-		// ProductMenu.gotoPortlet(
-		// 	category = "Workflow",
-		// 	panel = "Control Panel",
-		// 	portlet = "Metrics");
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
 		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
 
-		// WorkflowMetrics.viewPerformanceByAssignee(
-		// 	assignee = "Test Test",
-		// 	avgCompletionTime = "1min",
-		// 	taskCount = "1");
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "Test Test",
+			avgCompletionTime = "1min",
+			taskCount = "1");
 
+		WorkflowMetrics.createTenUsersAndAssignInstances();
 
-		// WorkflowMetrics.executeWorkflowScript(scriptName = "addTenUsersWithRoles.groovy");
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		// WorkflowMetrics.createTenUsersAndAssignInstances();
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
 
-		// WorkflowMetrics.executeWorkflowScript(scriptName = "assignOpenTasksToUsers.groovy");
+		AssertElementPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
+			key_rowNumber = "10");
 
-		// WorkflowMetrics.executeWorkflowScript(scriptName = "CompleteTasksAssignedToUsers.groovy");
+		AssertElementNotPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
+			key_rowNumber = "11");
 
-		// WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+		AssertElementPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
+			key_assigneesNumber = "11");
 
-		// Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		// AssertElementPresent(
-		// 	locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
-		// 	key_rowNumber = "10");
-
-		// AssertElementNotPresent(
-		// 	locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
-		// 	key_rowNumber = "11");
-
-		// AssertElementPresent(
-		// 	locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
-		// 	key_assigneesNumber = "11");
-
-		WorkflowMetrics.selectDateRangePerformanceByStep(
+		WorkflowMetrics.selectDateRangePerformanceByAssignee(
 			completionVelocityDateRange = "Custom Range",
 			endDateRange = "11/11/2018",
 			startDateRange = "09/22/2018");
@@ -137,6 +130,34 @@ definition {
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
 		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		WorkflowMetrics.selectStepFilterPerformaceByAssignee(
+			velocityUnit = "REVIEW");
+
+		AssertElementPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
+			key_assigneesNumber = "11");
+
+		WorkflowMetrics.selectStepFilterPerformaceByAssignee(
+			velocityUnit = "UPDATE");
+
+		AssertElementPresent(
+ 			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_RESULTS");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.deactivateCP(userFirstName = "1user");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		AssertElementPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
+			key_assigneesNumber = "10");
 
 
 	}
