@@ -49,120 +49,6 @@ definition {
 		}
 	}
 
-@description = "LRQA-53631 Automate LPS-97666: [Performance] View top assignee performance"
-	test ViewTopAsigneePerformance {
-		property portal.acceptance = "false";
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "Single Approver",
-			workflowResourceValue = "Blogs Entry");
-
-		JSONBlog.addEntry(
-			entryContent = "Blogs Entry1 Content",
-			entryTitle = "Blogs Entry Title");
-
-		JSONBlog.addEntry(
-			entryContent = "Blogs Entry1 Content",
-			entryTitle = "Blogs Entry Unapproved");
-
-		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
-
-		Workflow.assignToMeTaskByActions(
-			workflowAssetTitle = "Blogs Entry Title",
-			workflowAssetType = "Blogs Entry",
-			workflowTask = "Review");
-
-		Workflow.approveTaskByActions(
-			workflowAssetTitle = "Blogs Entry Title",
-			workflowAssetType = "Blogs Entry",
-			workflowTask = "Review");
-
-		Workflow.assignToMeTaskByActions(
-			workflowAssetTitle = "Blogs Entry Unapproved",
-			workflowAssetType = "Blogs Entry",
-			workflowTask = "Review");
-
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
-
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		WorkflowMetrics.viewPerformanceByAssignee(
-			assignee = "Test Test",
-			avgCompletionTime = "1min",
-			taskCount = "1");
-
-		WorkflowMetrics.createTenUsersAndAssignInstances();
-
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		AssertElementPresent(
-			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
-			key_rowNumber = "10");
-
-		AssertElementNotPresent(
-			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION",
-			key_rowNumber = "11");
-
-		AssertElementPresent(
-			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
-			key_assigneesNumber = "11");
-
-		WorkflowMetrics.selectDateRangePerformanceByAssignee(
-			completionVelocityDateRange = "Custom Range",
-			endDateRange = "11/11/2018",
-			startDateRange = "09/22/2018");
-
-		AssertElementPresent(
- 			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_EMPTY_STATE");
-		
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		WorkflowMetrics.selectStepFilterPerformaceByAssignee(
-			velocityUnit = "REVIEW");
-
-		AssertElementPresent(
-			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
-			key_assigneesNumber = "11");
-
-		WorkflowMetrics.selectStepFilterPerformaceByAssignee(
-			velocityUnit = "UPDATE");
-
-		AssertElementPresent(
- 			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_RESULTS");
-
-		ProductMenu.gotoPortlet(
-			category = "Users",
-			panel = "Control Panel",
-			portlet = "Users and Organizations");
-
-		User.deactivateCP(userFirstName = "1user");
-
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		AssertElementPresent(
-			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK",
-			key_assigneesNumber = "10");
-
-
-	}
-
-
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
@@ -873,6 +759,113 @@ definition {
 			workflowProcess = "Single Approver");
 
 		WorkflowMetrics.validateInstanceDetails(processStatus = "Completed");
+	}
+
+	@description = "LRQA-53631 Automate LPS-97666: [Performance] View top assignee performance"
+	test ViewTopAsigneePerformance {
+		property portal.acceptance = "false";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry Title");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry Unapproved");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Unapproved",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "Test Test",
+			avgCompletionTime = "1min",
+			taskCount = "1");
+
+		WorkflowMetrics.createTenUsersAndAssignInstances();
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		AssertElementPresent(
+			key_rowNumber = "10",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION");
+
+		AssertElementNotPresent(
+			key_rowNumber = "11",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION");
+
+		AssertElementPresent(
+			key_assigneesNumber = "11",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK");
+
+		WorkflowMetrics.selectDateRangePerformanceByAssignee(
+			completionVelocityDateRange = "Custom Range",
+			endDateRange = "11/11/2018",
+			startDateRange = "09/22/2018");
+
+		AssertElementPresent(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_EMPTY_STATE");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		WorkflowMetrics.selectStepFilterPerformaceByAssignee(velocityUnit = "REVIEW");
+
+		AssertElementPresent(
+			key_assigneesNumber = "11",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK");
+
+		WorkflowMetrics.selectStepFilterPerformaceByAssignee(velocityUnit = "UPDATE");
+
+		AssertElementPresent(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_RESULTS");
+
+		ProductMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.deactivateCP(userFirstName = "1user");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		AssertElementPresent(
+			key_assigneesNumber = "10",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK");
 	}
 
 	@description = "LRQA-53641 Automate LPS-97669 [Dashboard] View overloaded assignees"
