@@ -181,6 +181,9 @@
 <tr>
 	<td>METRICS_SLA_BREACHED_VALUE</td>
 	<td>//tr[contains(*, '${rowName}')]//td[@data-testid='slaBreached']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_DROPDOWN_STEP_REVIEW</td>
 	<td>//div[contains(@class, 'dropdown-menu')]//span[contains(text(),'Review')]</td>
 	<td></td>
@@ -207,13 +210,13 @@
 	<td></td>
 </tr>
 <tr>
-<<<<<<< HEAD
 	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_OVERDUE_STATE</td>
 	<td>//p[contains(.,'There are no assigned items overdue at the moment.')]</td>
-=======
+	<td></td>
+</tr>
+<tr>
 	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_NO_RESULTS</td>
 	<td>//span[contains(text(),'Performance by Assignee')]/ancestor::div[contains(@data-testid, 'panelHeader')]/following-sibling::div//p[contains(.,'No results were found.')]</td>
->>>>>>> LRQA-53631 Added steps to check if inactive users are listed on Performance by Assignee Table.
 	<td></td>
 </tr>
 <tr>
