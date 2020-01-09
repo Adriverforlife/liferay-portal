@@ -169,13 +169,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>METRICS_PERFORMANCE_BY_STEP_ROW_CHECK</td>
-	<td>//tr[${rowNumber}]//td[contains(text(), '${key_avgTime}')]</td>
+	<td>METRICS_SLA_BREACHED_VALUE</td>
+	<td>//tr[contains(*, '${rowName}')]//td[@data-testid='slaBreached']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>METRICS_SLA_BREACHED_VALUE</td>
-	<td>//tr[contains(*, '${rowName}')]//td[@data-testid='slaBreached']</td>
+	<td>METRICS_PERFORMANCE_BY_STEP_ROW_CHECK</td>
+	<td>//tr[${rowNumber}]//td[contains(text(), '${key_avgTime}')]</td>
 	<td></td>
 </tr>
 <tr>

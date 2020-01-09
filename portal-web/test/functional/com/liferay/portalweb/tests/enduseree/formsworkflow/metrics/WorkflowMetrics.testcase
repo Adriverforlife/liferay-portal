@@ -137,7 +137,23 @@ definition {
 
 		WorkflowMetrics.waitForCompletedSLAtoBecomeOverdue(timesToRun = "12");
 
+		WorkflowMetrics.assertChartTotalValuePerformanceByStep(
+			rowName = "Review",
+			slaBreachedValue = "1 (50%)");
 
+		WorkflowMetrics.assertChartTotalValuePerformanceByStep(
+			rowName = "Update",
+			slaBreachedValue = "0 (0%)");
+
+		AssertElementPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_STEP_ROW_CHECK",
+			rowNumber = "2",
+			key_avgTime = "0min");
+
+				AssertElementPresent(
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_STEP_ROW_CHECK",
+			rowNumber = "1",
+			key_avgTime = "1min");
 	}
 
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
