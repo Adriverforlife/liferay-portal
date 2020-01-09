@@ -49,6 +49,97 @@ definition {
 		}
 	}
 
+	@description = "LRQA-53640 Automate LPS-100674: [Performance] View SLA breaches of top steps performance"
+	@priority = "5"
+	test ViewSLABreachesOfTopSteps {
+		property portal.acceptance = "false";
+
+		var key_testSLADefinitionDays = "0";
+		var key_testSLADefinitionHours = "0001";
+		var key_testSLADefinitionHoursCheck = "00:01";
+		var key_testSLADefinitionDescription = "SLA Description";
+		var key_testSLADefinitionEnd = "Process Ends: Approved";
+		var key_testSLADefinitionName = "SLA Name";
+		var key_testSLADefinitionStart = "Process Begins";
+
+		WorkflowMetrics.goToWorkflowSLASettings(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetricsSLA#ADD_NEW_SLA_BUTTON");
+
+		WorkflowMetrics.fillSLAForm(
+			slaDefinitionDays = "${key_testSLADefinitionDays}",
+			slaDefinitionDescription = "${key_testSLADefinitionDescription}",
+			slaDefinitionEnd = "${key_testSLADefinitionEnd}",
+			slaDefinitionHours = "${key_testSLADefinitionHours}",
+			slaDefinitionName = "${key_testSLADefinitionName}",
+			slaDefinitionStart = "${key_testSLADefinitionStart}");
+
+		Button.clickSave();
+
+		Alert.viewSuccessMessage();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry Title");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		WorkflowMetrics.waitForSLAtoBecomeOverdue(timesToRun = "12");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry2 Content",
+			entryTitle = "Blogs Entry2 Title");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry2 Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Entry2 Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		WorkflowMetrics.waitForCompletedSLAtoBecomeOverdue(timesToRun = "12");
+
+
+	}
+
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
