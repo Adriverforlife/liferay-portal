@@ -766,7 +766,5 @@ definition {
 		AssertTextEquals(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE", value1 = "${key_pending}");
 
 		AssertTextEquals(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_UNTRACKED_ITEMS_VALUE", value1 = "${key_untracked}");
-
-
 	}
 }
