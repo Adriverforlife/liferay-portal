@@ -758,5 +758,15 @@ definition {
 			echo("timeout exceeded");
 		}
 	}
+	macro checkPendingWorkflowValues {
+		AssertTextEquals(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_OVERDUE_ITEMS_VALUE", value1 = "${key_overdue}");
+		
+		AssertTextEquals(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_ONTIME_ITEMS_VALUE", value1 = "${key_ontime}");
 
+		AssertTextEquals(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE", value1 = "${key_pending}");
+
+		AssertTextEquals(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_UNTRACKED_ITEMS_VALUE", value1 = "${key_untracked}");
+
+
+	}
 }
