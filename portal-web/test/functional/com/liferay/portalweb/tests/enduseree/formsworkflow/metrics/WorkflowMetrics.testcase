@@ -50,18 +50,18 @@ definition {
 	}
 
 	@description = "LRQA-53659 Automate LPS-86652 [Reports] View all items for a certain process"
-	test AddSLAtoSingleApprover {
-		property portal.acceptance = "true";
+	test ViewReports {
+		property portal.acceptance = "false";
 
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
+		// ProductMenu.gotoPortlet(
+		// 	category = "Configuration",
+		// 	panel = "Site Administration",
+		// 	portlet = "Workflow");
 
-		Workflow.configureWorkflow(
-			workflowDefinition = "Single Approver",
-			workflowResourceValue = "Blogs Entry");
-		
+		// Workflow.configureWorkflow(
+		// 	workflowDefinition = "Single Approver",
+		// 	workflowResourceValue = "Blogs Entry");
+
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry2 Content",
 			entryTitle = "Blogs Entry2 Title");
@@ -69,6 +69,9 @@ definition {
 			entryContent = "Blogs Entry1 Content",
 			entryTitle = "Blogs Entry Title");
 
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_All_ITEMS");
 	}
 
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
