@@ -183,6 +183,15 @@
 	<td>//tr[contains(*, '${rowName}')]//td[@data-testid='slaBreached']</td>
 	<td></td>
 </tr>
+<tr>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_DROPDOWN_STEP_REVIEW</td>
+	<td>//div[contains(@class, 'dropdown-menu')]//span[contains(text(),'Review')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_DROPDOWN_STEP_UPDATE</td>
+	<td>//div[contains(@class, 'dropdown-menu')]//span[contains(text(),'Update')]</td>
+	<td></td>
 </tr>
 <tr>
 	<td>METRICS_DASHBOARD_TAB</td>
@@ -191,8 +200,7 @@
 </tr>
 <tr>
 	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_AVG_COMPLETION_TIME</td>
-	<td>xpath=(//span[contains(text(),'${key_assignee}')]/ancestor::td[contains(@data-testid,'assigneeProfileInfo')]/following-sibling::td//span)[2]
-</td>
+	<td>xpath=(//span[contains(text(),'${key_assignee}')]/ancestor::td[contains(@data-testid,'assigneeProfileInfo')]/following-sibling::td//span)[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -227,7 +235,7 @@
 </tr>
 <tr>
 	<td>METRICS_PERFORMANCE_BY_ASSIGNEE_TABLE_POSITION</td>
-	<td>xpath=(//td[contains(@Class, 'assignee-name')])[${key_rowNumber}]</td>
+	<td>xpath=(//td[contains(@class, 'assignee-name')])[${key_rowNumber}]</td>
 	<td></td>
 </tr>
 <tr>

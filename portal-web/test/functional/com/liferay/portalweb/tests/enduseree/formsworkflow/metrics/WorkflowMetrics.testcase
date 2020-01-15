@@ -813,7 +813,11 @@ definition {
 			avgCompletionTime = "1min",
 			taskCount = "1");
 
-		WorkflowMetrics.createTenUsersAndAssignInstances();
+		WorkflowMetrics.createUsersAndAssignInstances(
+			numberOfBlogInstances = "10",
+			numberOfUsers = "10");
+
+		WorkflowMetrics.executeWorkflowScript(scriptName = "CompleteTasksAssignedToUsers.groovy");
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
