@@ -49,6 +49,13 @@ definition {
 		}
 	}
 
+	@description = "LRQA-53647 Automate LPS-86638: [Reports] See a list of reports available for all running processes"
+	test SeeListofReports {
+		property portal.acceptance = "false";
+
+		
+	}
+
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
