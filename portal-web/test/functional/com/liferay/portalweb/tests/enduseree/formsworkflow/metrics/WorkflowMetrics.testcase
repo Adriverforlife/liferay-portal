@@ -50,8 +50,13 @@ definition {
 	}
 
 	@description = "LRQA-53647 Automate LPS-86638: [Reports] See a list of reports available for all running processes"
-	test SeeListofReports {
+	test SeeListOfReports {
 		property portal.acceptance = "false";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
 
 		
 	}
