@@ -1,5 +1,24 @@
 definition {
 
+	macro checkWorkflowReports {
+		AssertTextEquals(
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_${key_columnName}",
+			key_columnName = "OVERDUE",
+			key_workflowProcessName = "Single Approver",
+			value1 = "${key_overdueValue}");
+		AssertTextEquals(
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_${key_columnName}",
+			var key_columnName = "ON_TIME",
+			var key_workflowProcessName = "Single Approver",
+			value1 = "${key_ovnTmeValue}");
+		AssertTextEquals(
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_${key_columnName}",
+			var key_columnName = "TOTAL_PENDING",
+			var key_workflowProcessName = "Single Approver",
+			value1 = "${key_totalPendingValue}");
+
+	}
+
 	macro _deleteAllSLAs {
 		while (IsElementPresent(locator1 = "WorkflowMetricsSLA#SLA_ELLIPSIS_BUTTON")) {
 			Click(locator1 = "WorkflowMetricsSLA#SLA_ELLIPSIS_BUTTON");
