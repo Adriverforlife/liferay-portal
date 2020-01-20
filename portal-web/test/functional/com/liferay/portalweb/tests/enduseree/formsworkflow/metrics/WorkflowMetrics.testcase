@@ -27,9 +27,9 @@ definition {
 		WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
 
 		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
 
 		Workflow.configureWorkflow(
 			workflowDefinition = "No Workflow",
@@ -54,14 +54,19 @@ definition {
 		property portal.acceptance = "false";
 
 		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
 
 		WorkflowMetrics.checkWorkflowReports(
 			key_overdueValue = "0",
-			key_ovnTmeValue = "0",
+			key_onTimeValue = "0",
 			key_totalPendingValue = "1");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
 	}
 
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"

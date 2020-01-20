@@ -266,7 +266,7 @@
 </tr>
 <tr>
 	<td>METRICS_WORKFLOW_PROCESS_VALUE_ON_TIME</td>
-	<td>//a[contains(text(),'${key_workflowProcessName}')]/ancestor::td/following-sibling::td[2}]</td>
+	<td>//a[contains(text(),'${key_workflowProcessName}')]/ancestor::td/following-sibling::td[2]</td>
 	<td></td>
 </tr>
 <tr>
