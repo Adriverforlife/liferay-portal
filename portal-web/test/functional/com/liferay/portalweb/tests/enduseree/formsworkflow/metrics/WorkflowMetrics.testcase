@@ -54,6 +54,19 @@ definition {
 		property portal.acceptance = "false";
 
 		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry Title");
+
+		ProductMenu.gotoPortlet(
 			category = "Workflow",
 			panel = "Control Panel",
 			portlet = "Metrics");
