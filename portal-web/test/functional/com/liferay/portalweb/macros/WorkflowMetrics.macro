@@ -1,6 +1,12 @@
 definition {
 
 	macro checkWorkflowReports {
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+		
 		AssertTextEquals(
 			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_OVERDUE",
 			key_workflowProcessName = "Single Approver",
