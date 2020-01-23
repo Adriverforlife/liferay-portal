@@ -1,29 +1,5 @@
 definition {
 
-	macro checkWorkflowReports {
-
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
-		
-		AssertTextEquals(
-			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_OVERDUE",
-			key_workflowProcessName = "Single Approver",
-			value1 = "${key_overdueValue}");
-		AssertTextEquals(
-			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_ON_TIME",
-			key_columnName = "ON_TIME",
-			key_workflowProcessName = "Single Approver",
-			value1 = "${key_onTimeValue}");
-		AssertTextEquals(
-			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_TOTAL_PENDING",
-			key_columnName = "TOTAL_PENDING",
-			key_workflowProcessName = "Single Approver",
-			value1 = "${key_totalPendingValue}");
-
-	}
-
 	macro _deleteAllSLAs {
 		while (IsElementPresent(locator1 = "WorkflowMetricsSLA#SLA_ELLIPSIS_BUTTON")) {
 			Click(locator1 = "WorkflowMetricsSLA#SLA_ELLIPSIS_BUTTON");
@@ -147,6 +123,29 @@ definition {
 		AssertTextEquals(
 			locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_UNTRACKED_ITEMS_VALUE",
 			value1 = "${key_untracked}");
+	}
+
+	macro checkWorkflowReports {
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		AssertTextEquals(
+			key_workflowProcessName = "Single Approver",
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_OVERDUE",
+			value1 = "${key_overdueValue}");
+		AssertTextEquals(
+			key_columnName = "ON_TIME",
+			key_workflowProcessName = "Single Approver",
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_ON_TIME",
+			value1 = "${key_onTimeValue}");
+		AssertTextEquals(
+			key_columnName = "TOTAL_PENDING",
+			key_workflowProcessName = "Single Approver",
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_TOTAL_PENDING",
+			value1 = "${key_totalPendingValue}");
 	}
 
 	macro clearAllFilter {
