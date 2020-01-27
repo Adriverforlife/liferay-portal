@@ -746,7 +746,7 @@ definition {
 	macro waitForCompletedSLAtoBecomeOverdue {
 		var count = "0";
 
-		while (IsElementPresent(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_OVERDUE_ITEMS_VALUE_NONE") && ("${count}" != "${timesToRun}")) {
+		while (IsTextEqual(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_OVERDUE_ITEMS_VALUE", value1 = "${key_expectedValue}") && ("${count}" != "${timesToRun}")) {
 
 			echo("Waiting 5 seconds, until the Completed SLA shows up as overdue");
 
@@ -767,9 +767,27 @@ definition {
 	macro waitForSLAtoBecomeOverdue {
 		var count = "0";
 
-		while (IsElementPresent(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_OVERDUE_ITEMS_VALUE_NONE") && ("${count}" != "${timesToRun}")) {
+		while (IsTextEqual(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_OVERDUE_ITEMS_VALUE", value1 = "${key_expectedValue}") && ("${count}" != "${timesToRun}")) {
 
 			echo("Waiting 5 seconds, until the SLA becomes overdue");
+
+			Pause(locator1 = "5000");
+
+			WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		}
+
+		if ("${count}" == "${timesToRun}") {
+			echo("timeout exceeded");
+		}
+	}
+
+	macro waitForSLA {
+		var count = "0";
+
+		while (IsTextEqual(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_${key_status}_ITEMS_VALUE", value1 = "${key_expectedValue}") && ("${count}" != "${timesToRun}")) {
+
+			echo("Waiting 5 seconds to recheck");
 
 			Pause(locator1 = "5000");
 

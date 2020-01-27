@@ -651,7 +651,9 @@ definition {
 
 		Button.clickSave();
 
-		Pause(locator1 = "5000");
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		WorkflowMetrics.waitForSLA(key_status = "PENDING", key_expectedValue = "0", timesToRun = "12");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -665,7 +667,7 @@ definition {
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		WorkflowMetrics.waitForSLAtoBecomeOverdue(timesToRun = "12");
+		WorkflowMetrics.waitForSLA(key_status = "ONTIME", key_expectedValue = "1", timesToRun = "12");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
