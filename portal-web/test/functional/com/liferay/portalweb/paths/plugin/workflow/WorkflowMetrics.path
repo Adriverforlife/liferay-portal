@@ -54,11 +54,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>DASHBOARD_TOTAL_PENDING_ITEMS_All_ITEMS</td>
-	<td>xpath=(//div[@class='header'][span[contains(text(),'Total Pending')]]/following-sibling::div)[2]</td>
-	<td></td>
-</tr>
-<tr>
 	<td>DASHBOARD_TOTAL_UNTRACKED_ITEMS_TITLE</td>
 	<td>//div[@class='header'][span[contains(text(),'Untracked')]]</td>
 	<td></td>
