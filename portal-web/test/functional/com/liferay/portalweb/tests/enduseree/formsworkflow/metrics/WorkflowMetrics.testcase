@@ -1179,12 +1179,12 @@ definition {
 
 		AssertTextEquals(
 			key_rowNumber = "1",
-			locator1 = "WorkflowMetricsSingleApproverAllItems#METRICS_SINGLE_APPROVER_ALL_ITEMS_ROW",
+			locator1 = "WorkflowAllItems#METRICS_ALL_ITEMS_TABLE_ROW",
 			value1 = "Blogs Entry: Blogs Entry2 Title");
 
 		AssertTextEquals(
 			key_rowNumber = "2",
-			locator1 = "WorkflowMetricsSingleApproverAllItems#METRICS_SINGLE_APPROVER_ALL_ITEMS_ROW",
+			locator1 = "WorkflowAllItems#METRICS_ALL_ITEMS_TABLE_ROW",
 			value1 = "Blogs Entry: Blogs Entry Title");
 	}
 

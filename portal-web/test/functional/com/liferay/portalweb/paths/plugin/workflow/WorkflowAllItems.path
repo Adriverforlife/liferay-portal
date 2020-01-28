@@ -94,6 +94,11 @@
 	<td></td>
 </tr>
 <tr>
+    <td>METRICS_ALL_ITEMS_TABLE_ROW</td>
+    <td>//tr[${key_rowNumber}]//td[3]</td>
+    <td></td>
+</tr>
+<tr>
 	<td>WORKFLOW_INSTANCE_ID</td>
 	<td>//td[contains(@class,'table-title')]//strong | //span[contains(@data-testid,'instanceIdLink')]//strong</td>
 	<td></td>
