@@ -146,11 +146,11 @@ definition {
 
 		// WorkflowMetrics.clearAllFilter();
 
-		// WorkflowMetrics.searchForAssigneeName(assigneeName = "something else");
+		WorkflowMetrics.searchForAssigneeName(assigneeName = "something else");
 
-		// AssertTextEquals.assertPartialText(
-		// 	locator1 = "Message#EMPTY_INFO",
-		// 	value1 = "No results were found.");
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No results were found.");
 
 		// WorkflowMetrics.clearAllFilter();
 	}
