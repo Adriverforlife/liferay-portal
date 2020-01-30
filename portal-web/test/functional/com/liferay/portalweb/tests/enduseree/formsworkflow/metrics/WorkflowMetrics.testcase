@@ -82,6 +82,14 @@ definition {
 			key_assigneesNumber = "3",
 			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK");
 
+		WorkflowMetrics.searchForAssigneeName(assigneeName = "1user");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "1user user1",
+			avgCompletionTime = "1min",
+			isNotPresent = "2user user2,3user user3",
+			taskCount = "1");
+
 		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "1Role");
 
 		WorkflowMetrics.viewPerformanceByAssignee(
@@ -92,59 +100,59 @@ definition {
 
 		WorkflowMetrics.clearAllFilter();
 
-		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "2Role");
+		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "2Role");
 
-		WorkflowMetrics.viewPerformanceByAssignee(
-			assignee = "2user user2",
-			avgCompletionTime = "1min",
-			isNotPresent = "1user user1,3user user3",
-			taskCount = "1");
+		// WorkflowMetrics.viewPerformanceByAssignee(
+		// 	assignee = "2user user2",
+		// 	avgCompletionTime = "1min",
+		// 	isNotPresent = "1user user1,3user user3",
+		// 	taskCount = "1");
 
-		WorkflowMetrics.clearAllFilter();
+		// WorkflowMetrics.clearAllFilter();
 
-		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "3Role");
+		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "3Role");
 
-		WorkflowMetrics.viewPerformanceByAssignee(
-			assignee = "3user user3",
-			avgCompletionTime = "1min",
-			isNotPresent = "1user user1,2user user2",
-			taskCount = "1");
+		// WorkflowMetrics.viewPerformanceByAssignee(
+		// 	assignee = "3user user3",
+		// 	avgCompletionTime = "1min",
+		// 	isNotPresent = "1user user1,2user user2",
+		// 	taskCount = "1");
 
-		WorkflowMetrics.clearAllFilter();
+		// WorkflowMetrics.clearAllFilter();
 
-		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "1Role,2Role");
+		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "1Role,2Role");
 
-		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
+		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
 
-		WorkflowMetrics.viewPerformanceByAssignee(
-			assignee = "1user user1",
-			avgCompletionTime = "1min",
-			isNotPresent = "3user user3",
-			taskCount = "1");
+		// WorkflowMetrics.viewPerformanceByAssignee(
+		// 	assignee = "1user user1",
+		// 	avgCompletionTime = "1min",
+		// 	isNotPresent = "3user user3",
+		// 	taskCount = "1");
 
-		WorkflowMetrics.viewPerformanceByAssignee(
-			assignee = "2user user2",
-			avgCompletionTime = "1min",
-			isNotPresent = "3user user3",
-			taskCount = "1");
+		// WorkflowMetrics.viewPerformanceByAssignee(
+		// 	assignee = "2user user2",
+		// 	avgCompletionTime = "1min",
+		// 	isNotPresent = "3user user3",
+		// 	taskCount = "1");
 
-		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
+		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
 
-		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Update");
+		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Update");
 
-		AssertTextEquals.assertPartialText(
-			locator1 = "Message#EMPTY_INFO",
-			value1 = "No results were found.");
+		// AssertTextEquals.assertPartialText(
+		// 	locator1 = "Message#EMPTY_INFO",
+		// 	value1 = "No results were found.");
 
-		WorkflowMetrics.clearAllFilter();
+		// WorkflowMetrics.clearAllFilter();
 
-		WorkflowMetrics.searchForAssigneeName(assigneeName = "something else");
+		// WorkflowMetrics.searchForAssigneeName(assigneeName = "something else");
 
-		AssertTextEquals.assertPartialText(
-			locator1 = "Message#EMPTY_INFO",
-			value1 = "No results were found.");
+		// AssertTextEquals.assertPartialText(
+		// 	locator1 = "Message#EMPTY_INFO",
+		// 	value1 = "No results were found.");
 
-		WorkflowMetrics.clearAllFilter();
+		// WorkflowMetrics.clearAllFilter();
 	}
 
 
