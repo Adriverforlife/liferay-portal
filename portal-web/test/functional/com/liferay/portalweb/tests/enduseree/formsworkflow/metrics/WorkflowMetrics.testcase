@@ -49,6 +49,105 @@ definition {
 		}
 	}
 
+
+	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
+	test SearchPerformanceOfAllAssignees {
+		property portal.acceptance = "false";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		WorkflowMetrics.createUsersAndAssignInstancesWithGroovy(
+			numberOfBlogInstances = "3",
+			numberOfUsers = "3");
+
+		WorkflowMetrics.executeWorkflowScript(scriptName = "CompleteTasksAssignedToUsers.groovy");
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		Click(
+			key_assigneesNumber = "3",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_VIEW_ALL_ASSIGNEES_LINK");
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "1Role");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "1user user1",
+			avgCompletionTime = "1min",
+			isNotPresent = "2user user2,3user user3",
+			taskCount = "1");
+
+		WorkflowMetrics.clearAllFilter();
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "2Role");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "2user user2",
+			avgCompletionTime = "1min",
+			isNotPresent = "1user user1,3user user3",
+			taskCount = "1");
+
+		WorkflowMetrics.clearAllFilter();
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "3Role");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "3user user3",
+			avgCompletionTime = "1min",
+			isNotPresent = "1user user1,2user user2",
+			taskCount = "1");
+
+		WorkflowMetrics.clearAllFilter();
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "1Role,2Role");
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "1user user1",
+			avgCompletionTime = "1min",
+			isNotPresent = "3user user3",
+			taskCount = "1");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "2user user2",
+			avgCompletionTime = "1min",
+			isNotPresent = "3user user3",
+			taskCount = "1");
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
+
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Update");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No results were found.");
+
+		WorkflowMetrics.clearAllFilter();
+
+		WorkflowMetrics.searchForAssigneeName(assigneeName = "something else");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No results were found.");
+
+		WorkflowMetrics.clearAllFilter();
+	}
+
+
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
