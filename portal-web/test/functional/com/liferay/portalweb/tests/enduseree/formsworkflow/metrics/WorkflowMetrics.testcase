@@ -100,51 +100,14 @@ definition {
 
 		WorkflowMetrics.clearAllFilter();
 
-		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "2Role");
+		WorkflowMetrics.searchForAssigneeName(assigneeName = "1user");
 
-		// WorkflowMetrics.viewPerformanceByAssignee(
-		// 	assignee = "2user user2",
-		// 	avgCompletionTime = "1min",
-		// 	isNotPresent = "1user user1,3user user3",
-		// 	taskCount = "1");
+		WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "2Role");
 
-		// WorkflowMetrics.clearAllFilter();
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No results were found.");
 
-		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "3Role");
-
-		// WorkflowMetrics.viewPerformanceByAssignee(
-		// 	assignee = "3user user3",
-		// 	avgCompletionTime = "1min",
-		// 	isNotPresent = "1user user1,2user user2",
-		// 	taskCount = "1");
-
-		// WorkflowMetrics.clearAllFilter();
-
-		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValue(workflowStep = "1Role,2Role");
-
-		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
-
-		// WorkflowMetrics.viewPerformanceByAssignee(
-		// 	assignee = "1user user1",
-		// 	avgCompletionTime = "1min",
-		// 	isNotPresent = "3user user3",
-		// 	taskCount = "1");
-
-		// WorkflowMetrics.viewPerformanceByAssignee(
-		// 	assignee = "2user user2",
-		// 	avgCompletionTime = "1min",
-		// 	isNotPresent = "3user user3",
-		// 	taskCount = "1");
-
-		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Review");
-
-		// WorkflowMetrics.selectWorkloadByAssigneeCardFilterValueProcessStep(workflowStep = "Update");
-
-		// AssertTextEquals.assertPartialText(
-		// 	locator1 = "Message#EMPTY_INFO",
-		// 	value1 = "No results were found.");
-
-		// WorkflowMetrics.clearAllFilter();
 
 		WorkflowMetrics.searchForAssigneeName(assigneeName = "something else");
 
@@ -152,7 +115,10 @@ definition {
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "No results were found.");
 
-		// WorkflowMetrics.clearAllFilter();
+		WorkflowMetrics.clearAllFilter();
+
+		AssertElementPresent(
+			locator1 = "//input[@placeholder='Search for Assignee Name']");
 	}
 
 
