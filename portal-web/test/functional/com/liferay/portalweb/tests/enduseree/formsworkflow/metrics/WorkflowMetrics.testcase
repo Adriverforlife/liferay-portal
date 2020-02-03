@@ -49,6 +49,14 @@ definition {
 		}
 	}
 
+	@description = "LRQA-53627 Automate LPS-99092: [Performance] View performance for all steps"
+	test checkPerformanceByStepTable {
+		property portal.acceptance = "false";
+
+
+		
+	}
+
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
