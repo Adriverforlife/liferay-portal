@@ -653,7 +653,10 @@ definition {
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		WorkflowMetrics.waitForSLA(key_status = "PENDING", key_expectedValue = "0", timesToRun = "12");
+		WorkflowMetrics.waitForSLA(
+			key_expectedValue = "0",
+			key_status = "PENDING",
+			timesToRun = "12");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -667,7 +670,10 @@ definition {
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		WorkflowMetrics.waitForSLA(key_status = "ONTIME", key_expectedValue = "1", timesToRun = "12");
+		WorkflowMetrics.waitForSLA(
+			key_expectedValue = "1",
+			key_status = "ONTIME",
+			timesToRun = "12");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -889,7 +895,10 @@ definition {
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		WorkflowMetrics.waitForSLAtoBecomeOverdue(timesToRun = "12");
+		WorkflowMetrics.waitForSLA(
+			key_expectedValue = "1",
+			key_status = "ONTIME",
+			timesToRun = "12");
 
 		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
 
@@ -907,7 +916,10 @@ definition {
 
 		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
 
-		WorkflowMetrics.waitForCompletedSLAtoBecomeOverdue(timesToRun = "12");
+		WorkflowMetrics.waitForCompletedSLA(
+			key_expectedValue = "1",
+			key_status = "OVERDUE",
+			timesToRun = "12");
 
 		WorkflowMetrics.assertChartTotalValuePerformanceByStep(
 			rowName = "Review",
@@ -994,7 +1006,10 @@ definition {
 
 		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		WorkflowMetrics.waitForSLAtoBecomeOverdue(timesToRun = "12");
+		WorkflowMetrics.waitForSLA(
+			key_expectedValue = "1",
+			key_status = "ONTIME",
+			timesToRun = "12");
 
 		WorkflowMetrics.checkPendingWorkflowValues(
 			key_ontime = "0",
