@@ -55,22 +55,22 @@ definition {
 
 		WorkflowMetrics.goToPerformanceByStep();
 
-		// AssertTextEquals(locator1  = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN", value1 = "Last 30 Days");
+		AssertTextEquals(locator1  = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN", value1 = "Last 30 Days");
 
-		// WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		// Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
 
-		// WorkflowMetrics.selectDateRangePerformanceByStep(
-		// 	completionVelocityDateRange = "Custom Range",
-		// 	endDateRange = "11/11/2018",
-		// 	startDateRange = "09/22/2018");
+		WorkflowMetrics.selectDateRangePerformanceByStep(
+			completionVelocityDateRange = "Custom Range",
+			endDateRange = "11/11/2018",
+			startDateRange = "09/22/2018");
 
-		// Click(
-		// 	key_stepsNumber = "2",
-		// 	locator1 = "WorkflowMetricsPerformanceByStep#METRICS_PERFORMANCE_BY_STEP_CARD_VIEW_ALL_STEPS");
+		Click(
+			key_stepsNumber = "2",
+			locator1 = "WorkflowMetricsPerformanceByStep#METRICS_PERFORMANCE_BY_STEP_CARD_VIEW_ALL_STEPS");
 
-		// AssertTextEquals(locator1  = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN", value1 = "Sep 22, 2018 - Nov 11, 2018");
+		AssertTextEquals(locator1  = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN", value1 = "Sep 22, 2018 - Nov 11, 2018");
 
 		
 	}
