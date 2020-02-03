@@ -608,7 +608,7 @@ definition {
 			stepName = "Update");
 	}
 
-	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
+	@description = "LRQA-55450 Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	test SearchPerformanceOfAllAssignees {
 		property portal.acceptance = "false";
 
@@ -674,7 +674,7 @@ definition {
 
 		WorkflowMetrics.clearAllFilter();
 
-		AssertElementPresent(locator1 = "//input[@placeholder='Search for Assignee Name']");
+		AssertElementPresent(locator1 = "WorkflowMetrics#METRICS_WORKLOAD_BY_ASSIGNEE_SEARCH_ASSIGNEE_NAME");
 	}
 
 	@description = "Verify that the filters from All Items page are correctly loaded when accessed via Metrics Pending/Completed cards"
