@@ -49,32 +49,6 @@ definition {
 		}
 	}
 
-	@description = "LRQA-53627 Automate LPS-99092: [Performance] View performance for all steps"
-	test checkPerformanceByStepTable {
-		property portal.acceptance = "false";
-
-		WorkflowMetrics.goToPerformanceByStep();
-
-		AssertTextEquals(locator1  = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN", value1 = "Last 30 Days");
-
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		WorkflowMetrics.selectDateRangePerformanceByStep(
-			completionVelocityDateRange = "Custom Range",
-			endDateRange = "11/11/2018",
-			startDateRange = "09/22/2018");
-
-		Click(
-			key_stepsNumber = "2",
-			locator1 = "WorkflowMetricsPerformanceByStep#METRICS_PERFORMANCE_BY_STEP_CARD_VIEW_ALL_STEPS");
-
-		AssertTextEquals(locator1  = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN", value1 = "Sep 22, 2018 - Nov 11, 2018");
-
-		
-	}
-
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
@@ -433,6 +407,34 @@ definition {
 			onTimeTaskCount = "0",
 			overdueTaskCount = "0",
 			totalPendingTaskCount = "2");
+	}
+
+	@description = "LRQA-53627 Automate LPS-99092: [Performance] View performance for all steps"
+	test checkPerformanceByStepTable {
+		property portal.acceptance = "false";
+
+		WorkflowMetrics.goToPerformanceByStep();
+
+		AssertTextEquals(
+			locator1 = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN",
+			value1 = "Last 30 Days");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		WorkflowMetrics.selectDateRangePerformanceByStep(
+			completionVelocityDateRange = "Custom Range",
+			endDateRange = "11/11/2018",
+			startDateRange = "09/22/2018");
+
+		Click(
+			key_stepsNumber = "2",
+			locator1 = "WorkflowMetricsPerformanceByStep#METRICS_PERFORMANCE_BY_STEP_CARD_VIEW_ALL_STEPS");
+
+		AssertTextEquals(
+			locator1 = "WorkflowMetricsPerformanceByStep#DATE_RANGE_DROPDOWN",
+			value1 = "Sep 22, 2018 - Nov 11, 2018");
 	}
 
 	@description = "Verify if the default filter values are correct and if the chart is displayed (LPS-98001)"

@@ -1,16 +1,5 @@
 definition {
 
-	macro goToPerformanceByStep{
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
-
-		Click(
-			key_stepsNumber = "2",
-			locator1 = "WorkflowMetricsPerformanceByStep#METRICS_PERFORMANCE_BY_STEP_CARD_VIEW_ALL_STEPS");
-
-	}
-
 	macro _deleteAllSLAs {
 		while (IsElementPresent(locator1 = "WorkflowMetricsSLA#SLA_ELLIPSIS_BUTTON")) {
 			Click(locator1 = "WorkflowMetricsSLA#SLA_ELLIPSIS_BUTTON");
@@ -285,6 +274,16 @@ definition {
 		}
 
 		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_${key_workflowFilterOption}_ITEMS_TITLE");
+	}
+
+	macro goToPerformanceByStep {
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		Click(
+			key_stepsNumber = "2",
+			locator1 = "WorkflowMetricsPerformanceByStep#METRICS_PERFORMANCE_BY_STEP_CARD_VIEW_ALL_STEPS");
 	}
 
 	macro goToWorkflowProcessMetrics {
