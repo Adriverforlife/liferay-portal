@@ -10,6 +10,81 @@ definition {
 
 		}
 	}
+	macro assertBulkCount {
+		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ROW", key_rowNumber = "1");
+
+		AssertTextEquals(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECTED_TEXT", value1 = "1 of 3 Selected");
+
+		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
+	}
+
+	macro assertBulkModalTable {
+		echo("Checking table");
+
+		AssertTextEquals(locator1 = "WorkflowReassignModal#COLUMN_CHECK",
+			key_columnName = "ID",
+			value1 = "ID");
+
+		AssertElementPresent(
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
+			key_columnName = "Item Subject");
+
+		AssertElementPresent(
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
+			key_columnName = "Process Step");
+
+		AssertElementPresent(
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
+			key_columnName = "Current Assignee");
+	}
+
+	macro bulkReassignSetup {
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		WorkflowMetrics.createUsersAndAssignInstancesWithGroovy(
+			numberOfBlogInstances = "3",
+			numberOfUsers = "3");
+	}
+
+	macro goToBulkReassignSelectTasks {
+		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
+		Click(locator1 = "WorkflowAllItems#KEBAB_DROPDOWN", task = "1");
+		Click(locator1 = "WorkflowAllItems#REASSIGN_TASK_DROPDOWN");
+	}
+
+	macro goToBulkReassignSelectNewAssignee {
+		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
+		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
+	}
+
+	macro selectNewAssigneeBulkTask{
+		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
+		Click(locator1 = "WorkflowReassignModal#BULK_NEW_ASSIGNEE");
+		Click(locator1 =  "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "Test Test");
+		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
+	}
+
+	macro bulkReassignExceptionsSetup {
+		WorkflowProcessBuilder.createNewSingleApproverWorkflow();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Web Content Approver",
+			workflowResourceValue = "Web Content Article");
+	}
+
 
 	macro allItemPageFilterCheck {
 		var key_allItemsFilterName = "${allItemsFilterName}";
