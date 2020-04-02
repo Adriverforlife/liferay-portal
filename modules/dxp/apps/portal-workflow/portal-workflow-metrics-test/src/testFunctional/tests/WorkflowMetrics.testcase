@@ -49,6 +49,64 @@ definition {
 		}
 	}
 
+	test BulkReassignWorkflowInstances {
+		property portal.acceptance = "false";
+
+		// WorkflowMetrics.bulkReassignSetup();
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
+
+
+		WorkflowMetrics.goToBulkReassignSelectTasks();
+		AssertElementPresent(locator1 = "WorkflowReassignModal#BULK_REASSIGN_MODAL");
+		WorkflowMetrics.assertBulkModalTable();
+		WorkflowMetrics.goToBulkReassignSelectNewAssignee();
+		WorkflowMetrics.assertBulkModalTable();
+		AssertTextPresent(
+			locator1 = "WorkflowReassignModal#PERMISSION_TOOLTIP",
+			value1 = "Possible assignees must have permissions to be assigned to the corresponding step.");		
+		AssertElementPresent(locator1 = "WorkflowReassignModal#NEXT_BUTTON_DISABLED");
+		WorkflowMetrics.selectNewAssigneeBulkTask();
+		AssertElementPresent(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_TABLE_CURRENT_ASSIGNEE_VALUE",
+			key_workflowInstanceName = "Blogs Entry: Blogs Entry Title 1",
+			key_workflowInstanceAssignee = "Test Test");
+		echo("Checked Bulk");
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+		AssertElementPresent(locator1 = "MyWorkflowTasks#TABLE_GENERIC_ASSET_TITLE",
+			key_workflowAssetTitle = "Blogs Entry Title 1");
+		AssertElementPresent(locator1 = "MyWorkflowTasks#TABLE_GENERIC_ASSET_TITLE",
+			key_workflowAssetTitle = "Blogs Entry Title 2");
+		AssertElementPresent(locator1 = "MyWorkflowTasks#TABLE_GENERIC_ASSET_TITLE",
+			key_workflowAssetTitle = "Blogs Entry Title 3");
+
+	}
+
+	@description = "LRQA-55451 Exceptions Check"
+	@priority = "5"
+	test BulkReassignWorkflowModalExceptions {
+		property portal.acceptance = "false";
+
+		// // WorkflowMetrics.bulkReassignSetup();
+		WorkflowMetrics.bulkReassignExceptionsSetup();
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
+
+		WorkflowMetrics.assertBulkCount();
+	}
+
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
 	@priority = "5"
 	test AddSLAtoSingleApprover {
