@@ -50,7 +50,7 @@ definition {
 	test BulkReassignWorkflowInstances {
 		property portal.acceptance = "false";
 
-		// WorkflowMetrics.bulkReassignSetup();
+		WorkflowMetrics.bulkReassignSetup();
 
 		ProductMenu.gotoPortlet(
 			category = "Workflow",
@@ -91,7 +91,7 @@ definition {
 	test BulkReassignWorkflowModalExceptions {
 		property portal.acceptance = "false";
 
-		// // WorkflowMetrics.bulkReassignSetup();
+		WorkflowMetrics.bulkReassignSetup();
 		WorkflowMetrics.bulkReassignExceptionsSetup();
 		ProductMenu.gotoPortlet(
 			category = "Workflow",
