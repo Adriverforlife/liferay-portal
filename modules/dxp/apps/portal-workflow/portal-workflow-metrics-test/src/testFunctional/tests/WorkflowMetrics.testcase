@@ -69,9 +69,7 @@ definition {
 		WorkflowMetrics.assertBulkModalTable();
 		WorkflowMetrics.goToBulkReassignSelectNewAssignee();
 		WorkflowMetrics.assertBulkModalTable();
-		AssertTextPresent(
-			locator1 = "WorkflowReassignModal#PERMISSION_TOOLTIP",
-			value1 = "Possible assignees must have permissions to be assigned to the corresponding step.");		
+		AssertElementPresent(locator1 = "WorkflowReassignModal#PERMISSION_TOOLTIP");
 		AssertElementPresent(locator1 = "WorkflowReassignModal#NEXT_BUTTON_DISABLED");
 		WorkflowMetrics.selectNewAssigneeBulkTask();
 		AssertElementPresent(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_TABLE_CURRENT_ASSIGNEE_VALUE",
