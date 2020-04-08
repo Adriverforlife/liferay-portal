@@ -1,0 +1,24 @@
+definition {
+
+	macro createNewSingleApproverWorkflow {
+		var key_stepName = "${stepName}";
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Process Builder");
+
+		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
+
+		Click(
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
+			key_menuOption = "Duplicate");
+		Type(
+			locator1 = "WorkflowProcessBuilder#DUPLICATE_WORKFLOW_NEW_NAME",
+			key_duplicateName = "Single Approver",
+			value1 = "Web Content Approver");
+		Click(locator1 = "WorkflowProcessBuilder#DUPLICATE_BUTTON_MODAL");
+
+	}
+
+}
