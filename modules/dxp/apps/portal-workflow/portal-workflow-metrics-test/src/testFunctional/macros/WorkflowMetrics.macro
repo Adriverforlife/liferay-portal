@@ -48,7 +48,7 @@ definition {
 			workflowDefinition = "Single Approver",
 			workflowResourceValue = "Blogs Entry");
 
-		WorkflowMetrics.createUsersAndAssignInstancesWithGroovy(
+		WorkflowMetrics.createUsersAndInstancesWithGroovy(
 			numberOfBlogInstances = "3",
 			numberOfUsers = "3");
 	}
@@ -66,10 +66,34 @@ definition {
 
 	macro selectNewAssigneeBulkTask{
 		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
-		// Click(locator1 = "WorkflowReassignModal#BULK_NEW_ASSIGNEE");
+		Click(locator1 = "WorkflowReassignModal#BULK_NEW_ASSIGNEE");
 		Click(locator1 =  "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
 			name_of_the_assignee = "Test Test");
 		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
+	}
+	macro createUsersAndInstancesWithGroovy {
+		var iterator = "1";
+		var numberOfBlogInstances = MathUtil.sum("${numberOfBlogInstances}", "1");
+
+		WorkflowMetrics.createUsersGroovy(numberOfUsers = "${numberOfUsers}");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		while ("${iterator}" != "${numberOfBlogInstances}") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry ${iterator} Content",
+				entryTitle = "Blogs Entry Title ${iterator}");
+
+			var iterator = MathUtil.sum("${iterator}", "1");
+		}
+
 	}
 
 	macro bulkReassignExceptionsSetup {
