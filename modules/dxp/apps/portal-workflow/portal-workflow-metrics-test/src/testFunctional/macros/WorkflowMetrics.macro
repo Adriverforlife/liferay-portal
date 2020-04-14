@@ -107,8 +107,19 @@ definition {
 		Workflow.configureWorkflow(
 			workflowDefinition = "Web Content Approver",
 			workflowResourceValue = "Web Content Article");
+
 	}
 
+	macro checkWorkflowTaskCrossover {
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Web Content Approver");
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
+		AssertElementPresent(locator1 = "WorkflowAllItems#NO_RESULTS MESSAGE")
+	}
 
 	macro allItemPageFilterCheck {
 		var key_allItemsFilterName = "${allItemsFilterName}";
