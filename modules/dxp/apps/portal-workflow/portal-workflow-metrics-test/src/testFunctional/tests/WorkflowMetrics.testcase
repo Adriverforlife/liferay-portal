@@ -22,29 +22,31 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		BlogsEntry.tearDownCP();
+		// BlogsEntry.tearDownCP();
 
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
+		// WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
 
-		Workflow.configureWorkflow(
-			workflowDefinition = "No Workflow",
-			workflowResourceValue = "Blogs Entry");
+		// ProductMenu.gotoPortlet(
+		// 	category = "Configuration",
+		// 	panel = "Site Administration",
+		// 	portlet = "Workflow");
 
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
+		// Workflow.configureWorkflow(
+		// 	workflowDefinition = "No Workflow",
+		// 	workflowResourceValue = "Blogs Entry");
 
-		WorkflowMetrics.tearDown();
+		// if ("${testPortalInstance}" == "true") {
+		// 	PortalInstances.tearDownCP();
+		// }
+		// else {
+		// 	ProductMenu.gotoPortlet(
+		// 		category = "Workflow",
+		// 		panel = "Control Panel",
+		// 		portlet = "Metrics");
 
-		WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
+		// 	WorkflowMetrics.tearDown();
 
-		if ("${testPortalInstance}" == "true") {
-			PortalInstances.tearDownCP();
-		}
+		// }
 	}
 
 	test BulkReassignWorkflowInstances {
@@ -89,18 +91,19 @@ definition {
 	test BulkReassignWorkflowModalExceptions {
 		property portal.acceptance = "false";
 
-		WorkflowMetrics.bulkReassignSetup();
-		WorkflowMetrics.bulkReassignExceptionsSetup();
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
+		// WorkflowMetrics.bulkReassignSetup();
+		// WorkflowMetrics.bulkReassignExceptionsSetup();
+		WorkflowMetrics.checkWorkflowTaskCrossover();
+		// ProductMenu.gotoPortlet(
+		// 	category = "Workflow",
+		// 	panel = "Control Panel",
+		// 	portlet = "Metrics");
 
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+		// WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
+		// Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
 
-		WorkflowMetrics.assertBulkCount();
+		// WorkflowMetrics.assertBulkCount();
 	}
 
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
