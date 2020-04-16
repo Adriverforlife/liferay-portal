@@ -54,15 +54,7 @@ definition {
 
 		WorkflowMetrics.bulkReassignSetup();
 
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
-
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
-
+		WorkflowMetrics.goToWorkflowAllItems();
 
 		WorkflowMetrics.goToBulkReassignSelectTasks();
 		AssertElementPresent(locator1 = "WorkflowReassignModal#BULK_REASSIGN_MODAL");
@@ -93,17 +85,28 @@ definition {
 
 		// WorkflowMetrics.bulkReassignSetup();
 		// WorkflowMetrics.bulkReassignExceptionsSetup();
+		WorkflowMetrics.goToWorkflowAllItems();
+		WorkflowMetrics.assertBulkCount();
+		WorkflowMetrics.goToBulkReassignSelectTasks();
 		WorkflowMetrics.checkWorkflowTaskCrossover();
-		// ProductMenu.gotoPortlet(
-		// 	category = "Workflow",
-		// 	panel = "Control Panel",
-		// 	portlet = "Metrics");
+		WorkflowMetrics.goToBulkReassignSelectNewAssignee();
+		AssertElementNotPresent(locator1 =  "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "Test Test");
+		Click(locator1 = "WorkflowReassignModal#NEW_ASSIGNEE",
+			key_itemName = "Blogs Entry: Blogs Entry Title 1");
+		Click(locator1 =  "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "1user user1",
+			key_rowNumber = "2");
+		AssertElementPresent(locator1 = "WorkflowReassignModal#NEXT_BUTTON_DISABLED");
+		Type(locator1 = "WorkflowReassignModal#NEW_ASSIGNEE",
+			key_itemName = "Blogs Entry: Blogs Entry Title 1",
+			value1 = "Test");
+		AssertElementPresent(locator1 =  "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "No results found.");
+		Click(locator1 = "WorkflowReassignModal#NEW_ASSIGNEE",
+			key_itemName = "Blogs Entry: Blogs Entry Title 2");	
 
-		// WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
 
-		// Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
-
-		// WorkflowMetrics.assertBulkCount();
 	}
 
 	@description = "Verify the user can set a SLA to Single Approver workflow (LPS-99765)"
