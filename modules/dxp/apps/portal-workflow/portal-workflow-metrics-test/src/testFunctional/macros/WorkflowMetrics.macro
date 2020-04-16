@@ -108,19 +108,42 @@ definition {
 			workflowDefinition = "Web Content Approver",
 			workflowResourceValue = "Web Content Article");
 
+		JSONWebcontent.addWebContent(
+			groupName = "Guest",
+			title = "Web Content",
+			content = "This should not show up in single approver workflow.");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title 1",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title 2",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title 3",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
 	}
 
-	macro checkWorkflowTaskCrossover {
+	macro goToWorkflowAllItems {
 		ProductMenu.gotoPortlet(
 			category = "Workflow",
 			panel = "Control Panel",
 			portlet = "Metrics");
 
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Web Content Approver");
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
 		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
-		AssertElementPresent(locator1 = "WorkflowAllItems#NO_RESULTS MESSAGE")
 	}
 
+	macro checkWorkflowTaskCrossover {
+		AssertElementNotPresent(locator1 = "WorkflowReassignModal#ITEM_SUBJECT_CHECK",
+			key_itemName = "Web Content");
+	}
 	macro allItemPageFilterCheck {
 		var key_allItemsFilterName = "${allItemsFilterName}";
 

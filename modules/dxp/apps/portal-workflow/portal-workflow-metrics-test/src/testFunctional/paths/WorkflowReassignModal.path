@@ -29,6 +29,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ITEM_SUBJECT_CHECK</td>
+	<td>//div[@class='modal-body']//td[contains(text(),"${key_itemName}")]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NEW_ASSIGNEE</td>
+	<td>//div[@class='modal-body']//td[contains(text(),'${key_itemName}')]/following-sibling::td[3]/div/div/div/div/input</td>
+	<td></td>
+</tr>
+<tr>
 	<td>COLUMN_CHECK</td>
 	<td>xpath=(//th[contains(text(), "${key_columnName}")] | //td[contains(text(), "${key_columnName}")])[1]</td>
 	<td></td>
@@ -45,7 +55,12 @@
 </tr>
 <tr>
 	<td>REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN</td>
-	<td>//span[contains(@class,'dropdown-item') and contains(text(),'Test Test')]</td>
+	<td>xpath=(//span[contains(@class,'dropdown-item') and contains(text(),'${name_of_the_assignee}')])["${key_rowNumber}"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN_TEST</td>
+	<td>xpath=(//span[contains(@class,'dropdown-item')])[${key_dropdown}]</td>
 	<td></td>
 </tr>
 <tr>
