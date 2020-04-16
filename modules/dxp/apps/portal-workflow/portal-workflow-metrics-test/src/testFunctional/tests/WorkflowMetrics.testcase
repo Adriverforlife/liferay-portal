@@ -22,31 +22,31 @@ definition {
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
-		// BlogsEntry.tearDownCP();
+		BlogsEntry.tearDownCP();
 
-		// WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
+		WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
 
-		// ProductMenu.gotoPortlet(
-		// 	category = "Configuration",
-		// 	panel = "Site Administration",
-		// 	portlet = "Workflow");
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
 
-		// Workflow.configureWorkflow(
-		// 	workflowDefinition = "No Workflow",
-		// 	workflowResourceValue = "Blogs Entry");
+		Workflow.configureWorkflow(
+			workflowDefinition = "No Workflow",
+			workflowResourceValue = "Blogs Entry");
 
-		// if ("${testPortalInstance}" == "true") {
-		// 	PortalInstances.tearDownCP();
-		// }
-		// else {
-		// 	ProductMenu.gotoPortlet(
-		// 		category = "Workflow",
-		// 		panel = "Control Panel",
-		// 		portlet = "Metrics");
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			ProductMenu.gotoPortlet(
+				category = "Workflow",
+				panel = "Control Panel",
+				portlet = "Metrics");
 
-		// 	WorkflowMetrics.tearDown();
+			WorkflowMetrics.tearDown();
 
-		// }
+		}
 	}
 
 	test BulkReassignWorkflowInstances {
@@ -83,8 +83,8 @@ definition {
 	test BulkReassignWorkflowModalExceptions {
 		property portal.acceptance = "false";
 
-		// WorkflowMetrics.bulkReassignSetup();
-		// WorkflowMetrics.bulkReassignExceptionsSetup();
+		WorkflowMetrics.bulkReassignSetup();
+		WorkflowMetrics.bulkReassignExceptionsSetup();
 		WorkflowMetrics.goToWorkflowAllItems();
 		WorkflowMetrics.assertBulkCount();
 		WorkflowMetrics.goToBulkReassignSelectTasks();
