@@ -55,12 +55,12 @@
 </tr>
 <tr>
 	<td>REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN</td>
-	<td>xpath=(//span[contains(@class,'dropdown-item') and contains(text(),'${name_of_the_assignee}')])["${key_rowNumber}"]</td>
+	<td>//div[contains(@class,'show')]/ul/li/span[contains(text(),'${name_of_the_assignee}')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN_TEST</td>
-	<td>xpath=(//span[contains(@class,'dropdown-item')])[${key_dropdown}]</td>
+	<td>//div[contains(@class,'show')]/ul/li/span[contains(text(),'${name_of_the_assignee}')]</td>
 	<td></td>
 </tr>
 <tr>

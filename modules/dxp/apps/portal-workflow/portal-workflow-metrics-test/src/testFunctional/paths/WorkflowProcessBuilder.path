@@ -10,7 +10,7 @@
 <tbody>
 <tr>
 	<td>KEBAB_DROPDOWN</td>
-	<td>//a[@id='_com_liferay_portal_workflow_web_portlet_ControlPanelWorkflowPortlet_kaleoDefinitionVersions_1_menu']</td>
+	<td>//a[@id='_com_liferay_portal_workflow_web_portlet_ControlPanelWorkflowPortlet_kaleoDefinitionVersions_${key_rowNumber}_menu']</td>
 	<td></td>
 </tr>
 <tr>

@@ -17,6 +17,22 @@ definition {
 
 		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
 	}
+	macro tearDownWebContent {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		WebContent.tearDownCP();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "No Workflow",
+			workflowResourceValue = "Web Content Article");
+
+		WorkflowProcessBuilder.tearDown();
+	}
 
 	macro assertBulkModalTable {
 		echo("Checking table");
