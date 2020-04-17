@@ -8,7 +8,8 @@ definition {
 			panel = "Control Panel",
 			portlet = "Process Builder");
 
-		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
+		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN",
+			key_rowNumber = "1");
 
 		Click(
 			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
@@ -19,6 +20,28 @@ definition {
 			value1 = "Web Content Approver");
 		Click(locator1 = "WorkflowProcessBuilder#DUPLICATE_BUTTON_MODAL");
 
+	}
+
+	macro tearDown {
+		var key_stepName = "${stepName}";
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Process Builder");
+
+		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN",
+			key_rowNumber = "2");
+
+		Click(
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
+			key_menuOption = "Unpublish");
+		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN",
+			key_rowNumber = "2");
+
+		Click(
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
+			key_menuOption = "Delete");
 	}
 
 }
