@@ -10,156 +10,7 @@ definition {
 
 		}
 	}
-	macro assertBulkCount {
-		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ROW", key_rowNumber = "1");
 
-		AssertTextEquals(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECTED_TEXT", value1 = "1 of 3 Selected");
-
-		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
-	}
-	macro tearDownWebContent {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
-
-		WebContent.tearDownCP();
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "No Workflow",
-			workflowResourceValue = "Web Content Article");
-
-		WorkflowProcessBuilder.tearDown();
-	}
-
-	macro assertBulkModalTable {
-		echo("Checking table");
-
-		AssertTextEquals(locator1 = "WorkflowReassignModal#COLUMN_CHECK",
-			key_columnName = "ID",
-			value1 = "ID");
-
-		AssertElementPresent(
-			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
-			key_columnName = "Item Subject");
-
-		AssertElementPresent(
-			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
-			key_columnName = "Process Step");
-
-		AssertElementPresent(
-			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
-			key_columnName = "Current Assignee");
-	}
-
-	macro bulkReassignSetup {
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "Single Approver",
-			workflowResourceValue = "Blogs Entry");
-
-		WorkflowMetrics.createUsersAndInstancesWithGroovy(
-			numberOfBlogInstances = "3",
-			numberOfUsers = "3");
-	}
-
-	macro goToBulkReassignSelectTasks {
-		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
-		Click(locator1 = "WorkflowAllItems#KEBAB_DROPDOWN", task = "1");
-		Click(locator1 = "WorkflowAllItems#REASSIGN_TASK_DROPDOWN");
-	}
-
-	macro goToBulkReassignSelectNewAssignee {
-		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
-		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
-	}
-
-	macro selectNewAssigneeBulkTask{
-		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
-		Click(locator1 = "WorkflowReassignModal#BULK_NEW_ASSIGNEE");
-		Click(locator1 =  "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
-			name_of_the_assignee = "Test Test");
-		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
-	}
-	macro createUsersAndInstancesWithGroovy {
-		var iterator = "1";
-		var numberOfBlogInstances = MathUtil.sum("${numberOfBlogInstances}", "1");
-
-		WorkflowMetrics.createUsersGroovy(numberOfUsers = "${numberOfUsers}");
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "Single Approver",
-			workflowResourceValue = "Blogs Entry");
-
-		while ("${iterator}" != "${numberOfBlogInstances}") {
-			JSONBlog.addEntry(
-				entryContent = "Blogs Entry ${iterator} Content",
-				entryTitle = "Blogs Entry Title ${iterator}");
-
-			var iterator = MathUtil.sum("${iterator}", "1");
-		}
-
-	}
-
-	macro bulkReassignExceptionsSetup {
-		WorkflowProcessBuilder.createNewSingleApproverWorkflow();
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "Web Content Approver",
-			workflowResourceValue = "Web Content Article");
-
-		JSONWebcontent.addWebContent(
-			groupName = "Guest",
-			title = "Web Content",
-			content = "This should not show up in single approver workflow.");
-
-		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
-
-		Workflow.assignToMeTaskByActions(
-			workflowAssetTitle = "Blogs Entry Title 1",
-			workflowAssetType = "Blogs Entry",
-			workflowTask = "Review");
-		Workflow.assignToMeTaskByActions(
-			workflowAssetTitle = "Blogs Entry Title 2",
-			workflowAssetType = "Blogs Entry",
-			workflowTask = "Review");
-		Workflow.assignToMeTaskByActions(
-			workflowAssetTitle = "Blogs Entry Title 3",
-			workflowAssetType = "Blogs Entry",
-			workflowTask = "Review");
-	}
-
-	macro goToWorkflowAllItems {
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
-
-		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
-
-		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
-	}
-
-	macro checkWorkflowTaskCrossover {
-		AssertElementNotPresent(locator1 = "WorkflowReassignModal#ITEM_SUBJECT_CHECK",
-			key_itemName = "Web Content");
-	}
 	macro allItemPageFilterCheck {
 		var key_allItemsFilterName = "${allItemsFilterName}";
 
@@ -192,6 +43,39 @@ definition {
 
 			AssertElementNotPresent(locator1 = "WorkflowMetrics#METRICS_ALL_ITEMS_TABLE_NAME");
 		}
+	}
+
+	macro assertBulkCount {
+		Click(
+			key_rowNumber = "1",
+			locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ROW");
+
+		AssertTextEquals(
+			locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECTED_TEXT",
+			value1 = "1 of 3 Selected");
+
+		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
+	}
+
+	macro assertBulkModalTable {
+		echo("Checking table");
+
+		AssertTextEquals(
+			key_columnName = "ID",
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK",
+			value1 = "ID");
+
+		AssertElementPresent(
+			key_columnName = "Item Subject",
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK");
+
+		AssertElementPresent(
+			key_columnName = "Process Step",
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK");
+
+		AssertElementPresent(
+			key_columnName = "Current Assignee",
+			locator1 = "WorkflowReassignModal#COLUMN_CHECK");
 	}
 
 	macro assertChartIsPresent {
@@ -272,6 +156,54 @@ definition {
 			value1 = "${emptyMessage}");
 	}
 
+	macro bulkReassignExceptionsSetup {
+		WorkflowProcessBuilder.createNewSingleApproverWorkflow();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Web Content Approver",
+			workflowResourceValue = "Web Content Article");
+
+		JSONWebcontent.addWebContent(
+			content = "This should not show up in single approver workflow.",
+			groupName = "Guest",
+			title = "Web Content");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title 1",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title 2",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title 3",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+	}
+
+	macro bulkReassignSetup {
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		WorkflowMetrics.createUsersAndInstancesWithGroovy(
+			numberOfBlogInstances = "3",
+			numberOfUsers = "3");
+	}
+
 	macro checkPendingWorkflowValues {
 		AssertTextEquals(
 			locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_OVERDUE_ITEMS_VALUE",
@@ -308,6 +240,12 @@ definition {
 		AssertTextEquals(
 			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_VALUE_TOTAL_PENDING",
 			value1 = "${key_totalPendingValue}");
+	}
+
+	macro checkWorkflowTaskCrossover {
+		AssertElementNotPresent(
+			key_itemName = "Web Content",
+			locator1 = "WorkflowReassignModal#ITEM_SUBJECT_CHECK");
 	}
 
 	macro clearAllFilter {
@@ -366,6 +304,30 @@ definition {
 		}
 
 		WorkflowMetrics.executeWorkflowScript(scriptName = "assignOpenTasksToUsers.groovy");
+	}
+
+	macro createUsersAndInstancesWithGroovy {
+		var iterator = "1";
+		var numberOfBlogInstances = MathUtil.sum("${numberOfBlogInstances}", "1");
+
+		WorkflowMetrics.createUsersGroovy(numberOfUsers = "${numberOfUsers}");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		while ("${iterator}" != "${numberOfBlogInstances}") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry ${iterator} Content",
+				entryTitle = "Blogs Entry Title ${iterator}");
+
+			var iterator = MathUtil.sum("${iterator}", "1");
+		}
 	}
 
 	macro createUsersGroovy {
@@ -435,6 +397,19 @@ definition {
 			value1 = "${key_slaDefinitionHours}");
 	}
 
+	macro goToBulkReassignSelectNewAssignee {
+		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
+		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
+	}
+
+	macro goToBulkReassignSelectTasks {
+		Click(locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_SELECT_ALL");
+		Click(
+			locator1 = "WorkflowAllItems#KEBAB_DROPDOWN",
+			task = "1");
+		Click(locator1 = "WorkflowAllItems#REASSIGN_TASK_DROPDOWN");
+	}
+
 	macro goToCreatedSLAForm {
 		var key_workflowSLAName = "${workflowSLAName}";
 
@@ -459,6 +434,17 @@ definition {
 		}
 
 		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_${key_workflowFilterOption}_ITEMS_TITLE");
+	}
+
+	macro goToWorkflowAllItems {
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Metrics");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE");
 	}
 
 	macro goToWorkflowProcessMetrics {
@@ -560,6 +546,15 @@ definition {
 		Click(locator1 = "WorkflowMetrics#METRICS_COMPLETION_VELOCITY_CUSTOM_RANGE_APPLY");
 	}
 
+	macro selectNewAssigneeBulkTask {
+		Click(locator1 = "WorkflowReassignModal#SELECT_ALL");
+		Click(locator1 = "WorkflowReassignModal#BULK_NEW_ASSIGNEE");
+		Click(
+			locator1 = "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "Test Test");
+		Click(locator1 = "WorkflowReassignModal#NEXT_BUTTON");
+	}
+
 	macro selectStepFilterPerformaceByAssignee {
 		var key_velocityUnit = "${velocityUnit}";
 
@@ -608,6 +603,23 @@ definition {
 			WorkflowMetrics._deleteAllSLAs();
 
 		}
+	}
+
+	macro tearDownWebContent {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		WebContent.tearDownCP();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "No Workflow",
+			workflowResourceValue = "Web Content Article");
+
+		WorkflowProcessBuilder.tearDown();
 	}
 
 	macro validateInstanceDetails {
