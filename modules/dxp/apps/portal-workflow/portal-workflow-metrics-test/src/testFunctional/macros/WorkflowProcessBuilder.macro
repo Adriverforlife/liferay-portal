@@ -8,18 +8,18 @@ definition {
 			panel = "Control Panel",
 			portlet = "Process Builder");
 
-		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN",
-			key_rowNumber = "1");
+		Click(
+			key_rowNumber = "1",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
 
 		Click(
-			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
-			key_menuOption = "Duplicate");
+			key_menuOption = "Duplicate",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
 		Type(
-			locator1 = "WorkflowProcessBuilder#DUPLICATE_WORKFLOW_NEW_NAME",
 			key_duplicateName = "Single Approver",
+			locator1 = "WorkflowProcessBuilder#DUPLICATE_WORKFLOW_NEW_NAME",
 			value1 = "Web Content Approver");
 		Click(locator1 = "WorkflowProcessBuilder#DUPLICATE_BUTTON_MODAL");
-
 	}
 
 	macro tearDown {
@@ -30,18 +30,20 @@ definition {
 			panel = "Control Panel",
 			portlet = "Process Builder");
 
-		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN",
-			key_rowNumber = "2");
+		Click(
+			key_rowNumber = "2",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
 
 		Click(
-			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
-			key_menuOption = "Unpublish");
-		Click(locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN",
-			key_rowNumber = "2");
+			key_menuOption = "Unpublish",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
+		Click(
+			key_rowNumber = "2",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
 
 		Click(
-			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION",
-			key_menuOption = "Delete");
+			key_menuOption = "Delete",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
 	}
 
 }
