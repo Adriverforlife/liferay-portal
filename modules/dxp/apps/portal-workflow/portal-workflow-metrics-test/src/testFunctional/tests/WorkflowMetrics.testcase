@@ -426,6 +426,8 @@ definition {
 		AssertElementPresent(locator1 = "WorkflowReassignModal#PERMISSION_TOOLTIP");
 		AssertElementPresent(locator1 = "WorkflowReassignModal#NEXT_BUTTON_DISABLED");
 		WorkflowMetrics.selectNewAssigneeBulkTask();
+		WorkflowMetrics.goToWorkflowAllItems();
+
 		AssertElementPresent(
 			key_workflowInstanceAssignee = "Test Test",
 			key_workflowInstanceName = "Blogs Entry: Blogs Entry Title 1",
@@ -472,7 +474,7 @@ definition {
 		AssertElementPresent(
 			locator1 = "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
 			name_of_the_assignee = "No results found.");
-		WorkflowMetrics.tearDownWebContent();
+		WorkflowMetrics.deleteNewWorkflow();
 	}
 
 	@description = "Verify if the default filter values are correct and if the chart is displayed (LPS-98001)"

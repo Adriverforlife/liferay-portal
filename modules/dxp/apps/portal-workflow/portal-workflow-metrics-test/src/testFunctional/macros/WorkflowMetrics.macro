@@ -157,7 +157,8 @@ definition {
 	}
 
 	macro bulkReassignExceptionsSetup {
-		WorkflowProcessBuilder.createNewSingleApproverWorkflow();
+		WorkflowProcessBuilder.createNewSingleApproverWorkflow(
+			key_workflowName = "Single Approver Alternative");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -165,13 +166,12 @@ definition {
 			portlet = "Workflow");
 
 		Workflow.configureWorkflow(
-			workflowDefinition = "Web Content Approver",
-			workflowResourceValue = "Web Content Article");
+			workflowDefinition = "Single Approver Alternative",
+			workflowResourceValue = "Blogs Entry");
 
-		JSONWebcontent.addWebContent(
-			content = "This should not show up in single approver workflow.",
-			groupName = "Guest",
-			title = "Web Content");
+		WorkflowMetrics.createInstances(
+			numberOfBlogInstances = "3",
+			numberOfUsers = "3");
 
 		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
 
@@ -190,14 +190,6 @@ definition {
 	}
 
 	macro bulkReassignSetup {
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "Single Approver",
-			workflowResourceValue = "Blogs Entry");
 
 		WorkflowMetrics.createUsersAndInstancesWithGroovy(
 			numberOfBlogInstances = "3",
@@ -250,6 +242,19 @@ definition {
 
 	macro clearAllFilter {
 		Click(locator1 = "WorkflowMetrics#FILTER_CLEAR_ALL");
+	}
+
+	macro createInstances {
+		var iterator = "1";
+		var numberOfBlogInstances = MathUtil.sum("${numberOfBlogInstances}", "1");
+
+		while ("${iterator}" != "${numberOfBlogInstances}") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Alternative Entry ${iterator} Content",
+				entryTitle = "Blogs Alternative Title ${iterator}");
+
+			var iterator = MathUtil.sum("${iterator}", "1");
+		}
 	}
 
 	macro createUsersAndAssignInstances {
@@ -305,6 +310,7 @@ definition {
 
 		WorkflowMetrics.executeWorkflowScript(scriptName = "assignOpenTasksToUsers.groovy");
 	}
+
 
 	macro createUsersAndInstancesWithGroovy {
 		var iterator = "1";
@@ -605,10 +611,8 @@ definition {
 		}
 	}
 
-	macro tearDownWebContent {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+	macro deleteNewWorkflow {
 
-		WebContent.tearDownCP();
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -617,7 +621,7 @@ definition {
 
 		Workflow.configureWorkflow(
 			workflowDefinition = "No Workflow",
-			workflowResourceValue = "Web Content Article");
+			workflowResourceValue = "Blogs Entry");
 
 		WorkflowProcessBuilder.tearDown();
 	}
