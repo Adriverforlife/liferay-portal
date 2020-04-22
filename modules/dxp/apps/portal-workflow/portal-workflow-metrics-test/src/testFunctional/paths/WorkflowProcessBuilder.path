@@ -28,6 +28,11 @@
 	<td>//button[contains(text(),'Duplicate')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>DELETE_BUTTON_MODAL</td>
+	<td>//button[contains(text(),'Delete')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
