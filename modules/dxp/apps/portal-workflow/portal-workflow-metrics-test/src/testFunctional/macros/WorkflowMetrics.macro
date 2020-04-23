@@ -157,8 +157,7 @@ definition {
 	}
 
 	macro bulkReassignExceptionsSetup {
-		WorkflowProcessBuilder.createNewSingleApproverWorkflow(
-			key_workflowName = "Single Approver Alternative");
+		WorkflowProcessBuilder.createNewSingleApproverWorkflow(key_workflowName = "Single Approver Alternative");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -311,7 +310,6 @@ definition {
 		WorkflowMetrics.executeWorkflowScript(scriptName = "assignOpenTasksToUsers.groovy");
 	}
 
-
 	macro createUsersAndInstancesWithGroovy {
 		var iterator = "1";
 		var numberOfBlogInstances = MathUtil.sum("${numberOfBlogInstances}", "1");
@@ -349,6 +347,20 @@ definition {
 		ServerAdministration.executeScript(
 			language = "Groovy",
 			script = "${scriptContent}");
+	}
+
+	macro deleteNewWorkflow {
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Site Administration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "No Workflow",
+			workflowResourceValue = "Blogs Entry");
+
+		WorkflowProcessBuilder.tearDown();
 	}
 
 	macro executeWorkflowScript {
@@ -609,21 +621,6 @@ definition {
 			WorkflowMetrics._deleteAllSLAs();
 
 		}
-	}
-
-	macro deleteNewWorkflow {
-
-
-		ProductMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Site Administration",
-			portlet = "Workflow");
-
-		Workflow.configureWorkflow(
-			workflowDefinition = "No Workflow",
-			workflowResourceValue = "Blogs Entry");
-
-		WorkflowProcessBuilder.tearDown();
 	}
 
 	macro validateInstanceDetails {

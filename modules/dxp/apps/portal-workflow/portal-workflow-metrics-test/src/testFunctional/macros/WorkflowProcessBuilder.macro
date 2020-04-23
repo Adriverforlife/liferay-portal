@@ -50,7 +50,6 @@ definition {
 			key_menuOption = "Delete",
 			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
 		Click(locator1 = "WorkflowProcessBuilder#DELETE_BUTTON_MODAL");
-
 	}
 
 }
