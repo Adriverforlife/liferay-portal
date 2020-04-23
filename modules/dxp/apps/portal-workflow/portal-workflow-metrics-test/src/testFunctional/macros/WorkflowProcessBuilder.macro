@@ -1,0 +1,55 @@
+definition {
+
+	macro createNewSingleApproverWorkflow {
+		var key_stepName = "${stepName}";
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Process Builder");
+
+		Click(
+			key_rowNumber = "1",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
+
+		Click(
+			key_menuOption = "Duplicate",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
+		Type(
+			key_duplicateName = "Single Approver",
+			locator1 = "WorkflowProcessBuilder#DUPLICATE_WORKFLOW_NEW_NAME",
+			value1 = "${key_workflowName}");
+		Click(locator1 = "WorkflowProcessBuilder#DUPLICATE_BUTTON_MODAL");
+	}
+
+	macro tearDown {
+		var key_stepName = "${stepName}";
+
+		ProductMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Control Panel",
+			portlet = "Process Builder");
+
+		Click(
+			key_rowNumber = "2",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
+
+		Click(
+			key_menuOption = "Unpublish",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
+		AssertElementPresent(
+			key_rowNumber = "2",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
+		Click(
+			key_rowNumber = "2",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN");
+		AssertElementPresent(
+			key_menuOption = "Delete",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
+		Click(
+			key_menuOption = "Delete",
+			locator1 = "WorkflowProcessBuilder#KEBAB_DROPDOWN_OPTION");
+		Click(locator1 = "WorkflowProcessBuilder#DELETE_BUTTON_MODAL");
+	}
+
+}

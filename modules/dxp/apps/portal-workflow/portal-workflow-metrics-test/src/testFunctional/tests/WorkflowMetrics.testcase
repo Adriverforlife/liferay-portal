@@ -24,6 +24,8 @@ definition {
 
 		BlogsEntry.tearDownCP();
 
+		WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
+
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -33,17 +35,17 @@ definition {
 			workflowDefinition = "No Workflow",
 			workflowResourceValue = "Blogs Entry");
 
-		ProductMenu.gotoPortlet(
-			category = "Workflow",
-			panel = "Control Panel",
-			portlet = "Metrics");
-
-		WorkflowMetrics.tearDown();
-
-		WorkflowMetrics.executeWorkflowScript(scriptName = "DeleteUsersAndRoles.groovy");
-
 		if ("${testPortalInstance}" == "true") {
 			PortalInstances.tearDownCP();
+		}
+		else {
+			ProductMenu.gotoPortlet(
+				category = "Workflow",
+				panel = "Control Panel",
+				portlet = "Metrics");
+
+			WorkflowMetrics.tearDown();
+
 		}
 	}
 
@@ -407,6 +409,72 @@ definition {
 			onTimeTaskCount = "0",
 			overdueTaskCount = "0",
 			totalPendingTaskCount = "2");
+	}
+
+	test BulkReassignWorkflowInstances {
+		property portal.acceptance = "false";
+
+		WorkflowMetrics.bulkReassignSetup();
+
+		WorkflowMetrics.goToWorkflowAllItems();
+
+		WorkflowMetrics.goToBulkReassignSelectTasks();
+		AssertElementPresent(locator1 = "WorkflowReassignModal#BULK_REASSIGN_MODAL");
+		WorkflowMetrics.assertBulkModalTable();
+		WorkflowMetrics.goToBulkReassignSelectNewAssignee();
+		WorkflowMetrics.assertBulkModalTable();
+		AssertElementPresent(locator1 = "WorkflowReassignModal#PERMISSION_TOOLTIP");
+		AssertElementPresent(locator1 = "WorkflowReassignModal#NEXT_BUTTON_DISABLED");
+		WorkflowMetrics.selectNewAssigneeBulkTask();
+		WorkflowMetrics.goToWorkflowAllItems();
+
+		AssertElementPresent(
+			key_workflowInstanceAssignee = "Test Test",
+			key_workflowInstanceName = "Blogs Entry: Blogs Entry Title 1",
+			locator1 = "WorkflowAllItems#WORKFLOW_ALL_ITEMS_TABLE_CURRENT_ASSIGNEE_VALUE");
+		echo("Checked Bulk");
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+		AssertElementPresent(
+			key_workflowAssetTitle = "Blogs Entry Title 1",
+			locator1 = "MyWorkflowTasks#TABLE_GENERIC_ASSET_TITLE");
+		AssertElementPresent(
+			key_workflowAssetTitle = "Blogs Entry Title 2",
+			locator1 = "MyWorkflowTasks#TABLE_GENERIC_ASSET_TITLE");
+		AssertElementPresent(
+			key_workflowAssetTitle = "Blogs Entry Title 3",
+			locator1 = "MyWorkflowTasks#TABLE_GENERIC_ASSET_TITLE");
+	}
+
+	@description = "LRQA-55451 Exceptions Check"
+	@priority = "5"
+	test BulkReassignWorkflowModalExceptions {
+		property portal.acceptance = "false";
+
+		WorkflowMetrics.bulkReassignSetup();
+		WorkflowMetrics.bulkReassignExceptionsSetup();
+		WorkflowMetrics.goToWorkflowAllItems();
+		WorkflowMetrics.assertBulkCount();
+		WorkflowMetrics.goToBulkReassignSelectTasks();
+		WorkflowMetrics.checkWorkflowTaskCrossover();
+		WorkflowMetrics.goToBulkReassignSelectNewAssignee();
+		AssertElementNotPresent(
+			locator1 = "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "Test Test");
+		Click(
+			key_itemName = "Blogs Entry: Blogs Entry Title 1",
+			locator1 = "WorkflowReassignModal#NEW_ASSIGNEE");
+		Click(
+			locator1 = "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "user1");
+		AssertElementPresent(locator1 = "WorkflowReassignModal#NEXT_BUTTON_DISABLED");
+		Type(
+			key_itemName = "Blogs Entry: Blogs Entry Title 1",
+			locator1 = "WorkflowReassignModal#NEW_ASSIGNEE",
+			value1 = "Test");
+		AssertElementPresent(
+			locator1 = "WorkflowReassignModal#REASSIGN_TASK_NEW_ASSIGNEE_DROPDOWN",
+			name_of_the_assignee = "No results found.");
+		WorkflowMetrics.deleteNewWorkflow();
 	}
 
 	@description = "Verify if the default filter values are correct and if the chart is displayed (LPS-98001)"

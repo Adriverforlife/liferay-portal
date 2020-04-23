@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>WorkflowProcessBuilder</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WorkflowProcessBuilder</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>KEBAB_DROPDOWN</td>
+	<td>//a[@id='_com_liferay_portal_workflow_web_portlet_ControlPanelWorkflowPortlet_kaleoDefinitionVersions_${key_rowNumber}_menu']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>KEBAB_DROPDOWN_OPTION</td>
+	<td>//span[contains(text(),'${key_menuOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DUPLICATE_WORKFLOW_NEW_NAME</td>
+	<td>//input[@placeholder='Copy of ${key_duplicateName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DUPLICATE_BUTTON_MODAL</td>
+	<td>//button[contains(text(),'Duplicate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DELETE_BUTTON_MODAL</td>
+	<td>//button[contains(text(),'Delete')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
