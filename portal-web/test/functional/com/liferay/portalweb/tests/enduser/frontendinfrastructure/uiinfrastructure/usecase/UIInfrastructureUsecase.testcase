@@ -23,7 +23,7 @@ definition {
 	@description = "This is a use case for LPS-95157. It checks the nav-bar menu icons on guest page level after page refresh."
 	@priority = "5"
 	test RefreshHomePage {
-		property portal.acceptance = "false";
+		property portal.acceptance = "flexME";
 		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "UIInfrastructureUsecase#RefreshHomePage";
 
