@@ -398,6 +398,19 @@ mariadb.executable=${mariadb.executable}]]></echo>
 						</else>
 					</if>
 
+					<if>
+						<and>
+							<equals arg1="${operating.system.type}" arg2="centos" />
+							<equals arg1="${operating.system.centos.version}" arg2="8" />
+							<equals arg1="${env.DOCKER_ENABLED}" arg2="true" />
+						</and>
+						<then>
+							<stop-docker-os />
+
+							<start-docker-os />
+						</then>
+					</if>
+
 					<antcall inheritall="false" target="copy-optional-jars">
 						<param name="database.type" value="@{database.type}" />
 						<param name="todir" value="lib/development" />
@@ -424,6 +437,17 @@ mariadb.executable=${mariadb.executable}]]></echo>
 							<antcall target="stop-app-server" />
 
 							<delete failonerror="false" file=".testable.portal.started" />
+						</then>
+					</if>
+
+					<if>
+						<and>
+							<equals arg1="${operating.system.type}" arg2="centos" />
+							<equals arg1="${operating.system.centos.version}" arg2="8" />
+							<equals arg1="${env.DOCKER_ENABLED}" arg2="true" />
+						</and>
+						<then>
+							<stop-docker-os />
 						</then>
 					</if>
 
@@ -4072,6 +4096,10 @@ log.sanitizer.enabled=false</echo>
 		/>
 	</target>
 
+	<target name="functional-centos8-tomcat90-mysql57-jdk8">
+		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" test.portal.log.assert="true" />
+	</target>
+
 	<target name="functional-smoke-bundle-tomcat-mysql56-jdk8">
 		<antcall target="functional-bundle-tomcat-mysql56-jdk8" />
 	</target>
@@ -5151,6 +5179,12 @@ log.sanitizer.enabled=false</echo>
 		<run-modules-integration-test database.type="postgresql" database.version="12.1" />
 	</target>
 
+	<target name="modules-integration-project-templates-jdk8">
+		<antcall target="modules-unit-jdk8">
+			<param name="project.templates.test.builds" value="true" />
+		</antcall>
+	</target>
+
 	<target name="modules-integration-sqlserver2017-jdk8">
 		<run-modules-integration-test database.type="sqlserver" database.version="2017" />
 	</target>
@@ -5302,6 +5336,7 @@ log.sanitizer.enabled=false</echo>
 					<arg value="-Dbuild.exclude.ant.plugin=true" />
 					<arg if:set="com.liferay.portal.search.solr7.test.unit.started" value="-Dcom.liferay.portal.search.solr7.test.unit.started=${com.liferay.portal.search.solr7.test.unit.started}" />
 					<arg value="-Djunit.code.coverage=${test.batch.code.coverage}" />
+					<arg if:set="project.templates.test.builds" value="-Dproject.templates.test.builds=${project.templates.test.builds}" />
 					<arg value="-Dtest.class.group.index=${axis.variable}" />
 				</gradle-execute>
 			</test-action>
@@ -5332,7 +5367,9 @@ log.sanitizer.enabled=false</echo>
 	</target>
 
 	<target name="modules-unit-project-templates-jdk8">
-		<antcall target="modules-unit-jdk8" />
+		<antcall target="modules-unit-jdk8">
+			<param name="project.templates.test.builds" value="false" />
+		</antcall>
 	</target>
 
 	<target name="oracle-service-start">

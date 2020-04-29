@@ -193,13 +193,13 @@ definition {
 
 	@priority = "3"
 	test ChangeBlogsEntryCoverImage {
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-
 		for (var entryCount : list "1,2") {
-			DMDocument.addCP(
+			JSONDocument.addFileWithUploadedFile(
 				dmDocumentDescription = "DM Document Description",
-				dmDocumentFile = "Document_${entryCount}.jpg",
-				dmDocumentTitle = "Document_${entryCount}.jpg");
+				dmDocumentTitle = "Document_${entryCount}.jpg",
+				groupName = "Guest",
+				mimeType = "image/jpeg",
+				sourceFileName = "Document_${entryCount}.jpg");
 		}
 
 		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
