@@ -35,6 +35,8 @@ public class FragmentEntryVersionSoap implements Serializable {
 
 		FragmentEntryVersionSoap soapModel = new FragmentEntryVersionSoap();
 
+		soapModel.setMvccVersion(model.getMvccVersion());
+		soapModel.setCtCollectionId(model.getCtCollectionId());
 		soapModel.setFragmentEntryVersionId(model.getFragmentEntryVersionId());
 		soapModel.setVersion(model.getVersion());
 		soapModel.setUuid(model.getUuid());
@@ -121,6 +123,22 @@ public class FragmentEntryVersionSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setFragmentEntryVersionId(pk);
+	}
+
+	public long getMvccVersion() {
+		return _mvccVersion;
+	}
+
+	public void setMvccVersion(long mvccVersion) {
+		_mvccVersion = mvccVersion;
+	}
+
+	public long getCtCollectionId() {
+		return _ctCollectionId;
+	}
+
+	public void setCtCollectionId(long ctCollectionId) {
+		_ctCollectionId = ctCollectionId;
 	}
 
 	public long getFragmentEntryVersionId() {
@@ -339,6 +357,8 @@ public class FragmentEntryVersionSoap implements Serializable {
 		_statusDate = statusDate;
 	}
 
+	private long _mvccVersion;
+	private long _ctCollectionId;
 	private long _fragmentEntryVersionId;
 	private int _version;
 	private String _uuid;
