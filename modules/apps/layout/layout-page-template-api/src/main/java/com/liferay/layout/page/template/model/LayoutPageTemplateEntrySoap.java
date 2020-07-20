@@ -37,6 +37,7 @@ public class LayoutPageTemplateEntrySoap implements Serializable {
 			new LayoutPageTemplateEntrySoap();
 
 		soapModel.setMvccVersion(model.getMvccVersion());
+		soapModel.setCtCollectionId(model.getCtCollectionId());
 		soapModel.setUuid(model.getUuid());
 		soapModel.setLayoutPageTemplateEntryId(
 			model.getLayoutPageTemplateEntryId());
@@ -132,6 +133,14 @@ public class LayoutPageTemplateEntrySoap implements Serializable {
 
 	public void setMvccVersion(long mvccVersion) {
 		_mvccVersion = mvccVersion;
+	}
+
+	public long getCtCollectionId() {
+		return _ctCollectionId;
+	}
+
+	public void setCtCollectionId(long ctCollectionId) {
+		_ctCollectionId = ctCollectionId;
 	}
 
 	public String getUuid() {
@@ -327,6 +336,7 @@ public class LayoutPageTemplateEntrySoap implements Serializable {
 	}
 
 	private long _mvccVersion;
+	private long _ctCollectionId;
 	private String _uuid;
 	private long _layoutPageTemplateEntryId;
 	private long _groupId;
