@@ -486,6 +486,11 @@ public abstract class BaseStructuredContentFolderResourceImpl
 				structuredContentFolder.getActions());
 		}
 
+		if (structuredContentFolder.getAssetLibraryKey() != null) {
+			existingStructuredContentFolder.setAssetLibraryKey(
+				structuredContentFolder.getAssetLibraryKey());
+		}
+
 		if (structuredContentFolder.getDateCreated() != null) {
 			existingStructuredContentFolder.setDateCreated(
 				structuredContentFolder.getDateCreated());
@@ -788,6 +793,14 @@ public abstract class BaseStructuredContentFolderResourceImpl
 		com.liferay.portal.kernel.model.User contextUser) {
 
 		this.contextUser = contextUser;
+	}
+
+	public void setGroupLocalService(GroupLocalService groupLocalService) {
+		this.groupLocalService = groupLocalService;
+	}
+
+	public void setRoleLocalService(RoleLocalService roleLocalService) {
+		this.roleLocalService = roleLocalService;
 	}
 
 	protected Map<String, String> addAction(

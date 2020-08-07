@@ -203,6 +203,7 @@ public abstract class BaseContentStructureResourceTestCase {
 
 		ContentStructure contentStructure = randomContentStructure();
 
+		contentStructure.setAssetLibraryKey(regex);
 		contentStructure.setDescription(regex);
 		contentStructure.setName(regex);
 
@@ -212,6 +213,7 @@ public abstract class BaseContentStructureResourceTestCase {
 
 		contentStructure = ContentStructureSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, contentStructure.getAssetLibraryKey());
 		Assert.assertEquals(regex, contentStructure.getDescription());
 		Assert.assertEquals(regex, contentStructure.getName());
 	}
@@ -1036,7 +1038,9 @@ public abstract class BaseContentStructureResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ContentStructure contentStructure) {
+	protected void assertValid(ContentStructure contentStructure)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (contentStructure.getDateCreated() == null) {
@@ -1051,7 +1055,11 @@ public abstract class BaseContentStructureResourceTestCase {
 			valid = false;
 		}
 
+		Group group = testDepotEntry.getGroup();
+
 		if (!Objects.equals(
+				contentStructure.getAssetLibraryKey(), group.getGroupKey()) &&
+			!Objects.equals(
 				contentStructure.getSiteId(), testGroup.getGroupId())) {
 
 			valid = false;
@@ -1059,6 +1067,14 @@ public abstract class BaseContentStructureResourceTestCase {
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (contentStructure.getAssetLibraryKey() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
 
 			if (Objects.equals(
 					"availableLanguages", additionalAssertFieldName)) {
@@ -1211,12 +1227,6 @@ public abstract class BaseContentStructureResourceTestCase {
 
 		if (contentStructure1 == contentStructure2) {
 			return true;
-		}
-
-		if (!Objects.equals(
-				contentStructure1.getSiteId(), contentStructure2.getSiteId())) {
-
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -1418,6 +1428,14 @@ public abstract class BaseContentStructureResourceTestCase {
 		sb.append(operator);
 		sb.append(" ");
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(contentStructure.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("availableLanguages")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1581,6 +1599,8 @@ public abstract class BaseContentStructureResourceTestCase {
 	protected ContentStructure randomContentStructure() throws Exception {
 		return new ContentStructure() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(

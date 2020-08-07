@@ -40,6 +40,8 @@ import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
@@ -1502,6 +1504,8 @@ public class Query {
 			_httpServletResponse);
 		emailAddressResource.setContextUriInfo(_uriInfo);
 		emailAddressResource.setContextUser(_user);
+		emailAddressResource.setGroupLocalService(_groupLocalService);
+		emailAddressResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -1515,6 +1519,8 @@ public class Query {
 			_httpServletResponse);
 		organizationResource.setContextUriInfo(_uriInfo);
 		organizationResource.setContextUser(_user);
+		organizationResource.setGroupLocalService(_groupLocalService);
+		organizationResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(PhoneResource phoneResource)
@@ -1526,6 +1532,8 @@ public class Query {
 		phoneResource.setContextHttpServletResponse(_httpServletResponse);
 		phoneResource.setContextUriInfo(_uriInfo);
 		phoneResource.setContextUser(_user);
+		phoneResource.setGroupLocalService(_groupLocalService);
+		phoneResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -1539,6 +1547,8 @@ public class Query {
 			_httpServletResponse);
 		postalAddressResource.setContextUriInfo(_uriInfo);
 		postalAddressResource.setContextUser(_user);
+		postalAddressResource.setGroupLocalService(_groupLocalService);
+		postalAddressResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(RoleResource roleResource)
@@ -1550,6 +1560,8 @@ public class Query {
 		roleResource.setContextHttpServletResponse(_httpServletResponse);
 		roleResource.setContextUriInfo(_uriInfo);
 		roleResource.setContextUser(_user);
+		roleResource.setGroupLocalService(_groupLocalService);
+		roleResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(SegmentResource segmentResource)
@@ -1561,6 +1573,8 @@ public class Query {
 		segmentResource.setContextHttpServletResponse(_httpServletResponse);
 		segmentResource.setContextUriInfo(_uriInfo);
 		segmentResource.setContextUser(_user);
+		segmentResource.setGroupLocalService(_groupLocalService);
+		segmentResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -1573,6 +1587,8 @@ public class Query {
 		segmentUserResource.setContextHttpServletResponse(_httpServletResponse);
 		segmentUserResource.setContextUriInfo(_uriInfo);
 		segmentUserResource.setContextUser(_user);
+		segmentUserResource.setGroupLocalService(_groupLocalService);
+		segmentUserResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(SiteResource siteResource)
@@ -1584,6 +1600,8 @@ public class Query {
 		siteResource.setContextHttpServletResponse(_httpServletResponse);
 		siteResource.setContextUriInfo(_uriInfo);
 		siteResource.setContextUser(_user);
+		siteResource.setGroupLocalService(_groupLocalService);
+		siteResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -1597,6 +1615,8 @@ public class Query {
 			_httpServletResponse);
 		subscriptionResource.setContextUriInfo(_uriInfo);
 		subscriptionResource.setContextUser(_user);
+		subscriptionResource.setGroupLocalService(_groupLocalService);
+		subscriptionResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(
@@ -1609,6 +1629,8 @@ public class Query {
 		userAccountResource.setContextHttpServletResponse(_httpServletResponse);
 		userAccountResource.setContextUriInfo(_uriInfo);
 		userAccountResource.setContextUser(_user);
+		userAccountResource.setGroupLocalService(_groupLocalService);
+		userAccountResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private void _populateResourceContext(WebUrlResource webUrlResource)
@@ -1620,6 +1642,8 @@ public class Query {
 		webUrlResource.setContextHttpServletResponse(_httpServletResponse);
 		webUrlResource.setContextUriInfo(_uriInfo);
 		webUrlResource.setContextUser(_user);
+		webUrlResource.setGroupLocalService(_groupLocalService);
+		webUrlResource.setRoleLocalService(_roleLocalService);
 	}
 
 	private static ComponentServiceObjects<EmailAddressResource>
@@ -1646,12 +1670,14 @@ public class Query {
 		_webUrlResourceComponentServiceObjects;
 
 	private AcceptLanguage _acceptLanguage;
-	private BiFunction<Object, String, Filter> _filterBiFunction;
-	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private com.liferay.portal.kernel.model.Company _company;
-	private com.liferay.portal.kernel.model.User _user;
+	private BiFunction<Object, String, Filter> _filterBiFunction;
+	private GroupLocalService _groupLocalService;
 	private HttpServletRequest _httpServletRequest;
 	private HttpServletResponse _httpServletResponse;
+	private RoleLocalService _roleLocalService;
+	private BiFunction<Object, String, Sort[]> _sortsBiFunction;
 	private UriInfo _uriInfo;
+	private com.liferay.portal.kernel.model.User _user;
 
 }

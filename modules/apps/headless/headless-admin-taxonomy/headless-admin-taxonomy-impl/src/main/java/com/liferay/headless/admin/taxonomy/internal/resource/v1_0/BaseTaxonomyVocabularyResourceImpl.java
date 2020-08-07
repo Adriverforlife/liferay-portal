@@ -389,6 +389,11 @@ public abstract class BaseTaxonomyVocabularyResourceImpl
 				taxonomyVocabulary.getActions());
 		}
 
+		if (taxonomyVocabulary.getAssetLibraryKey() != null) {
+			existingTaxonomyVocabulary.setAssetLibraryKey(
+				taxonomyVocabulary.getAssetLibraryKey());
+		}
+
 		if (taxonomyVocabulary.getAvailableLanguages() != null) {
 			existingTaxonomyVocabulary.setAvailableLanguages(
 				taxonomyVocabulary.getAvailableLanguages());
@@ -624,6 +629,14 @@ public abstract class BaseTaxonomyVocabularyResourceImpl
 		com.liferay.portal.kernel.model.User contextUser) {
 
 		this.contextUser = contextUser;
+	}
+
+	public void setGroupLocalService(GroupLocalService groupLocalService) {
+		this.groupLocalService = groupLocalService;
+	}
+
+	public void setRoleLocalService(RoleLocalService roleLocalService) {
+		this.roleLocalService = roleLocalService;
 	}
 
 	protected Map<String, String> addAction(

@@ -210,6 +210,7 @@ public abstract class BaseDocumentResourceTestCase {
 
 		Document document = randomDocument();
 
+		document.setAssetLibraryKey(regex);
 		document.setContentUrl(regex);
 		document.setContentValue(regex);
 		document.setDescription(regex);
@@ -223,6 +224,7 @@ public abstract class BaseDocumentResourceTestCase {
 
 		document = DocumentSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, document.getAssetLibraryKey());
 		Assert.assertEquals(regex, document.getContentUrl());
 		Assert.assertEquals(regex, document.getContentValue());
 		Assert.assertEquals(regex, document.getDescription());
@@ -1636,7 +1638,7 @@ public abstract class BaseDocumentResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Document document) {
+	protected void assertValid(Document document) throws Exception {
 		boolean valid = true;
 
 		if (document.getDateCreated() == null) {
@@ -1672,6 +1674,14 @@ public abstract class BaseDocumentResourceTestCase {
 
 			if (Objects.equals("aggregateRating", additionalAssertFieldName)) {
 				if (document.getAggregateRating() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (document.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -2425,6 +2435,14 @@ public abstract class BaseDocumentResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(document.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("contentUrl")) {
 			sb.append("'");
 			sb.append(String.valueOf(document.getContentUrl()));
@@ -2644,6 +2662,8 @@ public abstract class BaseDocumentResourceTestCase {
 	protected Document randomDocument() throws Exception {
 		return new Document() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				contentUrl = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				contentValue = StringUtil.toLowerCase(

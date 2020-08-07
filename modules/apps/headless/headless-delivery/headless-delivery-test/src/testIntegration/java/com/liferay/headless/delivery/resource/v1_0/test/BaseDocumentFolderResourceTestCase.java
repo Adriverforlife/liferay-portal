@@ -208,6 +208,7 @@ public abstract class BaseDocumentFolderResourceTestCase {
 
 		DocumentFolder documentFolder = randomDocumentFolder();
 
+		documentFolder.setAssetLibraryKey(regex);
 		documentFolder.setDescription(regex);
 		documentFolder.setName(regex);
 
@@ -217,6 +218,7 @@ public abstract class BaseDocumentFolderResourceTestCase {
 
 		documentFolder = DocumentFolderSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, documentFolder.getAssetLibraryKey());
 		Assert.assertEquals(regex, documentFolder.getDescription());
 		Assert.assertEquals(regex, documentFolder.getName());
 	}
@@ -1719,7 +1721,7 @@ public abstract class BaseDocumentFolderResourceTestCase {
 		}
 	}
 
-	protected void assertValid(DocumentFolder documentFolder) {
+	protected void assertValid(DocumentFolder documentFolder) throws Exception {
 		boolean valid = true;
 
 		if (documentFolder.getDateCreated() == null) {
@@ -1734,7 +1736,11 @@ public abstract class BaseDocumentFolderResourceTestCase {
 			valid = false;
 		}
 
+		Group group = testDepotEntry.getGroup();
+
 		if (!Objects.equals(
+				documentFolder.getAssetLibraryKey(), group.getGroupKey()) &&
+			!Objects.equals(
 				documentFolder.getSiteId(), testGroup.getGroupId())) {
 
 			valid = false;
@@ -1745,6 +1751,14 @@ public abstract class BaseDocumentFolderResourceTestCase {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
 				if (documentFolder.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (documentFolder.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -1918,12 +1932,6 @@ public abstract class BaseDocumentFolderResourceTestCase {
 
 		if (documentFolder1 == documentFolder2) {
 			return true;
-		}
-
-		if (!Objects.equals(
-				documentFolder1.getSiteId(), documentFolder2.getSiteId())) {
-
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -2164,6 +2172,14 @@ public abstract class BaseDocumentFolderResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(documentFolder.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("creator")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -2335,6 +2351,8 @@ public abstract class BaseDocumentFolderResourceTestCase {
 	protected DocumentFolder randomDocumentFolder() throws Exception {
 		return new DocumentFolder() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(

@@ -212,6 +212,7 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 		StructuredContent structuredContent = randomStructuredContent();
 
+		structuredContent.setAssetLibraryKey(regex);
 		structuredContent.setDescription(regex);
 		structuredContent.setFriendlyUrlPath(regex);
 		structuredContent.setKey(regex);
@@ -224,6 +225,7 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 		structuredContent = StructuredContentSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, structuredContent.getAssetLibraryKey());
 		Assert.assertEquals(regex, structuredContent.getDescription());
 		Assert.assertEquals(regex, structuredContent.getFriendlyUrlPath());
 		Assert.assertEquals(regex, structuredContent.getKey());
@@ -2493,7 +2495,9 @@ public abstract class BaseStructuredContentResourceTestCase {
 		}
 	}
 
-	protected void assertValid(StructuredContent structuredContent) {
+	protected void assertValid(StructuredContent structuredContent)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (structuredContent.getDateCreated() == null) {
@@ -2508,7 +2512,11 @@ public abstract class BaseStructuredContentResourceTestCase {
 			valid = false;
 		}
 
+		Group group = testDepotEntry.getGroup();
+
 		if (!Objects.equals(
+				structuredContent.getAssetLibraryKey(), group.getGroupKey()) &&
+			!Objects.equals(
 				structuredContent.getSiteId(), testGroup.getGroupId())) {
 
 			valid = false;
@@ -2527,6 +2535,14 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 			if (Objects.equals("aggregateRating", additionalAssertFieldName)) {
 				if (structuredContent.getAggregateRating() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (structuredContent.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -2880,13 +2896,6 @@ public abstract class BaseStructuredContentResourceTestCase {
 
 		if (structuredContent1 == structuredContent2) {
 			return true;
-		}
-
-		if (!Objects.equals(
-				structuredContent1.getSiteId(),
-				structuredContent2.getSiteId())) {
-
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -3386,6 +3395,14 @@ public abstract class BaseStructuredContentResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(structuredContent.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("availableLanguages")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -3662,6 +3679,8 @@ public abstract class BaseStructuredContentResourceTestCase {
 	protected StructuredContent randomStructuredContent() throws Exception {
 		return new StructuredContent() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				contentStructureId = RandomTestUtil.randomLong();
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();

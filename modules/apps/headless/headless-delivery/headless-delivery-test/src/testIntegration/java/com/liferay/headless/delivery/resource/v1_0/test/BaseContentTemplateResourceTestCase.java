@@ -203,6 +203,7 @@ public abstract class BaseContentTemplateResourceTestCase {
 
 		ContentTemplate contentTemplate = randomContentTemplate();
 
+		contentTemplate.setAssetLibraryKey(regex);
 		contentTemplate.setDescription(regex);
 		contentTemplate.setId(regex);
 		contentTemplate.setName(regex);
@@ -215,6 +216,7 @@ public abstract class BaseContentTemplateResourceTestCase {
 
 		contentTemplate = ContentTemplateSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, contentTemplate.getAssetLibraryKey());
 		Assert.assertEquals(regex, contentTemplate.getDescription());
 		Assert.assertEquals(regex, contentTemplate.getId());
 		Assert.assertEquals(regex, contentTemplate.getName());
@@ -1042,7 +1044,9 @@ public abstract class BaseContentTemplateResourceTestCase {
 		}
 	}
 
-	protected void assertValid(ContentTemplate contentTemplate) {
+	protected void assertValid(ContentTemplate contentTemplate)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (contentTemplate.getDateCreated() == null) {
@@ -1057,7 +1061,11 @@ public abstract class BaseContentTemplateResourceTestCase {
 			valid = false;
 		}
 
+		Group group = testDepotEntry.getGroup();
+
 		if (!Objects.equals(
+				contentTemplate.getAssetLibraryKey(), group.getGroupKey()) &&
+			!Objects.equals(
 				contentTemplate.getSiteId(), testGroup.getGroupId())) {
 
 			valid = false;
@@ -1068,6 +1076,14 @@ public abstract class BaseContentTemplateResourceTestCase {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
 				if (contentTemplate.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (contentTemplate.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -1242,12 +1258,6 @@ public abstract class BaseContentTemplateResourceTestCase {
 
 		if (contentTemplate1 == contentTemplate2) {
 			return true;
-		}
-
-		if (!Objects.equals(
-				contentTemplate1.getSiteId(), contentTemplate2.getSiteId())) {
-
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -1489,6 +1499,14 @@ public abstract class BaseContentTemplateResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(contentTemplate.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("availableLanguages")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1670,6 +1688,8 @@ public abstract class BaseContentTemplateResourceTestCase {
 	protected ContentTemplate randomContentTemplate() throws Exception {
 		return new ContentTemplate() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				contentStructureId = RandomTestUtil.randomLong();
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();

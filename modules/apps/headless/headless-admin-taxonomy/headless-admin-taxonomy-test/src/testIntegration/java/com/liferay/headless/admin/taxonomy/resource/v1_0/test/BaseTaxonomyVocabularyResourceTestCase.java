@@ -209,6 +209,7 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 
 		TaxonomyVocabulary taxonomyVocabulary = randomTaxonomyVocabulary();
 
+		taxonomyVocabulary.setAssetLibraryKey(regex);
 		taxonomyVocabulary.setDescription(regex);
 		taxonomyVocabulary.setName(regex);
 
@@ -218,6 +219,7 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 
 		taxonomyVocabulary = TaxonomyVocabularySerDes.toDTO(json);
 
+		Assert.assertEquals(regex, taxonomyVocabulary.getAssetLibraryKey());
 		Assert.assertEquals(regex, taxonomyVocabulary.getDescription());
 		Assert.assertEquals(regex, taxonomyVocabulary.getName());
 	}
@@ -1364,7 +1366,9 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 		}
 	}
 
-	protected void assertValid(TaxonomyVocabulary taxonomyVocabulary) {
+	protected void assertValid(TaxonomyVocabulary taxonomyVocabulary)
+		throws Exception {
+
 		boolean valid = true;
 
 		if (taxonomyVocabulary.getDateCreated() == null) {
@@ -1379,7 +1383,11 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 			valid = false;
 		}
 
+		Group group = testDepotEntry.getGroup();
+
 		if (!Objects.equals(
+				taxonomyVocabulary.getAssetLibraryKey(), group.getGroupKey()) &&
+			!Objects.equals(
 				taxonomyVocabulary.getSiteId(), testGroup.getGroupId())) {
 
 			valid = false;
@@ -1390,6 +1398,14 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
 				if (taxonomyVocabulary.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (taxonomyVocabulary.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -1565,13 +1581,6 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 
 		if (taxonomyVocabulary1 == taxonomyVocabulary2) {
 			return true;
-		}
-
-		if (!Objects.equals(
-				taxonomyVocabulary1.getSiteId(),
-				taxonomyVocabulary2.getSiteId())) {
-
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -1812,6 +1821,14 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(taxonomyVocabulary.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("assetTypes")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1985,6 +2002,8 @@ public abstract class BaseTaxonomyVocabularyResourceTestCase {
 	protected TaxonomyVocabulary randomTaxonomyVocabulary() throws Exception {
 		return new TaxonomyVocabulary() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(

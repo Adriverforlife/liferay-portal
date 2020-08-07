@@ -214,6 +214,7 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 		StructuredContentFolder structuredContentFolder =
 			randomStructuredContentFolder();
 
+		structuredContentFolder.setAssetLibraryKey(regex);
 		structuredContentFolder.setDescription(regex);
 		structuredContentFolder.setName(regex);
 
@@ -224,6 +225,8 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 
 		structuredContentFolder = StructuredContentFolderSerDes.toDTO(json);
 
+		Assert.assertEquals(
+			regex, structuredContentFolder.getAssetLibraryKey());
 		Assert.assertEquals(regex, structuredContentFolder.getDescription());
 		Assert.assertEquals(regex, structuredContentFolder.getName());
 	}
@@ -1889,8 +1892,8 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 		}
 	}
 
-	protected void assertValid(
-		StructuredContentFolder structuredContentFolder) {
+	protected void assertValid(StructuredContentFolder structuredContentFolder)
+		throws Exception {
 
 		boolean valid = true;
 
@@ -1906,7 +1909,12 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 			valid = false;
 		}
 
+		Group group = testDepotEntry.getGroup();
+
 		if (!Objects.equals(
+				structuredContentFolder.getAssetLibraryKey(),
+				group.getGroupKey()) &&
+			!Objects.equals(
 				structuredContentFolder.getSiteId(), testGroup.getGroupId())) {
 
 			valid = false;
@@ -1917,6 +1925,14 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
 				if (structuredContentFolder.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (structuredContentFolder.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -2100,13 +2116,6 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 
 		if (structuredContentFolder1 == structuredContentFolder2) {
 			return true;
-		}
-
-		if (!Objects.equals(
-				structuredContentFolder1.getSiteId(),
-				structuredContentFolder2.getSiteId())) {
-
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -2359,6 +2368,15 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(
+				String.valueOf(structuredContentFolder.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("creator")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -2536,6 +2554,8 @@ public abstract class BaseStructuredContentFolderResourceTestCase {
 
 		return new StructuredContentFolder() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(

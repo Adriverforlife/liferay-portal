@@ -685,6 +685,11 @@ public abstract class BaseStructuredContentResourceImpl
 				structuredContent.getActions());
 		}
 
+		if (structuredContent.getAssetLibraryKey() != null) {
+			existingStructuredContent.setAssetLibraryKey(
+				structuredContent.getAssetLibraryKey());
+		}
+
 		if (structuredContent.getAvailableLanguages() != null) {
 			existingStructuredContent.setAvailableLanguages(
 				structuredContent.getAvailableLanguages());
@@ -1244,6 +1249,14 @@ public abstract class BaseStructuredContentResourceImpl
 		com.liferay.portal.kernel.model.User contextUser) {
 
 		this.contextUser = contextUser;
+	}
+
+	public void setGroupLocalService(GroupLocalService groupLocalService) {
+		this.groupLocalService = groupLocalService;
+	}
+
+	public void setRoleLocalService(RoleLocalService roleLocalService) {
+		this.roleLocalService = roleLocalService;
 	}
 
 	protected Map<String, String> addAction(

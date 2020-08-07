@@ -207,6 +207,7 @@ public abstract class BaseKeywordResourceTestCase {
 
 		Keyword keyword = randomKeyword();
 
+		keyword.setAssetLibraryKey(regex);
 		keyword.setName(regex);
 
 		String json = KeywordSerDes.toJSON(keyword);
@@ -215,6 +216,7 @@ public abstract class BaseKeywordResourceTestCase {
 
 		keyword = KeywordSerDes.toDTO(json);
 
+		Assert.assertEquals(regex, keyword.getAssetLibraryKey());
 		Assert.assertEquals(regex, keyword.getName());
 	}
 
@@ -1229,7 +1231,7 @@ public abstract class BaseKeywordResourceTestCase {
 		}
 	}
 
-	protected void assertValid(Keyword keyword) {
+	protected void assertValid(Keyword keyword) throws Exception {
 		boolean valid = true;
 
 		if (keyword.getDateCreated() == null) {
@@ -1244,7 +1246,12 @@ public abstract class BaseKeywordResourceTestCase {
 			valid = false;
 		}
 
-		if (!Objects.equals(keyword.getSiteId(), testGroup.getGroupId())) {
+		Group group = testDepotEntry.getGroup();
+
+		if (!Objects.equals(
+				keyword.getAssetLibraryKey(), group.getGroupKey()) &&
+			!Objects.equals(keyword.getSiteId(), testGroup.getGroupId())) {
+
 			valid = false;
 		}
 
@@ -1253,6 +1260,14 @@ public abstract class BaseKeywordResourceTestCase {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
 				if (keyword.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("assetLibraryKey", additionalAssertFieldName)) {
+				if (keyword.getAssetLibraryKey() == null) {
 					valid = false;
 				}
 
@@ -1372,10 +1387,6 @@ public abstract class BaseKeywordResourceTestCase {
 	protected boolean equals(Keyword keyword1, Keyword keyword2) {
 		if (keyword1 == keyword2) {
 			return true;
-		}
-
-		if (!Objects.equals(keyword1.getSiteId(), keyword2.getSiteId())) {
-			return false;
 		}
 
 		for (String additionalAssertFieldName :
@@ -1541,6 +1552,14 @@ public abstract class BaseKeywordResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+		if (entityFieldName.equals("assetLibraryKey")) {
+			sb.append("'");
+			sb.append(String.valueOf(keyword.getAssetLibraryKey()));
+			sb.append("'");
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("creator")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1675,6 +1694,8 @@ public abstract class BaseKeywordResourceTestCase {
 	protected Keyword randomKeyword() throws Exception {
 		return new Keyword() {
 			{
+				assetLibraryKey = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				id = RandomTestUtil.randomLong();

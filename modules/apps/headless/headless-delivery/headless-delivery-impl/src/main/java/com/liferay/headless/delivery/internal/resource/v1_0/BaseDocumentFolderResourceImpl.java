@@ -292,6 +292,11 @@ public abstract class BaseDocumentFolderResourceImpl
 			existingDocumentFolder.setActions(documentFolder.getActions());
 		}
 
+		if (documentFolder.getAssetLibraryKey() != null) {
+			existingDocumentFolder.setAssetLibraryKey(
+				documentFolder.getAssetLibraryKey());
+		}
+
 		if (documentFolder.getDateCreated() != null) {
 			existingDocumentFolder.setDateCreated(
 				documentFolder.getDateCreated());
@@ -725,6 +730,14 @@ public abstract class BaseDocumentFolderResourceImpl
 		com.liferay.portal.kernel.model.User contextUser) {
 
 		this.contextUser = contextUser;
+	}
+
+	public void setGroupLocalService(GroupLocalService groupLocalService) {
+		this.groupLocalService = groupLocalService;
+	}
+
+	public void setRoleLocalService(RoleLocalService roleLocalService) {
+		this.roleLocalService = roleLocalService;
 	}
 
 	protected Map<String, String> addAction(
