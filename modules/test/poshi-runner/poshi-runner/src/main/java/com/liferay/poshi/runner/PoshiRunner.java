@@ -20,6 +20,7 @@ import com.liferay.poshi.runner.selenium.LiferaySeleniumUtil;
 import com.liferay.poshi.runner.selenium.SeleniumUtil;
 import com.liferay.poshi.runner.util.FileUtil;
 import com.liferay.poshi.runner.util.PropsValues;
+import com.liferay.poshi.runner.util.ProxyUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -206,6 +207,10 @@ public class PoshiRunner {
 			PoshiRunnerStackTraceUtil.emptyStackTrace();
 		}
 		finally {
+			if (PropsValues.PROXY_SERVER_ENABLED) {
+				ProxyUtil.stopBrowserMobProxy();
+			}
+
 			SummaryLogger.stopRunning();
 
 			_poshiLogger.createPoshiReport();

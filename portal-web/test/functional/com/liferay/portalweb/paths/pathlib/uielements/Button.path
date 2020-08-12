@@ -160,7 +160,7 @@
 </tr>
 <tr>
 	<td>CLOSE_MODAL</td>
-	<td>//h3[contains(@class,'modal-title') and contains(.,'${key_modalTitle}')]/../div/button[contains(@class,'close')] | //button[contains(@class,'close')]</td>
+	<td>//*[contains(@class,'modal-header') and contains(.,'${key_modalTitle}')]//*[contains(@class,'close')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -336,11 +336,6 @@
 <tr>
 	<td>IGNORE_REDIRECT_URLS</td>
 	<td>//button[*[name()='svg'][contains(@class,'lexicon-icon-hidden')]]</td>
-	<td></td>
-</tr>s
-<tr>
-	<td>IMPORT</td>
-	<td>//div[contains(@class,'footer')]//button[contains(.,'Import')]</td>
 	<td></td>
 </tr>
 <tr>
