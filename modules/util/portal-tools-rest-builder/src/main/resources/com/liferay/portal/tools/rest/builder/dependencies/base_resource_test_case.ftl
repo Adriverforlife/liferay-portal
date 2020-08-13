@@ -1712,7 +1712,7 @@ public abstract class Base${schemaName}ResourceTestCase {
 			<#if generateDepotEntry>
 				Group group = testDepotEntry.getGroup();
 
-				if (!Objects.equals(${schemaVarName}.getSiteId(), testGroup.getGroupId()) && !Objects.equals(${schemaVarName}.getAssetLibraryKey(), group.getGroupKey())) {
+				if (!Objects.equals(${schemaVarName}.getAssetLibraryKey(), group.getGroupKey()) && !Objects.equals(${schemaVarName}.getSiteId(), testGroup.getGroupId())) {
 					valid = false;
 				}
 			<#else>
