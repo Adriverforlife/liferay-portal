@@ -426,7 +426,8 @@ public class ViewChangesDisplayContext {
 			String typeName = _ctDisplayRendererRegistry.getTypeName(
 				_themeDisplay.getLocale(), entry.getKey());
 
-			contextViewJSONObject.put(typeName, entry.getValue());
+			contextViewJSONObject.put(
+				typeName, JSONUtil.put("children", entry.getValue()));
 		}
 
 		return contextViewJSONObject;
@@ -485,7 +486,13 @@ public class ViewChangesDisplayContext {
 						modelClassNameId, classPKs);
 				}
 
+				T model = baseModelMap.get(classPK);
+
 				modelInfo._jsonObject = JSONUtil.put(
+					"hideable",
+					_ctDisplayRendererRegistry.isHideable(
+						model, modelClassNameId)
+				).put(
 					"modelClassNameId", modelClassNameId
 				).put(
 					"modelClassPK", classPK
@@ -496,11 +503,21 @@ public class ViewChangesDisplayContext {
 					_ctDisplayRendererRegistry.getTitle(
 						CTConstants.CT_COLLECTION_ID_PRODUCTION,
 						CTSQLModeThreadLocal.CTSQLMode.DEFAULT,
-						_themeDisplay.getLocale(), baseModelMap.get(classPK),
-						modelClassNameId)
+						_themeDisplay.getLocale(), model, modelClassNameId)
 				);
 			}
 			else {
+				long ctCollectionId =
+					_ctDisplayRendererRegistry.getCtCollectionId(
+						_ctCollection, ctEntry);
+
+				CTSQLModeThreadLocal.CTSQLMode ctSQLMode =
+					_ctDisplayRendererRegistry.getCTSQLMode(
+						ctCollectionId, ctEntry);
+
+				T model = _ctDisplayRendererRegistry.fetchCTModel(
+					ctCollectionId, ctSQLMode, modelClassNameId, classPK);
+
 				Date modifiedDate = ctEntry.getModifiedDate();
 
 				modelInfo._ctEntry = true;
@@ -511,6 +528,10 @@ public class ViewChangesDisplayContext {
 					"description",
 					_ctDisplayRendererRegistry.getEntryDescription(
 						_httpServletRequest, ctEntry)
+				).put(
+					"hideable",
+					_ctDisplayRendererRegistry.isHideable(
+						model, modelClassNameId)
 				).put(
 					"modelClassNameId", ctEntry.getModelClassNameId()
 				).put(
@@ -534,7 +555,8 @@ public class ViewChangesDisplayContext {
 				).put(
 					"title",
 					_ctDisplayRendererRegistry.getTitle(
-						_ctCollection, ctEntry, _themeDisplay.getLocale())
+						ctCollectionId, ctSQLMode, _themeDisplay.getLocale(),
+						model, modelClassNameId)
 				).put(
 					"userId", ctEntry.getUserId()
 				);
@@ -549,7 +571,7 @@ public class ViewChangesDisplayContext {
 							CTConstants.CT_CHANGE_TYPE_DELETION) {
 
 						String editURL = _ctDisplayRendererRegistry.getEditURL(
-							_httpServletRequest, ctEntry);
+							_httpServletRequest, model, modelClassNameId);
 
 						if (Validator.isNotNull(editURL)) {
 							dropdownItemsJSONArray.put(

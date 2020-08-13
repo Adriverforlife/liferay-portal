@@ -19,6 +19,7 @@ import com.liferay.exportimport.kernel.staging.StagingUtil;
 import com.liferay.fragment.constants.FragmentEntryLinkConstants;
 import com.liferay.fragment.contributor.FragmentCollectionContributor;
 import com.liferay.fragment.contributor.FragmentCollectionContributorTracker;
+import com.liferay.fragment.entry.processor.util.EditableFragmentEntryProcessorUtil;
 import com.liferay.fragment.model.FragmentCollection;
 import com.liferay.fragment.model.FragmentComposition;
 import com.liferay.fragment.model.FragmentEntry;
@@ -1349,10 +1350,6 @@ public class ContentPageEditorDisplayContext {
 
 		try {
 			for (FragmentEntryLink fragmentEntryLink : fragmentEntryLinks) {
-				FragmentEntry fragmentEntry =
-					FragmentEntryServiceUtil.fetchFragmentEntry(
-						fragmentEntryLink.getFragmentEntryId());
-
 				DefaultFragmentRendererContext fragmentRendererContext =
 					new DefaultFragmentRendererContext(fragmentEntryLink);
 
@@ -1378,6 +1375,16 @@ public class ContentPageEditorDisplayContext {
 						_itemSelector, httpServletRequest,
 						liferayPortletResponse, configurationJSONObject);
 
+				FragmentEntry fragmentEntry =
+					FragmentEntryServiceUtil.fetchFragmentEntry(
+						fragmentEntryLink.getFragmentEntryId());
+
+				if (fragmentEntry == null) {
+					fragmentEntry =
+						_fragmentCollectionContributorTracker.getFragmentEntry(
+							fragmentEntryLink.getRendererKey());
+				}
+
 				Map<String, Object> fragmentEntryLinkMap =
 					HashMapBuilder.<String, Object>put(
 						"comments",
@@ -1392,6 +1399,10 @@ public class ContentPageEditorDisplayContext {
 						_fragmentEntryConfigurationParser.
 							getConfigurationDefaultValuesJSONObject(
 								configuration)
+					).put(
+						"editableTypes",
+						EditableFragmentEntryProcessorUtil.getEditableTypes(
+							fragmentEntryLink.getHtml())
 					).put(
 						"editableValues",
 						JSONFactoryUtil.createJSONObject(
@@ -1422,6 +1433,10 @@ public class ContentPageEditorDisplayContext {
 						_getFragmentEntry(
 							fragmentEntryLink, fragmentEntry, content)
 					).build();
+
+				if (fragmentEntry != null) {
+					fragmentEntryLinksMap.put("icon", fragmentEntry.getIcon());
+				}
 
 				fragmentEntryLinksMap.put(
 					String.valueOf(fragmentEntryLink.getFragmentEntryLinkId()),

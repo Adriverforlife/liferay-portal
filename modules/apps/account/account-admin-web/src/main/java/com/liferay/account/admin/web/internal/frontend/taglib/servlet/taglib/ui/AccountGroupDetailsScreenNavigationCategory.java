@@ -41,23 +41,23 @@ import org.osgi.service.component.annotations.Reference;
 	},
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
-public class AccountGroupInformationScreenNavigationCategory
+public class AccountGroupDetailsScreenNavigationCategory
 	implements ScreenNavigationCategory,
 			   ScreenNavigationEntry<AccountGroupDisplay> {
 
 	@Override
 	public String getCategoryKey() {
-		return AccountScreenNavigationEntryConstants.CATEGORY_KEY_INFORMATION;
+		return AccountScreenNavigationEntryConstants.CATEGORY_KEY_DETAILS;
 	}
 
 	@Override
 	public String getEntryKey() {
-		return AccountScreenNavigationEntryConstants.ENTRY_KEY_INFORMATION;
+		return AccountScreenNavigationEntryConstants.ENTRY_KEY_DETAILS;
 	}
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "information");
+		return LanguageUtil.get(locale, "details");
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class AccountGroupInformationScreenNavigationCategory
 
 		jspRenderer.renderJSP(
 			httpServletRequest, httpServletResponse,
-			"/account_groups_admin/account_group/information.jsp");
+			"/account_groups_admin/account_group/details.jsp");
 	}
 
 	@Reference

@@ -44,6 +44,9 @@
 	 */
 
 	CKEDITOR.plugins.add('addimages', {
+		_fetchBlob(url) {
+			return Liferay.Util.fetch(url).then((response) => response.blob());
+		},
 
 		/**
 		 * Accepts an array of dropped files to the editor. Then, it filters the images and sends them for further
@@ -53,8 +56,8 @@
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method _handleFiles
-		 * @param {Array} files Array of dropped files. Only the images from this list will be processed.
-		 * @param {Object} editor The current editor instance
+		 * @param {Array.<File>} files Array of dropped files. Only the images from this list will be processed
+		 * @param {CKEDITOR.editor} editor The current editor instance
 		 * @protected
 		 */
 		_handleFiles(files, editor) {
@@ -87,14 +90,14 @@
 		},
 
 		/**
-		 * Handles drag drop event. The function will create a selection from the current
+		 * Handles drop event. The function will create a selection from the current
 		 * point and will send a list of files to be processed to
 		 * {{#crossLink "CKEDITOR.plugins.addimages/_handleFiles:method"}}{{/crossLink}} method.
 		 *
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method _onDragDrop
-		 * @param {CKEDITOR.dom.event} event dragdrop event, as received natively from CKEditor
+		 * @param {CKEDITOR.eventInfo} Facade for the native `drop` event
 		 * @protected
 		 */
 		_onDragDrop(event) {
@@ -112,12 +115,12 @@
 		},
 
 		/**
-		 * Handles drag enter event. In case of IE, this function will prevent the event.
+		 * Handles dragenter event. In case of IE, this function will prevent the event.
 		 *
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method _onDragEnter
-		 * @param {DOM event} event dragenter event, as received natively from CKEditor
+		 * @param {CKEDITOR.eventInfo} Facade for the native `dragenter` event
 		 * @protected
 		 */
 		_onDragEnter(event) {
@@ -127,12 +130,12 @@
 		},
 
 		/**
-		 * Handles drag over event. In case of IE, this function will prevent the event.
+		 * Handles dragover event. In case of IE, this function will prevent the event.
 		 *
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method _onDragOver
-		 * @param {DOM event} event dragover event, as received natively from CKEditor
+		 * @param {CKEDITOR.eventInfo} event Facade for the native `dragover` event
 		 * @protected
 		 */
 		_onDragOver(event) {
@@ -142,13 +145,50 @@
 		},
 
 		/**
-		 * Checks if the pasted data is image and passes it to
+		 * Handler for when images are uploaded
+		 *
+		 * @instance
+		 * @memberof CKEDITOR.plugins.addimages
+		 * @method _onImageUploaded
+		 * @param {Image} image The image that was uploaded
+		 * @param {CKEDITOR.editor} editor The current editor instance
+		 * @protected
+		 */
+		_onImageUploaded(image, editor) {
+			const instance = this;
+
+			const fragment = CKEDITOR.htmlParser.fragment.fromHtml(
+				editor.getData()
+			);
+
+			const filter = new CKEDITOR.htmlParser.filter({
+				elements: {
+					img(element) {
+						if (image.src === instance._tempImage.src) {
+							element.attributes.src = image.src;
+						}
+					},
+				},
+			});
+
+			const writer = new CKEDITOR.htmlParser.basicWriter();
+
+			fragment.writeChildrenHtml(writer, filter);
+
+			editor.setData(writer.getHtml(), () => {
+				editor.updateElement();
+			});
+		},
+
+		/**
+		 * Checks if the pasted data is a dropped image or html.
+		 * In the case of images, it passes it to
 		 * {{#crossLink "CKEDITOR.plugins.addimages/_processFile:method"}}{{/crossLink}} for processing.
 		 *
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method _onPaste
-		 * @param {CKEDITOR.dom.event} event A `paste` event, as received natively from CKEditor
+		 * @param {CKEDITOR.eventInfo} event Facade for the native `paste` event
 		 * @protected
 		 */
 		_onPaste(event) {
@@ -167,6 +207,54 @@
 					this._processFile(imageFile, event.editor);
 				}
 			}
+			else if (event.data && event.data.type === 'html') {
+				const editor = event.editor;
+				const fragment = CKEDITOR.htmlParser.fragment.fromHtml(
+					event.data.dataValue
+				);
+
+				fragment.forEach((element) => {
+					if (
+						element.type !== CKEDITOR.NODE_ELEMENT ||
+						element.name !== 'img'
+					) {
+						return;
+					}
+
+					const base64Regex = /^data:image\/(.*);base64,/;
+					const match = element.attributes.src.match(base64Regex);
+
+					if (element.attributes.src && match) {
+						const src = element.attributes.src;
+						const extension = match[1];
+						const name = `${Date.now().toString()}.${extension}`;
+
+						this._fetchBlob(src)
+							.then((blob) => {
+								const file = new File([blob], name, {
+									type: blob.type,
+								});
+
+								const element = CKEDITOR.dom.element.createFromHtml(
+									`<img src="${src}">`
+								);
+
+								editor.fire('imageAdd', {
+									el: element,
+									file,
+								});
+							})
+							.catch(() => {
+								Liferay.Util.openToast({
+									message: Liferay.Language.get(
+										'an-unexpected-error-occurred-while-uploading-your-file'
+									),
+									type: 'danger',
+								});
+							});
+					}
+				});
+			}
 		},
 
 		/**
@@ -175,7 +263,7 @@
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method _preventEvent
-		 * @param {DOM event} event The event to be prevented.
+		 * @param {CKEDITOR.eventInfo} event Facade for the native event to be prevented
 		 * @protected
 		 */
 		_preventEvent(event) {
@@ -192,8 +280,9 @@
 		 * @fires CKEDITOR.plugins.addimages#imageAdd
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
-		 * @method _preventEvent
-		 * @param {DOM event} event The event to be prevented.
+		 * @method _processFile
+		 * @param {File} file The file to be processed
+		 * @param {CKEDITOR.editor} editor The current editor instance
 		 * @protected
 		 */
 		_processFile(file, editor) {
@@ -226,7 +315,7 @@
 		 * @instance
 		 * @memberof CKEDITOR.plugins.addimages
 		 * @method init
-		 * @param {Object} editor The current editor instance
+		 * @param {CKEDITOR.editor} editor The current editor instance
 		 */
 		init(editor) {
 			editor.once('contentDom', () => {
@@ -340,10 +429,31 @@
 							imageContainer.remove();
 
 							editor.fire('imageUploaded', {
+								editor,
 								el: image,
 								fileEntryId: data.file.fileEntryId,
 								uploadImageReturnType: '',
 							});
+
+							const fragment = CKEDITOR.htmlParser.fragment.fromHtml(
+								editor.getData()
+							);
+
+							let imageFound = false;
+
+							fragment.forEach((element) => {
+								if (
+									element.type === CKEDITOR.NODE_ELEMENT &&
+									element.attributes['data-image-id'] ===
+										image.dataset.imageId
+								) {
+									imageFound = true;
+								}
+							});
+
+							if (!imageFound) {
+								this._onImageUploaded(image, editor);
+							}
 						}
 					}
 					else {

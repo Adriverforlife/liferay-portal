@@ -28,6 +28,7 @@ import {
 } from '../../../app/components/Controls';
 import {fromControlsId} from '../../../app/components/layout-data-items/Collection';
 import {ITEM_ACTIVATION_ORIGINS} from '../../../app/config/constants/itemActivationOrigins';
+import {ITEM_TYPES} from '../../../app/config/constants/itemTypes';
 import selectCanUpdatePageStructure from '../../../app/selectors/selectCanUpdatePageStructure';
 import {useDispatch, useSelector} from '../../../app/store/index';
 import deleteItem from '../../../app/thunks/deleteItem';
@@ -68,6 +69,8 @@ export default function StructureTreeNode({node}) {
 			aria-selected={isActive}
 			className={classNames('page-editor__page-structure__tree-node', {
 				'page-editor__page-structure__tree-node--active': isActive,
+				'page-editor__page-structure__tree-node--bold':
+					node.activable && node.type !== ITEM_TYPES.editable,
 				'page-editor__page-structure__tree-node--hovered': nodeIsHovered(
 					node.id,
 					hoveredItemId
@@ -110,6 +113,7 @@ export default function StructureTreeNode({node}) {
 			<NameLabel
 				activable={node.activable}
 				disabled={node.disabled}
+				icon={node.icon}
 				id={node.id}
 				name={node.name}
 			/>
@@ -135,7 +139,7 @@ StructureTreeNode.propTypes = {
 	}).isRequired,
 };
 
-const NameLabel = ({activable, disabled, id, name}) => {
+const NameLabel = ({activable, disabled, icon, id, name}) => {
 	const activeItemId = useActiveItemId();
 
 	return (
@@ -149,6 +153,8 @@ const NameLabel = ({activable, disabled, id, name}) => {
 				}
 			)}
 		>
+			{icon && <ClayIcon symbol={icon || ''} />}
+
 			{name || Liferay.Language.get('element')}
 		</div>
 	);

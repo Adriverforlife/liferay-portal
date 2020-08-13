@@ -12,17 +12,30 @@
  * details.
  */
 
-package com.liferay.translation.info.item.updater;
+package com.liferay.translation.web.internal.util;
 
-import com.liferay.info.item.InfoItemFieldValues;
+import java.io.Closeable;
 
 /**
- * @author Alicia García
+ * @author Adolfo Pérez
  */
-public interface InfoItemFieldValuesUpdater<T> {
+public class ContextClassLoaderSetter implements Closeable {
 
-	public T updateFromInfoItemFieldValues(
-			T t, InfoItemFieldValues infoItemFieldValues)
-		throws Exception;
+	public ContextClassLoaderSetter(ClassLoader classLoader) {
+		Thread currentThread = Thread.currentThread();
+
+		_originalClassLoader = currentThread.getContextClassLoader();
+
+		currentThread.setContextClassLoader(classLoader);
+	}
+
+	@Override
+	public void close() {
+		Thread currentThread = Thread.currentThread();
+
+		currentThread.setContextClassLoader(_originalClassLoader);
+	}
+
+	private final ClassLoader _originalClassLoader;
 
 }
