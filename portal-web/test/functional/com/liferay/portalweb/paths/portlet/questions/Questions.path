@@ -100,7 +100,7 @@
 </tr>
 <tr>
 	<td>QUESTIONS_CATEGORY_TITLE</td>
-	<td>//div[contains(@class,'questions-breadcrumb')]//li[contains(.,'${key_categoryTitle}')]</td>
+	<td>//div[contains(@class,'questions-root')]//ol[contains(@class,'breadcrumb')]//li[contains(.,'${key_categoryTitle}')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -205,7 +205,7 @@
 </tr>
 <tr>
 	<td>SEARCH_RESULTS_CLEAR_BUTTON</td>
-	<td>//button[contains(.,'Clear')]</td>
+	<td>//div[contains(@class,'input-group-item')]//button[contains(@class,'btn-monospaced')]//*[name()='svg'][contains(@class,'times-circle')]</td>
 	<td></td>
 </tr>
 <tr>
