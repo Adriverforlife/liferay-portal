@@ -96,7 +96,6 @@ public class UpdateStyleBookEntryDefaultMVCActionCommandTest {
 		actionRequest.addParameter(
 			"styleBookEntryId",
 			String.valueOf(styleBookEntry.getStyleBookEntryId()));
-
 		actionRequest.setAttribute(
 			WebKeys.PORTLET_ID, StyleBookPortletKeys.STYLE_BOOK);
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
@@ -126,7 +125,6 @@ public class UpdateStyleBookEntryDefaultMVCActionCommandTest {
 		actionRequest.addParameter(
 			"styleBookEntryId",
 			String.valueOf(styleBookEntry1.getStyleBookEntryId()));
-
 		actionRequest.setAttribute(
 			WebKeys.PORTLET_ID, StyleBookPortletKeys.STYLE_BOOK);
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
@@ -152,7 +150,6 @@ public class UpdateStyleBookEntryDefaultMVCActionCommandTest {
 		actionRequest.addParameter(
 			"styleBookEntryId",
 			String.valueOf(styleBookEntry2.getStyleBookEntryId()));
-
 		actionRequest.setAttribute(
 			WebKeys.PORTLET_ID, StyleBookPortletKeys.STYLE_BOOK);
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
@@ -186,7 +183,6 @@ public class UpdateStyleBookEntryDefaultMVCActionCommandTest {
 		actionRequest.addParameter(
 			"styleBookEntryId",
 			String.valueOf(styleBookEntry.getStyleBookEntryId()));
-
 		actionRequest.setAttribute(
 			WebKeys.PORTLET_ID, StyleBookPortletKeys.STYLE_BOOK);
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
@@ -206,7 +202,6 @@ public class UpdateStyleBookEntryDefaultMVCActionCommandTest {
 		actionRequest.addParameter(
 			"styleBookEntryId",
 			String.valueOf(styleBookEntry.getStyleBookEntryId()));
-
 		actionRequest.setAttribute(
 			WebKeys.PORTLET_ID, StyleBookPortletKeys.STYLE_BOOK);
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
