@@ -77,7 +77,6 @@ public class AddStyleBookEntryMVCActionCommandTest {
 
 		_themeDisplay.setCompany(
 			_companyLocalService.getCompany(TestPropsValues.getCompanyId()));
-
 		_themeDisplay.setLanguageId(
 			LanguageUtil.getLanguageId(LocaleUtil.getDefault()));
 		_themeDisplay.setPermissionChecker(
@@ -124,7 +123,6 @@ public class AddStyleBookEntryMVCActionCommandTest {
 			new MockLiferayPortletActionRequest();
 
 		actionRequest.addParameter("name", StringPool.BLANK);
-
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
 
 		ReflectionTestUtil.invoke(
@@ -138,7 +136,6 @@ public class AddStyleBookEntryMVCActionCommandTest {
 			new MockLiferayPortletActionRequest();
 
 		actionRequest.addParameter("name", ".");
-
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
 
 		ReflectionTestUtil.invoke(
@@ -152,7 +149,6 @@ public class AddStyleBookEntryMVCActionCommandTest {
 			new MockLiferayPortletActionRequest();
 
 		actionRequest.addParameter("name", "/");
-
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
 
 		ReflectionTestUtil.invoke(
@@ -166,7 +162,6 @@ public class AddStyleBookEntryMVCActionCommandTest {
 			new MockLiferayPortletActionRequest();
 
 		actionRequest.addParameter("name", RandomTestUtil.randomString(256));
-
 		actionRequest.setAttribute(WebKeys.THEME_DISPLAY, _themeDisplay);
 
 		ReflectionTestUtil.invoke(
