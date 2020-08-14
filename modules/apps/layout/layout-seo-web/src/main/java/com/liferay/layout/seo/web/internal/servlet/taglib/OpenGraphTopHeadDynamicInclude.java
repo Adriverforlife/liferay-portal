@@ -332,28 +332,31 @@ public class OpenGraphTopHeadDynamicInclude extends BaseDynamicInclude {
 	private InfoItemFieldValues _getInfoItemFieldValues(
 		HttpServletRequest httpServletRequest, Layout layout) {
 
-		if (layout.isTypeAssetDisplay()) {
-			InfoItemDetails infoItemDetails =
-				(InfoItemDetails)httpServletRequest.getAttribute(
-					InfoDisplayWebKeys.INFO_ITEM_DETAILS);
-
-			if (infoItemDetails != null) {
-				InfoItemFieldValuesProvider infoItemFormProvider =
-					_infoItemServiceTracker.getFirstInfoItemService(
-						InfoItemFieldValuesProvider.class,
-						infoItemDetails.getClassName());
-
-				if (infoItemFormProvider != null) {
-					Object infoItem = httpServletRequest.getAttribute(
-						InfoDisplayWebKeys.INFO_ITEM);
-
-					return infoItemFormProvider.getInfoItemFieldValues(
-						infoItem);
-				}
-			}
+		if (!layout.isTypeAssetDisplay()) {
+			return null;
 		}
 
-		return null;
+		InfoItemDetails infoItemDetails =
+			(InfoItemDetails)httpServletRequest.getAttribute(
+				InfoDisplayWebKeys.INFO_ITEM_DETAILS);
+
+		if (infoItemDetails == null) {
+			return null;
+		}
+
+		InfoItemFieldValuesProvider infoItemFormProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemFieldValuesProvider.class,
+				infoItemDetails.getClassName());
+
+		if (infoItemFormProvider == null) {
+			return null;
+		}
+
+		Object infoItem = httpServletRequest.getAttribute(
+			InfoDisplayWebKeys.INFO_ITEM);
+
+		return infoItemFormProvider.getInfoItemFieldValues(infoItem);
 	}
 
 	private String _getMappedStringValue(
