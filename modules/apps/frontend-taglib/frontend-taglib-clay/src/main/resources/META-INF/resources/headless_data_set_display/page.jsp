@@ -16,6 +16,14 @@
 
 <%@ include file="/headless_data_set_display/init.jsp" %>
 
+<%
+String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_step_tracker") + StringPool.UNDERLINE;
+
+String containerId = randomNamespace + "table-id";
+
+JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
+%>
+
 <link href="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathModule() + "/frontend-taglib-clay/data_set_display/styles/main.css") %>" rel="stylesheet" />
 
 <div class="table-root" id="<%= containerId %>">

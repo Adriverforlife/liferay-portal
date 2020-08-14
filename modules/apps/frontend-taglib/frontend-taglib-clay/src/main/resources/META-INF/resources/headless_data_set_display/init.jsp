@@ -57,10 +57,4 @@ boolean showManagementBar = (boolean)request.getAttribute("clay:headless-data-se
 boolean showPagination = (boolean)request.getAttribute("clay:headless-data-set-display:showPagination");
 boolean showSearch = (boolean)request.getAttribute("clay:headless-data-set-display:showSearch");
 String style = (String)request.getAttribute("clay:headless-data-set-display:style");
-
-JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
-
-String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_step_tracker") + StringPool.UNDERLINE;
-
-String containerId = randomNamespace + "table-id";
 %>
