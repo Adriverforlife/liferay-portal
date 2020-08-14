@@ -14,17 +14,21 @@
 
 package com.liferay.layout.util.structure;
 
+import com.liferay.fragment.model.FragmentEntryLink;
+import com.liferay.fragment.service.FragmentEntryLinkLocalServiceUtil;
 import com.liferay.layout.util.constants.LayoutDataItemTypeConstants;
 import com.liferay.petra.lang.HashUtil;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.json.JSONUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.util.Objects;
 
 /**
  * @author Eudaldo Alonso
  */
-public class FragmentLayoutStructureItem extends LayoutStructureItem {
+public class FragmentLayoutStructureItem extends StyledLayoutStructureItem {
 
 	public FragmentLayoutStructureItem(String parentItemId) {
 		super(parentItemId);
@@ -59,7 +63,15 @@ public class FragmentLayoutStructureItem extends LayoutStructureItem {
 
 	@Override
 	public JSONObject getItemConfigJSONObject() {
-		return JSONUtil.put(
+		JSONObject jsonObject = super.getItemConfigJSONObject();
+
+		if (_fragmentConfigurationJSONObject != null) {
+			for (String key : _fragmentConfigurationJSONObject.keySet()) {
+				jsonObject.put(key, _fragmentConfigurationJSONObject.get(key));
+			}
+		}
+
+		return jsonObject.put(
 			"fragmentEntryLinkId", String.valueOf(_fragmentEntryLinkId));
 	}
 
@@ -75,16 +87,42 @@ public class FragmentLayoutStructureItem extends LayoutStructureItem {
 
 	public void setFragmentEntryLinkId(long fragmentEntryLinkId) {
 		_fragmentEntryLinkId = fragmentEntryLinkId;
+
+		FragmentEntryLink fragmentEntryLink =
+			FragmentEntryLinkLocalServiceUtil.fetchFragmentEntryLink(
+				fragmentEntryLinkId);
+
+		if (fragmentEntryLink != null) {
+			try {
+				JSONObject editablesJSONObject =
+					JSONFactoryUtil.createJSONObject(
+						fragmentEntryLink.getEditableValues());
+
+				_fragmentConfigurationJSONObject =
+					editablesJSONObject.getJSONObject(
+						"com.liferay.fragment.entry.processor.freemarker." +
+							"FreeMarkerFragmentEntryProcessor");
+			}
+			catch (Exception exception) {
+				_log.error("Unable to parse editable values", exception);
+			}
+		}
 	}
 
 	@Override
 	public void updateItemConfig(JSONObject itemConfigJSONObject) {
+		super.updateItemConfig(itemConfigJSONObject);
+
 		if (itemConfigJSONObject.has("fragmentEntryLinkId")) {
 			setFragmentEntryLinkId(
 				itemConfigJSONObject.getLong("fragmentEntryLinkId"));
 		}
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		FragmentLayoutStructureItem.class);
+
+	private JSONObject _fragmentConfigurationJSONObject;
 	private long _fragmentEntryLinkId;
 
 }

@@ -1,30 +1,5 @@
 [
 	{
-		"label": "layout",
-		"styles": [
-			{
-				"dataType": "string",
-				"defaultValue": "d-block",
-				"dependencies": [
-				],
-				"label": "display",
-				"name": "display",
-				"responsive": false,
-				"type": "select",
-				"validValues": [
-					{
-						"label": "none",
-						"value": "d-none"
-					},
-					{
-						"label": "block",
-						"value": "d-block"
-					}
-				]
-			}
-		]
-	},
-	{
 		"label": "size",
 		"styles": [
 			{
@@ -93,7 +68,135 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "overflow-auto",
+				"defaultValue": "auto",
+				"dependencies": [
+				],
+				"label": "min-width",
+				"name": "minWidth",
+				"responsive": false,
+				"type": "select",
+				"validValues": [
+					{
+						"label": "auto",
+						"value": "auto"
+					},
+					{
+						"label": "25",
+						"value": "25%"
+					},
+					{
+						"label": "50",
+						"value": "50%"
+					},
+					{
+						"label": "75",
+						"value": "75%"
+					},
+					{
+						"label": "100",
+						"value": "100%"
+					}
+				]
+			},
+			{
+				"dataType": "string",
+				"defaultValue": "none",
+				"dependencies": [
+				],
+				"label": "max-width",
+				"name": "maxWidth",
+				"responsive": false,
+				"type": "select",
+				"validValues": [
+					{
+						"label": "none",
+						"value": "none"
+					},
+					{
+						"label": "25",
+						"value": "25%"
+					},
+					{
+						"label": "50",
+						"value": "50%"
+					},
+					{
+						"label": "75",
+						"value": "75%"
+					},
+					{
+						"label": "100",
+						"value": "100%"
+					}
+				]
+			},
+			{
+				"dataType": "string",
+				"defaultValue": "auto",
+				"dependencies": [
+				],
+				"label": "min-height",
+				"name": "minHeight",
+				"responsive": false,
+				"type": "select",
+				"validValues": [
+					{
+						"label": "auto",
+						"value": "auto"
+					},
+					{
+						"label": "25",
+						"value": "25%"
+					},
+					{
+						"label": "50",
+						"value": "50%"
+					},
+					{
+						"label": "75",
+						"value": "75%"
+					},
+					{
+						"label": "100",
+						"value": "100%"
+					}
+				]
+			},
+			{
+				"dataType": "string",
+				"defaultValue": "none",
+				"dependencies": [
+				],
+				"label": "max-height",
+				"name": "maxHeight",
+				"responsive": false,
+				"type": "select",
+				"validValues": [
+					{
+						"label": "none",
+						"value": "none"
+					},
+					{
+						"label": "25",
+						"value": "25%"
+					},
+					{
+						"label": "50",
+						"value": "50%"
+					},
+					{
+						"label": "75",
+						"value": "75%"
+					},
+					{
+						"label": "100",
+						"value": "100%"
+					}
+				]
+			},
+			{
+				"dataType": "string",
+				"defaultValue": "visible",
 				"dependencies": [
 				],
 				"label": "overflow",
@@ -102,12 +205,20 @@
 				"type": "select",
 				"validValues": [
 					{
-						"label": "auto",
-						"value": "overflow-auto"
+						"label": "visible",
+						"value": "visible"
 					},
 					{
 						"label": "hidden",
-						"value": "overflow-hidden"
+						"value": "hidden"
+					},
+					{
+						"label": "scroll",
+						"value": "scroll"
+					},
+					{
+						"label": "auto",
+						"value": "auto"
 					}
 				]
 			}
@@ -118,7 +229,7 @@
 		"styles": [
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "margin-top",
@@ -154,7 +265,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "margin-bottom",
@@ -190,7 +301,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "margin-left",
@@ -226,7 +337,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "margin-right",
@@ -262,7 +373,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "padding-top",
@@ -298,7 +409,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "padding-bottom",
@@ -334,7 +445,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "padding-left",
@@ -370,7 +481,7 @@
 			},
 			{
 				"dataType": "string",
-				"defaultValue": "3",
+				"defaultValue": "0",
 				"dependencies": [
 				],
 				"label": "padding-right",
@@ -462,84 +573,37 @@
 				]
 			},
 			{
+				"dataType": "string",
+				"defaultValue": "medium",
+				"dependencies": [
+				],
+				"label": "font-size",
+				"name": "fontSize",
+				"responsive": false,
+				"type": "select",
+				"validValues": [
+					{
+						"label": "small",
+						"value": "small"
+					},
+					{
+						"label": "medium",
+						"value": "medium"
+					},
+					{
+						"label": "large",
+						"value": "large"
+					}
+				]
+			},
+			{
 				"dataType": "object",
-				"defaultValue": {
-					"cssClass": "text-body"
-				},
 				"dependencies": [
 				],
 				"label": "text-body",
 				"name": "textColor",
 				"responsive": false,
-				"type": "colorPalette",
-				"validValues": [
-					{
-						"label": "body",
-						"value": {
-							"cssClass": "text-body"
-						}
-					},
-					{
-						"label": "primary",
-						"value": {
-							"cssClass": "text-primary"
-						}
-					},
-					{
-						"label": "secondary",
-						"value": {
-							"cssClass": "text-secondary"
-						}
-					},
-					{
-						"label": "success",
-						"value": {
-							"cssClass": "text-success"
-						}
-					},
-					{
-						"label": "danger",
-						"value": {
-							"cssClass": "text-danger"
-						}
-					},
-					{
-						"label": "warning",
-						"value": {
-							"cssClass": "text-warning"
-						}
-					},
-					{
-						"label": "info",
-						"value": {
-							"cssClass": "text-info"
-						}
-					},
-					{
-						"label": "light",
-						"value": {
-							"cssClass": "text-light"
-						}
-					},
-					{
-						"label": "dark",
-						"value": {
-							"cssClass": "text-dark"
-						}
-					},
-					{
-						"label": "muted",
-						"value": {
-							"cssClass": "text-muted"
-						}
-					},
-					{
-						"label": "white",
-						"value": {
-							"cssClass": "text-white"
-						}
-					}
-				]
+				"type": "colorPalette"
 			},
 			{
 				"dataType": "string",
@@ -580,77 +644,12 @@
 		"styles": [
 			{
 				"dataType": "object",
-				"defaultValue": {
-					"cssClass": "bg-transparent"
-				},
 				"dependencies": [
 				],
 				"label": "background-color",
 				"name": "backgroundColor",
 				"responsive": false,
-				"type": "colorPalette",
-				"validValues": [
-					{
-						"label": "transparent",
-						"value": {
-							"cssClass": "bg-transparent"
-						}
-					},
-					{
-						"label": "primary",
-						"value": {
-							"cssClass": "bg-primary"
-						}
-					},
-					{
-						"label": "secondary",
-						"value": {
-							"cssClass": "bg-secondary"
-						}
-					},
-					{
-						"label": "success",
-						"value": {
-							"cssClass": "bg-success"
-						}
-					},
-					{
-						"label": "danger",
-						"value": {
-							"cssClass": "bg-danger"
-						}
-					},
-					{
-						"label": "warning",
-						"value": {
-							"cssClass": "bg-warning"
-						}
-					},
-					{
-						"label": "info",
-						"value": {
-							"cssClass": "bg-info"
-						}
-					},
-					{
-						"label": "light",
-						"value": {
-							"cssClass": "bg-light"
-						}
-					},
-					{
-						"label": "dark",
-						"value": {
-							"cssClass": "bg-dark"
-						}
-					},
-					{
-						"label": "white",
-						"value": {
-							"cssClass": "bg-white"
-						}
-					}
-				]
+				"type": "colorPalette"
 			},
 			{
 				"dataType": "object",
@@ -661,9 +660,7 @@
 				"label": "background-image",
 				"name": "backgroundImage",
 				"responsive": false,
-				"type": "imageSelector",
-				"validValues": [
-				]
+				"type": "imageSelector"
 			}
 		]
 	},
@@ -678,9 +675,12 @@
 				"label": "border-width",
 				"name": "borderWidth",
 				"responsive": false,
-				"type": "string",
-				"validValues": [
-				]
+				"type": "text",
+				"typeOptions": {
+					"validation": {
+						"type": "number"
+					}
+				}
 			},
 			{
 				"dataType": "string",
@@ -712,71 +712,12 @@
 			},
 			{
 				"dataType": "object",
-				"defaultValue": {
-					"cssClass": "border-dark"
-				},
 				"dependencies": [
 				],
 				"label": "border-color",
 				"name": "borderColor",
 				"responsive": false,
-				"type": "colorPalette",
-				"validValues": [
-					{
-						"label": "primary",
-						"value": {
-							"cssClass": "border-primary"
-						}
-					},
-					{
-						"label": "secondary",
-						"value": {
-							"cssClass": "border-secondary"
-						}
-					},
-					{
-						"label": "success",
-						"value": {
-							"cssClass": "border-success"
-						}
-					},
-					{
-						"label": "danger",
-						"value": {
-							"cssClass": "border-danger"
-						}
-					},
-					{
-						"label": "warning",
-						"value": {
-							"cssClass": "border-warning"
-						}
-					},
-					{
-						"label": "info",
-						"value": {
-							"cssClass": "borer-info"
-						}
-					},
-					{
-						"label": "light",
-						"value": {
-							"cssClass": "border-light"
-						}
-					},
-					{
-						"label": "dark",
-						"value": {
-							"cssClass": "border-dark"
-						}
-					},
-					{
-						"label": "white",
-						"value": {
-							"cssClass": "border-white"
-						}
-					}
-				]
+				"type": "colorPalette"
 			}
 		]
 	},
@@ -785,7 +726,7 @@
 		"styles": [
 			{
 				"dataType": "number",
-				"defaultValue": 1,
+				"defaultValue": 100,
 				"dependencies": [
 				],
 				"label": "opacity",
@@ -800,9 +741,7 @@
 			},
 			{
 				"dataType": "object",
-				"defaultValue": {
-					"cssClass": "shadow-none"
-				},
+				"defaultValue": "shadow-none",
 				"dependencies": [
 				],
 				"label": "shadow",
@@ -812,27 +751,19 @@
 				"validValues": [
 					{
 						"label": "none",
-						"value": {
-							"cssClass": "shadow-none"
-						}
+						"value": "shadow-none"
 					},
 					{
 						"label": "small",
-						"value": {
-							"cssClass": "shadow-sm"
-						}
+						"value": "shadow-sm"
 					},
 					{
 						"label": "regular",
-						"value": {
-							"cssClass": "shadow"
-						}
+						"value": "shadow"
 					},
 					{
 						"label": "large",
-						"value": {
-							"cssClass": "shadow-lg"
-						}
+						"value": "shadow-lg"
 					}
 				]
 			}
