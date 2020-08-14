@@ -50,7 +50,7 @@ public class ClayDataSetFilterRegistryImpl
 		if (clayDataSetFilterServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No Clay data set filter registered for " +
+					"No Clay data set filter is associated with " +
 						clayDataSetDisplayName);
 			}
 

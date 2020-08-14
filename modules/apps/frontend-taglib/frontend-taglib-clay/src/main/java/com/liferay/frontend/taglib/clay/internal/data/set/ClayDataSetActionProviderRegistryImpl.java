@@ -50,7 +50,7 @@ public class ClayDataSetActionProviderRegistryImpl
 		if (clayDataSetActionProviderServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No Clay data set action provider registered for " +
+					"No Clay data set action provider is associated with " +
 						clayDataProviderKey);
 			}
 
