@@ -100,7 +100,7 @@ public class MissingTableReferenceDefinitionTest {
 		missingTableNames.removeAll(_serviceTrackerMap.keySet());
 
 		Assert.assertTrue(
-			"Missing TableReferenceDefinitions for " +
+			"Missing table reference definitions for " +
 				missingTableNames.toString(),
 			missingTableNames.isEmpty());
 	}
