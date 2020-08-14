@@ -90,7 +90,7 @@ public class FrontendClayApplication extends Application {
 
 		if ((clayDataSetDataProvider == null) && _log.isDebugEnabled()) {
 			_log.debug(
-				"No Clay data set data provider registered with key " +
+				"No Clay data set data provider registered for " +
 					clayDataProviderKey);
 		}
 

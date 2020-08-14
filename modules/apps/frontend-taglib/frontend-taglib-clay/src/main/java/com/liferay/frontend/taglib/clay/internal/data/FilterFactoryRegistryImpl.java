@@ -63,8 +63,7 @@ public class FilterFactoryRegistryImpl implements FilterFactoryRegistry {
 		if (filterFactoryServiceWrapper == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No filter factory registered with key " +
-						clayDataProviderKey);
+					"No filter factory registered for " + clayDataProviderKey);
 			}
 
 			return new DefaultFilterFactoryImpl();

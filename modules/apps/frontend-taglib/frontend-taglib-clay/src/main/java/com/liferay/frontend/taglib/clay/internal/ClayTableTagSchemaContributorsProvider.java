@@ -43,7 +43,7 @@ public class ClayTableTagSchemaContributorsProvider {
 		if (_clayTableTagSchemaContributorsProvider == null) {
 			_log.error(
 				"Unable to get list of Clay table tag schema contributors " +
-					"for key " + clayTableTagSchemaContributorKey);
+					"for " + clayTableTagSchemaContributorKey);
 
 			return Collections.emptyList();
 		}

@@ -50,7 +50,7 @@ public class ClayDataProviderRegistryImpl
 		if (clayDataProviderServiceWrapper == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No Clay data provider registered with key " +
+					"No Clay data provider registered for " +
 						clayDataProviderKey);
 			}
 
