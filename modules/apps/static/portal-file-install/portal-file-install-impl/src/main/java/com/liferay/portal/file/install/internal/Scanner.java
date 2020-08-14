@@ -40,7 +40,7 @@ public class Scanner {
 	public Scanner(
 		List<File> dirs, final String filterString, String subdirMode) {
 
-		_watchedDirs = _canon(dirs);
+		_watchedDirs = _canononize(dirs);
 
 		if ((filterString != null) && (filterString.length() > 0)) {
 			_filenameFilter = new FilenameFilter() {
@@ -91,7 +91,7 @@ public class Scanner {
 		}
 	}
 
-	private static List<File> _canon(List<File> files) {
+	private static List<File> _canononize(List<File> files) {
 		List<File> canonicalFiles = new ArrayList<>(files.size());
 
 		for (File file : files) {
