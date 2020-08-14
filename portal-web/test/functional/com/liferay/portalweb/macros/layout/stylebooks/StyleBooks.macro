@@ -52,7 +52,9 @@ definition {
 
 		MetalComponent.waitForCard(card = "${styleBookName}");
 
-		LexiconCard.clickCardTitle(card = "${styleBookName}");
+		Click(
+			key_card = "${styleBookName}",
+			locator1 = "Card#CARD_TYPE_ASSET");
 
 		PageEditor.assertFragmentSidebarLoaded();
 

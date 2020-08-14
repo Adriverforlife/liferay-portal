@@ -51,7 +51,9 @@ definition {
 
 		MetalComponent.waitForCard(card = "${masterLayoutName}");
 
-		LexiconCard.clickCardTitle(card = "${masterLayoutName}");
+		Click(
+			key_card = "${masterLayoutName}",
+			locator1 = "Card#CARD_TYPE_ASSET");
 
 		AssertElementPresent(
 			key_card = "${masterLayoutName}",
