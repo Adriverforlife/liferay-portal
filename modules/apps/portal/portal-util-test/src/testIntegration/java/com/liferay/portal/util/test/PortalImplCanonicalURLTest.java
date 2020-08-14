@@ -206,7 +206,6 @@ public class PortalImplCanonicalURLTest {
 						completeURL, "_ga",
 						"2.237928582.786466685.1515402734-1365236376"),
 					themeDisplay, _layout1, false, false));
-
 			Assert.assertEquals(
 				completeURL,
 				_portal.getCanonicalURL(
