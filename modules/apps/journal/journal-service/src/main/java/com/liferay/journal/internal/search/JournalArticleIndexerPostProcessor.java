@@ -41,26 +41,22 @@ public class JournalArticleIndexerPostProcessor
 
 	@Override
 	public void postProcessContextBooleanFilter(
-			BooleanFilter booleanFilter, SearchContext searchContext)
-		throws Exception {
+		BooleanFilter booleanFilter, SearchContext searchContext) {
 	}
 
 	@Override
-	public void postProcessDocument(Document document, Object object)
-		throws Exception {
+	public void postProcessDocument(Document document, Object object) {
 	}
 
 	@Override
 	public void postProcessFullQuery(
-			BooleanQuery fullQuery, SearchContext searchContext)
-		throws Exception {
+		BooleanQuery fullQuery, SearchContext searchContext) {
 	}
 
 	@Override
 	public void postProcessSearchQuery(
-			BooleanQuery searchQuery, BooleanFilter booleanFilter,
-			SearchContext searchContext)
-		throws Exception {
+		BooleanQuery searchQuery, BooleanFilter booleanFilter,
+		SearchContext searchContext) {
 	}
 
 	@Override
