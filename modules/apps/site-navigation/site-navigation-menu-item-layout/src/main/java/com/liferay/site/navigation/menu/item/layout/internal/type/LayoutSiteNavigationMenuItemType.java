@@ -407,14 +407,17 @@ public class LayoutSiteNavigationMenuItemType
 		sb.append(curLayout.getUuid());
 		sb.append(StringPool.PERCENT);
 
-		Property property = PropertyFactoryUtil.forName("typeSettings");
+		Property typeSettingsProperty = PropertyFactoryUtil.forName(
+			"typeSettings");
 
-		dynamicQuery.add(property.like(sb.toString()));
+		dynamicQuery.add(typeSettingsProperty.like(sb.toString()));
 
-		property = PropertyFactoryUtil.forName("siteNavigationMenuId");
+		Property siteNavigationMenuIdProperty = PropertyFactoryUtil.forName(
+			"siteNavigationMenuId");
 
 		dynamicQuery.add(
-			property.eq(siteNavigationMenuItem.getSiteNavigationMenuId()));
+			siteNavigationMenuIdProperty.eq(
+				siteNavigationMenuItem.getSiteNavigationMenuId()));
 
 		List<SiteNavigationMenuItem> siteNavigationMenuItems =
 			_siteNavigationMenuItemLocalService.dynamicQuery(dynamicQuery);
