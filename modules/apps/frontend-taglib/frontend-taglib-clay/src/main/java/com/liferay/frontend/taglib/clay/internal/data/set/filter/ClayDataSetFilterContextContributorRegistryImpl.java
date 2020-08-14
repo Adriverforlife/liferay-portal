@@ -54,7 +54,7 @@ public class ClayDataSetFilterContextContributorRegistryImpl
 			if (_log.isDebugEnabled()) {
 				_log.debug(
 					"No Clay data set filter context contributor registered " +
-						"with type " + clayDataSetFilterType);
+						"for " + clayDataSetFilterType);
 			}
 
 			return Collections.emptyList();
