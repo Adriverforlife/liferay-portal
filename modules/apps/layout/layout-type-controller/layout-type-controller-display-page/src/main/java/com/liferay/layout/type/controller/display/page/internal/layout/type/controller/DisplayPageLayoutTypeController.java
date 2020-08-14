@@ -152,7 +152,6 @@ public class DisplayPageLayoutTypeController
 				DISPLAY_PAGE_LAYOUT_TYPE_CONTROLLER_DISPLAY_CONTEXT,
 			new DisplayPageLayoutTypeControllerDisplayContext(
 				httpServletRequest, _infoItemServiceTracker));
-
 		httpServletRequest.setAttribute(
 			FragmentActionKeys.FRAGMENT_RENDERER_CONTROLLER,
 			_fragmentRendererController);
