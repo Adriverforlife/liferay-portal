@@ -105,19 +105,19 @@ public class FileEntryInfoDisplayContributorTest {
 			fileEntry -> {
 				_addAssetDisplayPageEntry(fileEntry);
 
-				ThemeDisplay themeDisplay = new ThemeDisplay();
-
-				themeDisplay.setLocale(LocaleUtil.getDefault());
-				themeDisplay.setScopeGroupId(_group.getGroupId());
-				themeDisplay.setServerName("localhost");
-				themeDisplay.setSiteGroupId(_group.getGroupId());
-
 				Locale locale = LocaleUtil.getDefault();
 
 				String expectedURL = StringBundler.concat(
 					"/", locale.getLanguage(), "/web/",
 					StringUtil.lowerCase(_group.getGroupKey()), "/d/",
 					fileEntry.getFileEntryId());
+
+				ThemeDisplay themeDisplay = new ThemeDisplay();
+
+				themeDisplay.setLocale(locale);
+				themeDisplay.setScopeGroupId(_group.getGroupId());
+				themeDisplay.setServerName("localhost");
+				themeDisplay.setSiteGroupId(_group.getGroupId());
 
 				Assert.assertEquals(
 					expectedURL,
