@@ -87,7 +87,7 @@ public class FileSyncConfigurationListener implements ConfigurationListener {
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to initialize configurations list", exception);
+					"Unable to initialize configurations", exception);
 			}
 		}
 	}
@@ -190,7 +190,7 @@ public class FileSyncConfigurationListener implements ConfigurationListener {
 				}
 
 				if ((file != null) && file.isFile() && !file.delete()) {
-					throw new IOException("Unable to delete file: " + file);
+					throw new IOException("Unable to delete file " + file);
 				}
 			}
 			catch (Exception exception) {
