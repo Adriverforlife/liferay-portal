@@ -62,11 +62,6 @@ public class RequiredWorkflowDefinitionExceptionMapper
 				_getMessageArguments(requiredWorkflowDefinitionException)));
 	}
 
-	private String _getModelResource(String className) {
-		return ResourceActionsUtil.getModelResource(
-			_acceptLanguage.getPreferredLocale(), className);
-	}
-
 	private Object[] _getMessageArguments(
 		RequiredWorkflowDefinitionException
 			requiredWorkflowDefinitionException) {
@@ -132,6 +127,11 @@ public class RequiredWorkflowDefinitionExceptionMapper
 		}
 
 		return "workflow-in-use-remove-assignements-to-x-x-and-x-more-x";
+	}
+
+	private String _getModelResource(String className) {
+		return ResourceActionsUtil.getModelResource(
+			_acceptLanguage.getPreferredLocale(), className);
 	}
 
 	@Context
