@@ -58,13 +58,13 @@ public class RadioClayDataSetFilterContextContributor
 	private Map<String, Object> _serialize(
 		BaseRadioClayDataSetFilter baseRadioClayDataSetFilter, Locale locale) {
 
-		List<KeyValuePair> keyValuePairs =
-			baseRadioClayDataSetFilter.getKeyValuePairs(locale);
+		JSONArray jsonArray = _jsonFactory.createJSONArray();
 
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		JSONArray jsonArray = _jsonFactory.createJSONArray();
+		List<KeyValuePair> keyValuePairs =
+			baseRadioClayDataSetFilter.getKeyValuePairs(locale);
 
 		for (KeyValuePair keyValuePair : keyValuePairs) {
 			String label = LanguageUtil.get(
