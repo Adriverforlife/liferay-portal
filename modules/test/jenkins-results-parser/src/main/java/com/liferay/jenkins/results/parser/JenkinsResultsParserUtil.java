@@ -494,16 +494,16 @@ public class JenkinsResultsParserUtil {
 	}
 
 	public static void executeBashCommandService(
-		final String command, final File baseDir,
-		final Map<String, String> environments, final long maxLogSize) {
+		String command, File baseDir, Map<String, String> environments,
+		long maxLogSize) {
 
 		_executeCommandService(
 			command, baseDir, environments, maxLogSize, false);
 	}
 
 	public static void executeBatchCommandService(
-		final String command, final File baseDir,
-		final Map<String, String> environments, final long maxLogSize) {
+		String command, File baseDir, Map<String, String> environments,
+		long maxLogSize) {
 
 		if (!isWindows()) {
 			throw new RuntimeException("Invalid OS: " + SystemUtils.OS_NAME);
