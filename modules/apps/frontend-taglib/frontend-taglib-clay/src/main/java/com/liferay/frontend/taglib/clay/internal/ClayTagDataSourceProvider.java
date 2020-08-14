@@ -38,7 +38,7 @@ public class ClayTagDataSourceProvider {
 
 		if (_clayTagDataSourceProvider == null) {
 			_log.error(
-				"Unable to get list of Clay tag data sources for " +
+				"No Clay tag data source is associated with " +
 					clayTagDataSourceKey);
 
 			return null;
