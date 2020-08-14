@@ -129,7 +129,7 @@ public class FileSyncConfigurationListener implements ConfigurationListener {
 						typedProperties.load(reader);
 					}
 
-					List<String> propertiesToRemove = new ArrayList<>();
+					List<String> toRemovePropertyKeys = new ArrayList<>();
 
 					for (String key : typedProperties.keySet()) {
 						if ((dictionary.get(key) == null) &&
@@ -138,7 +138,7 @@ public class FileSyncConfigurationListener implements ConfigurationListener {
 								ConfigurationAdmin.SERVICE_FACTORYPID, key) &&
 							!Objects.equals(DirectoryWatcher.FILENAME, key)) {
 
-							propertiesToRemove.add(key);
+							toRemovePropertyKeys.add(key);
 						}
 					}
 
@@ -158,7 +158,7 @@ public class FileSyncConfigurationListener implements ConfigurationListener {
 						}
 					}
 
-					for (String key : propertiesToRemove) {
+					for (String key : toRemovePropertyKeys) {
 						typedProperties.remove(key);
 					}
 
