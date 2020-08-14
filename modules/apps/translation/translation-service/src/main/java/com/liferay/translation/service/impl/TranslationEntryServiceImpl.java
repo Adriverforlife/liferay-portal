@@ -68,13 +68,13 @@ public class TranslationEntryServiceImpl
 		throws PortalException {
 
 		try {
+			PermissionChecker permissionChecker = getPermissionChecker();
+
 			LocaleId targetLocaleId = XLIFFLocaleIdUtil.getTargetLocaleId(
 				_saxReader.read(content));
 
 			String languageId = _language.getLanguageId(
 				targetLocaleId.toJavaLocale());
-
-			PermissionChecker permissionChecker = getPermissionChecker();
 
 			String name = TranslationConstants.RESOURCE_NAME + "." + languageId;
 
