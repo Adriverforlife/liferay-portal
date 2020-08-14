@@ -62,7 +62,7 @@ public class RequiredWorkflowDefinitionExceptionMapper
 				_getMessageArguments(requiredWorkflowDefinitionException)));
 	}
 
-	private String _getLocalizedAssetName(String className) {
+	private String _getModelResource(String className) {
 		return ResourceActionsUtil.getModelResource(
 			_acceptLanguage.getPreferredLocale(), className);
 	}
@@ -82,7 +82,7 @@ public class RequiredWorkflowDefinitionExceptionMapper
 				workflowDefinitionLinks.get(0);
 
 			return new Object[] {
-				_getLocalizedAssetName(workflowDefinitionLink.getClassName()),
+				_getModelResource(workflowDefinitionLink.getClassName()),
 				StringPool.BLANK
 			};
 		}
@@ -93,8 +93,8 @@ public class RequiredWorkflowDefinitionExceptionMapper
 				workflowDefinitionLinks.get(1);
 
 			return new Object[] {
-				_getLocalizedAssetName(workflowDefinitionLink1.getClassName()),
-				_getLocalizedAssetName(workflowDefinitionLink2.getClassName()),
+				_getModelResource(workflowDefinitionLink1.getClassName()),
+				_getModelResource(workflowDefinitionLink2.getClassName()),
 				StringPool.BLANK
 			};
 		}
@@ -107,8 +107,8 @@ public class RequiredWorkflowDefinitionExceptionMapper
 				workflowDefinitionLinks.get(1);
 
 			return new Object[] {
-				_getLocalizedAssetName(workflowDefinitionLink1.getClassName()),
-				_getLocalizedAssetName(workflowDefinitionLink2.getClassName()),
+				_getModelResource(workflowDefinitionLink1.getClassName()),
+				_getModelResource(workflowDefinitionLink2.getClassName()),
 				moreAssets, StringPool.BLANK
 			};
 		}
