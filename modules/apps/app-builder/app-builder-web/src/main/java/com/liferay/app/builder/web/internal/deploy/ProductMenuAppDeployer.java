@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -168,7 +169,7 @@ public class ProductMenuAppDeployer extends BaseAppDeployer {
 	@Reference
 	private JSONFactory _jsonFactory;
 
-	private final ConcurrentHashMap<Long, ServiceRegistration<?>[]>
-		_serviceRegistrations = new ConcurrentHashMap<>();
+	private final Map<Long, ServiceRegistration<?>[]> _serviceRegistrations =
+		new ConcurrentHashMap<>();
 
 }

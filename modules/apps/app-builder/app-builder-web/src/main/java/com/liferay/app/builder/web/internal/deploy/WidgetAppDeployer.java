@@ -23,6 +23,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleThreadLocal;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.osgi.framework.ServiceRegistration;
@@ -119,7 +120,7 @@ public class WidgetAppDeployer extends BaseAppDeployer {
 		return sb.toString();
 	}
 
-	private final ConcurrentHashMap<Long, ServiceRegistration<?>[]>
-		_serviceRegistrationsMap = new ConcurrentHashMap<>();
+	private final Map<Long, ServiceRegistration<?>[]> _serviceRegistrationsMap =
+		new ConcurrentHashMap<>();
 
 }

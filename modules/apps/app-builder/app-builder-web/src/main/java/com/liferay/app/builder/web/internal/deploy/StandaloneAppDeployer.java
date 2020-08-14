@@ -225,8 +225,8 @@ public class StandaloneAppDeployer extends BaseAppDeployer {
 	@Reference
 	private LayoutLocalService _layoutLocalService;
 
-	private final ConcurrentHashMap<Long, ServiceRegistration<?>[]>
-		_serviceRegistrationsMap = new ConcurrentHashMap<>();
+	private final Map<Long, ServiceRegistration<?>[]> _serviceRegistrationsMap =
+		new ConcurrentHashMap<>();
 
 	@Reference(target = "(osgi.web.symbolicname=com.liferay.app.builder.web)")
 	private ServletContext _servletContext;
