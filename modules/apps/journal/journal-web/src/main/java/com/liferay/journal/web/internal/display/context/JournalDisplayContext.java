@@ -840,7 +840,7 @@ public class JournalDisplayContext {
 		return orderColumns;
 	}
 
-	public String getOriginalAuthorUser(JournalArticle article) {
+	public String getOriginalAuthorUserName(JournalArticle article) {
 		AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
 			JournalArticle.class.getName(),
 			JournalArticleAssetRenderer.getClassPK(article));
