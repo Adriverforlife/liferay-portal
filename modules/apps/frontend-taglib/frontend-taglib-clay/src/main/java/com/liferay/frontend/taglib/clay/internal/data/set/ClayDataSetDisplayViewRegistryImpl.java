@@ -50,7 +50,7 @@ public class ClayDataSetDisplayViewRegistryImpl
 		if (clayDataSetDisplayViewServiceWrappers == null) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"No Clay data set display view registered with name " +
+					"No Clay data set display view registered for " +
 						clayDataSetDisplayName);
 			}
 
