@@ -104,9 +104,8 @@ public class DocumentDTOConverter
 		FileEntry fileEntry = _dlAppService.getFileEntry(
 			(Long)dtoConverterContext.getId());
 
-		Group group = _groupLocalService.fetchGroup(fileEntry.getGroupId());
-
 		FileVersion fileVersion = fileEntry.getFileVersion();
+		Group group = _groupLocalService.fetchGroup(fileEntry.getGroupId());
 
 		return new Document() {
 			{
