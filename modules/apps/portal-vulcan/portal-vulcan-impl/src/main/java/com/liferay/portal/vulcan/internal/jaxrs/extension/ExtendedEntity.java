@@ -104,6 +104,7 @@ public class ExtendedEntity {
 
 		while (clazz != Object.class) {
 			Collections.addAll(fields, clazz.getDeclaredFields());
+
 			clazz = clazz.getSuperclass();
 		}
 
