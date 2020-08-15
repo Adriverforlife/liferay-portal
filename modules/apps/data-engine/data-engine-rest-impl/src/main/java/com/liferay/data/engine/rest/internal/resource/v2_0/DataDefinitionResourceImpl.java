@@ -1143,17 +1143,17 @@ public class DataDefinitionResourceImpl
 
 	private void _normalize(
 		String[] availableLanguageIds, String defaultLanguageId,
-		Map<String, Object> property) {
+		Map<String, Object> map) {
 
-		if (MapUtil.isEmpty(property)) {
+		if (MapUtil.isEmpty(map)) {
 			return;
 		}
 
 		for (String languageId : availableLanguageIds) {
-			property.putIfAbsent(languageId, property.get(defaultLanguageId));
+			map.putIfAbsent(languageId, map.get(defaultLanguageId));
 		}
 
-		Set<Map.Entry<String, Object>> entries = property.entrySet();
+		Set<Map.Entry<String, Object>> entries = map.entrySet();
 
 		entries.removeIf(
 			entry -> !ArrayUtil.contains(availableLanguageIds, entry.getKey()));
