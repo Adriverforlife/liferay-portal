@@ -32,11 +32,11 @@ String eventName = ParamUtil.getString(request, "eventName", liferayPortletRespo
 
 	<aui:field-wrapper cssClass="form-group">
 
-		<!-- Begin LPS-38289, LPS-55993, and LPS-61876 -->
+		<!-- Begin LPS-38289 and LPS-55993 and LPS-61876 -->
 
 		<input class="hide" type="password" />
 
-		<!-- End LPS-38289, LPS-55993, and LPS-61876 -->
+		<!-- End LPS-38289 and LPS-55993 and LPS-61876 -->
 
 		<aui:input name="userId" type="hidden" value="<%= themeDisplay.getUserId() %>" />
 		<aui:input autocomplete="off" label="your-password" name="password" required="<%= true %>" size="30" type="password" />
