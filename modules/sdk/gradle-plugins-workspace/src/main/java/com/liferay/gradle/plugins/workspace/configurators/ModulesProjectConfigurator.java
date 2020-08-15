@@ -510,7 +510,6 @@ public class ModulesProjectConfigurator extends BaseProjectConfigurator {
 
 		Map<String, Object> liferayTheme =
 			(Map<String, Object>)packageJsonMap.get("liferayTheme");
-
 		Map<String, Object> scripts = (Map<String, Object>)packageJsonMap.get(
 			"scripts");
 
