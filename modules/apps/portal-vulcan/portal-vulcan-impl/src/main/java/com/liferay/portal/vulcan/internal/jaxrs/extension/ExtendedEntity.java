@@ -74,9 +74,9 @@ public class ExtendedEntity {
 
 		_extendedProperties = new HashMap<>(extendedProperties);
 
-		Set<String> keySet = _extendedProperties.keySet();
+		Set<String> extendedPropertyKeys = _extendedProperties.keySet();
 
-		keySet.removeIf(Objects::isNull);
+		extendedPropertyKeys.removeIf(Objects::isNull);
 
 		for (String key : filteredPropertyKeys) {
 			_extendedProperties.put(key, null);
