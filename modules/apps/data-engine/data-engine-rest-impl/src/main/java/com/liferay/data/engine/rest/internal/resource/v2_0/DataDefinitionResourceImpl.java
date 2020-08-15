@@ -649,7 +649,7 @@ public class DataDefinitionResourceImpl
 							DataDefinitionField.class));
 				}
 
-				_normalizeFields(
+				_normalize(
 					existingDataDefinition.getAvailableLanguageIds(),
 					nestedDataDefinitionFields,
 					dataDefinition.getDefaultLanguageId());
@@ -1099,7 +1099,7 @@ public class DataDefinitionResourceImpl
 			_portal.getResourceBundle(locale));
 	}
 
-	private void _normalizeFields(
+	private void _normalize(
 		String[] availableLanguageIds,
 		DataDefinitionField[] dataDefinitionFields, String defaultLanguageId) {
 
@@ -1108,40 +1108,40 @@ public class DataDefinitionResourceImpl
 				dataDefinitionField.getCustomProperties();
 
 			if (MapUtil.isNotEmpty(customProperties)) {
-				_normalizeProperty(
+				_normalize(
 					availableLanguageIds, defaultLanguageId,
 					(Map)customProperties.get("options"));
-				_normalizeProperty(
+				_normalize(
 					availableLanguageIds, defaultLanguageId,
 					(Map)customProperties.get("placeholder"));
-				_normalizeProperty(
+				_normalize(
 					availableLanguageIds, defaultLanguageId,
 					(Map)customProperties.get("tooltip"));
 			}
 
-			_normalizeProperty(
+			_normalize(
 				availableLanguageIds, defaultLanguageId,
 				dataDefinitionField.getDefaultValue());
-			_normalizeProperty(
+			_normalize(
 				availableLanguageIds, defaultLanguageId,
 				dataDefinitionField.getLabel());
 
 			if (ArrayUtil.isNotEmpty(
 					dataDefinitionField.getNestedDataDefinitionFields())) {
 
-				_normalizeFields(
+				_normalize(
 					availableLanguageIds,
 					dataDefinitionField.getNestedDataDefinitionFields(),
 					defaultLanguageId);
 			}
 
-			_normalizeProperty(
+			_normalize(
 				availableLanguageIds, defaultLanguageId,
 				dataDefinitionField.getTip());
 		}
 	}
 
-	private void _normalizeProperty(
+	private void _normalize(
 		String[] availableLanguageIds, String defaultLanguageId,
 		Map<String, Object> property) {
 
