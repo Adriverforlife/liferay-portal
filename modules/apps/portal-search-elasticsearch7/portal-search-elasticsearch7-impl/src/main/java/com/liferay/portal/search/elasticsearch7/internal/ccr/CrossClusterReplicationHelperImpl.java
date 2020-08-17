@@ -276,7 +276,6 @@ public class CrossClusterReplicationHelperImpl
 			remoteClusterAlias, indexName, indexName);
 
 		putFollowRequest.setConnectionId(connectionId);
-
 		putFollowRequest.setWaitForActiveShards(1);
 
 		searchEngineAdapter.execute(putFollowRequest);
@@ -299,7 +298,6 @@ public class CrossClusterReplicationHelperImpl
 			new UpdateSettingsClusterRequest();
 
 		updateSettingsClusterRequest.setConnectionId(connectionId);
-
 		updateSettingsClusterRequest.setPersistentSettings(
 			HashMapBuilder.put(
 				"cluster.remote." + remoteClusterAlias + ".seeds",
