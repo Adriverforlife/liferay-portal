@@ -1053,17 +1053,11 @@ public abstract class Base${schemaName}ResourceTestCase {
 				<#if properties?keys?seq_contains("externalReferenceCode") && (freeMarkerTool.hasJavaMethodSignature(javaMethodSignatures, getByExternalReferenceCodeMethodName))>
 					random${schemaName} = random${schemaName}();
 
-					assertHttpResponseStatusCode(
-						404,
-						${schemaVarName}Resource.${getByExternalReferenceCodeMethodName}HttpResponse(
-							random${schemaName}.getExternalReferenceCode()));
+					assertHttpResponseStatusCode(404, ${schemaVarName}Resource.${getByExternalReferenceCodeMethodName}HttpResponse(random${schemaName}.getExternalReferenceCode()));
 
 					test${javaMethodSignature.methodName?cap_first}_add${schemaName}(random${schemaName});
 
-					assertHttpResponseStatusCode(
-						200,
-						${schemaVarName}Resource.${getByExternalReferenceCodeMethodName}HttpResponse(
-							random${schemaName}.getExternalReferenceCode()));
+					assertHttpResponseStatusCode(200, ${schemaVarName}Resource.${getByExternalReferenceCodeMethodName}HttpResponse(random${schemaName}.getExternalReferenceCode()));
 				</#if>
 			}
 
