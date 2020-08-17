@@ -1,10 +1,10 @@
 import com.liferay.gradle.util.copy.StripPathSegmentsAction
 
-task buildSvg4everybody(type: Copy)
+task buildSVG4Everybody(type: Copy)
 
 File jsDestinationDir = file("tmp/META-INF/resources")
 
-buildSvg4everybody {
+buildSVG4Everybody {
 	dependsOn npmInstall
 	eachFile new StripPathSegmentsAction(2)
 
@@ -21,7 +21,7 @@ buildSvg4everybody {
 }
 
 classes {
-	dependsOn buildSvg4everybody
+	dependsOn buildSVG4Everybody
 }
 
 clean {
