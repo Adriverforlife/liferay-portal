@@ -133,10 +133,10 @@ public class ElasticsearchConnectionConfigurationModelListener
 				(String)properties.get("connectionId"));
 
 			if (!previousConnectionId.equals(connectionId)) {
-				_log.error("The connection ID can not be changed");
+				_log.error("The connection ID cannot be changed");
 
 				throw new Exception(
-					_getMessage("the-connection-id-can-not-be-changed"));
+					_getMessage("the-connection-id-cannot-be-changed"));
 			}
 		}
 
