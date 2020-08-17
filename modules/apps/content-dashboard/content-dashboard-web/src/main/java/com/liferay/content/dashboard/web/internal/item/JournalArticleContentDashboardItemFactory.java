@@ -67,14 +67,14 @@ public class JournalArticleContentDashboardItemFactory
 
 		DDMStructure ddmStructure = journalArticle.getDDMStructure();
 
-		JournalArticle latestApprovedJournalArticle =
-			_journalArticleLocalService.fetchLatestArticle(
-				classPK, WorkflowConstants.STATUS_APPROVED);
-
 		InfoDisplayContributor<JournalArticle> infoDisplayContributor =
 			(InfoDisplayContributor<JournalArticle>)
 				infoDisplayContributorTracker.getInfoDisplayContributor(
 					JournalArticle.class.getName());
+
+		JournalArticle latestApprovedJournalArticle =
+			_journalArticleLocalService.fetchLatestArticle(
+				classPK, WorkflowConstants.STATUS_APPROVED);
 
 		return new JournalArticleContentDashboardItem(
 			assetEntry.getCategories(), assetEntry.getTags(),

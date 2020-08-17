@@ -222,7 +222,6 @@ public class ContentDashboardAdminManagementToolbarDisplayContext
 
 					InfoItemReference infoItemReference =
 						contentDashboardItemType.getInfoItemReference();
-
 					Stream<? extends ContentDashboardItemType> stream =
 						contentDashboardItemTypes.stream();
 

@@ -75,11 +75,13 @@ ContentDashboardAdminManagementToolbarDisplayContext contentDashboardAdminManage
 							<%
 							InfoItemReference infoItemReference = contentDashboardItem.getInfoItemReference();
 
-							row.setRowId(String.valueOf(infoItemReference.getClassPK()));
+							String rowId = String.valueOf(infoItemReference.getClassPK());
 
-							row.setData(HashMapBuilder.<String, Object>put(
-								"rowId", row.getRowId()
-							).build());
+							row.setData(
+								HashMapBuilder.<String, Object>put(
+									"rowId", row.getRowId()
+								).build());
+							row.setRowId(rowId);
 							%>
 
 							<liferay-ui:search-container-column-text

@@ -86,10 +86,9 @@ public class GetContentDashboardItemInfoMVCResourceCommand
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
-		Locale locale = _portal.getLocale(resourceRequest);
-
 		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
 			resourceRequest);
+		Locale locale = _portal.getLocale(resourceRequest);
 
 		try {
 			String className = ParamUtil.getString(
