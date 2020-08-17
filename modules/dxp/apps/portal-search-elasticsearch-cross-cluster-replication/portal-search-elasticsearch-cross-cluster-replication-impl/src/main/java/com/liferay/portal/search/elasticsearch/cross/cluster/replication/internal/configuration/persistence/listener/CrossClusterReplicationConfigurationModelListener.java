@@ -65,11 +65,11 @@ public class CrossClusterReplicationConfigurationModelListener
 	public void onBeforeSave(String pid, Dictionary<String, Object> properties)
 		throws ConfigurationModelListenerException {
 
-		String filterString = String.format("(service.pid=%s)", pid);
-
 		Configuration[] configurations = null;
 
 		try {
+			String filterString = String.format("(service.pid=%s)", pid);
+
 			configurations = configurationAdmin.listConfigurations(
 				filterString);
 		}

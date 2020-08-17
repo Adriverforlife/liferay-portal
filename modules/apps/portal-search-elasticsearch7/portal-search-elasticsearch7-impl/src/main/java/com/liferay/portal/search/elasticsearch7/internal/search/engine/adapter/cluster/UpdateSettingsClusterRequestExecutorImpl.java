@@ -54,7 +54,6 @@ public class UpdateSettingsClusterRequestExecutorImpl
 
 		Settings persistentSettings =
 			clusterUpdateSettingsResponse.getPersistentSettings();
-
 		Settings transientSettings =
 			clusterUpdateSettingsResponse.getTransientSettings();
 
