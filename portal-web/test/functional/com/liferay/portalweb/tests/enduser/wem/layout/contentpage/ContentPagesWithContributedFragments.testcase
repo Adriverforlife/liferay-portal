@@ -151,7 +151,7 @@ definition {
 	@description = "This is a test for LPS-101330. A user should be able to add a video fragment and the video should play."
 	@priority = "5"
 	test AddContentPageWithVideoFragment {
-		property portal.acceptance = "false";
+		property portal.acceptance = "true";
 
 		// Assert the Home page is a content page in the default site
 
@@ -1122,6 +1122,8 @@ definition {
 	@description = "This is a use case for LPS-114770. The Collection Display can select a dynamic collection with Any asset types."
 	@priority = "5"
 	test DynamicCollectionWithAnyAssetTypeIsAvailableInCollectionDisplay {
+		property portal.acceptance = "true";
+
 		task ("Add a Web Content Article,a Blogs Entry and a document") {
 			JSONWebcontent.addWebContent(
 				content = "Web Content Content",

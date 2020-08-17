@@ -1063,6 +1063,8 @@ definition {
 	@description = "This is a test for LPS-111657. Can save Container and nested elements as a new composition when the Container is inside a column of Row."
 	@priority = "5"
 	test SaveContainerAsCompositionInModuleOfGrid {
+		property portal.acceptance = "true";
+
 		task ("Add a content page") {
 			JSONLayout.addPublicLayout(
 				groupName = "Test Site Name",

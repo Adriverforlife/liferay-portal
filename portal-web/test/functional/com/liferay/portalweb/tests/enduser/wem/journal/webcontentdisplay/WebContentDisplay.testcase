@@ -415,6 +415,8 @@ definition {
 	@description = "This is a use case for LPS-70386."
 	@priority = "5"
 	test AddWebContentWithPortletURL {
+		property portal.acceptance = "true";
+
 		JSONLayout.addPublicLayout(
 			groupName = "Test Site Name",
 			layoutName = "Site Page Name");
@@ -589,6 +591,8 @@ definition {
 	@description = "This is a use case for LPS-118702. Display web content article from other site."
 	@priority = "5"
 	test DisplayWebContentFromOtherSite {
+		property portal.acceptance = "true";
+
 		task ("Add a web content article in Site Name") {
 			JSONWebcontent.addWebContent(
 				content = "Web Content Content",

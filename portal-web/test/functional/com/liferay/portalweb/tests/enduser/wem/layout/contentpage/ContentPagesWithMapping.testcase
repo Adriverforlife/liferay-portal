@@ -512,6 +512,8 @@ definition {
 	@description = "This is a test for LPS-LPS-117818. Map manual URL to text fragment."
 	@priority = "5"
 	test MapManualURLToTextFragment {
+		property portal.acceptance = "true";
+
 		task ("Add a Heading fragment to page") {
 			ContentPagesNavigator.openEditContentPage(
 				pageName = "Content Page Name",
@@ -548,6 +550,8 @@ definition {
 	@description = "This is a use case for LPS-116975. Map multiple tags from asset entry to editable field."
 	@priority = "5"
 	test MapTagsToEditableField {
+		property portal.acceptance = "true";
+
 		JSONAssettag.addTag(
 			groupName = "Test Site Name",
 			tagName = "tagname1");
@@ -599,6 +603,8 @@ definition {
 	@description = "This is a use case for LPS-116975. Map single tag from asset entry to editable field."
 	@priority = "5"
 	test MapTagToEditableField {
+		property portal.acceptance = "true";
+
 		JSONAssettag.addTag(
 			groupName = "Test Site Name",
 			tagName = "tagname1");

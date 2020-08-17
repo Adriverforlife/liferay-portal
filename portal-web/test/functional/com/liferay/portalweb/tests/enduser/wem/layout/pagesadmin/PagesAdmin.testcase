@@ -29,6 +29,7 @@ definition {
 	test AddCollectionItemsInCollectionPageBasedOnDynamicCollection {
 		property osgi.app.includes = "bookmarks";
 		property osgi.app.includes = "document-library-google-docs";
+		property portal.acceptance = "true";
 
 		task ("Add a dynamic collection with All Types") {
 			JSONAssetlist.addDynamicAssetListEntryWithItemType(
@@ -150,6 +151,8 @@ definition {
 	@description = "This is a test for LPS-107775. Can add new collections when add a collection page from pages admin."
 	@priority = "5"
 	test AddcollectionViaAddingCollectionPage {
+		property portal.acceptance = "true";
+
 		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
 
 		ContentPages.addPublicCollectionPage(
@@ -347,6 +350,8 @@ definition {
 	@description = "This is a test for LPS-110183. Can access to display page in Collection Items modal when the collection item has associated display page template."
 	@priority = "5"
 	test GoToCollectionItemDisplayPage {
+		property portal.acceptance = "true";
+
 		JSONLayoutpagetemplate.addDisplayPageTemplateEntry(
 			contentType = "Web Content Article",
 			displayPageTemplateEntryName = "Display Page Name",
@@ -1087,6 +1092,7 @@ definition {
 	@description = "This is a test for LPS-110183. Can view information about collection items of collection page."
 	@priority = "5"
 	test ViewCollectionItemViaPageFinderAndPageAdmin {
+		property portal.acceptance = "true";
 		property osgi.app.includes = "bookmarks";
 		property osgi.app.includes = "document-library-google-docs";
 
