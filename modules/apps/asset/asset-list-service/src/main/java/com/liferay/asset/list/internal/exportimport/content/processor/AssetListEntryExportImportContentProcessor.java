@@ -275,7 +275,7 @@ public class AssetListEntryExportImportContentProcessor
 				"classTypeIds" + clazz.getSimpleName(),
 				StringUtil.merge(
 					classTypeIdsLongStream.map(
-						classTypeId -> _getClassTypeIdFromClassTypeMaps(
+						classTypeId -> _getClassTypeId(
 							classTypeId, ddmStructureIds, dlFileEntryTypeIds)
 					).toArray()));
 
@@ -287,7 +287,7 @@ public class AssetListEntryExportImportContentProcessor
 				continue;
 			}
 
-			long newAnyClassType = _getClassTypeIdFromClassTypeMaps(
+			long newAnyClassType = _getClassTypeId(
 				anyClassType, ddmStructureIds, dlFileEntryTypeIds);
 
 			unicodeProperties.setProperty(
@@ -366,12 +366,12 @@ public class AssetListEntryExportImportContentProcessor
 		}
 	}
 
-	private long _getClassTypeIdFromClassTypeMaps(
-		long classTypeId, Map<Long, Long>... classTypeMaps) {
+	private long _getClassTypeId(
+		long classTypeId, Map<Long, Long>... primaryKeysMaps) {
 
-		for (Map<Long, Long> classTypeMap : classTypeMaps) {
+		for (Map<Long, Long> primaryKeysMap : primaryKeysMaps) {
 			long newClassTypeId = MapUtil.getLong(
-				classTypeMap, classTypeId, classTypeId);
+				primaryKeysMap, classTypeId, classTypeId);
 
 			if (newClassTypeId != classTypeId) {
 				return newClassTypeId;
