@@ -81,9 +81,9 @@ public class DDMFormInstanceRecordExporterImplTest extends PowerMockito {
 
 	@Before
 	public void setUp() throws Exception {
+		setUpFastDateFormatFactoryUtil();
 		setUpHtmlUtil();
 		setUpLanguageUtil();
-		setUpFastDateFormatFactoryUtil();
 	}
 
 	@Test
@@ -412,13 +412,6 @@ public class DDMFormInstanceRecordExporterImplTest extends PowerMockito {
 		DDMFormInstanceRecordVersion ddmFormInstanceRecordVersion = mock(
 			DDMFormInstanceRecordVersion.class);
 
-		Date statusDate = new Date();
-
-		Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(
-			locale);
-
-		String modifiedDate = dateFormatDateTime.format(statusDate);
-
 		when(
 			ddmFormInstanceRecord.getDDMFormValues()
 		).thenReturn(
@@ -444,6 +437,8 @@ public class DDMFormInstanceRecordExporterImplTest extends PowerMockito {
 		).thenReturn(
 			WorkflowConstants.STATUS_APPROVED
 		);
+
+		Date statusDate = new Date();
 
 		when(
 			ddmFormInstanceRecordVersion.getStatusDate()
@@ -475,11 +470,18 @@ public class DDMFormInstanceRecordExporterImplTest extends PowerMockito {
 
 		Map<String, String> valuesMap = ddmFormFieldValues.get(0);
 
+		Assert.assertEquals("User Name", valuesMap.get("author"));
 		Assert.assertEquals(StringPool.BLANK, valuesMap.get("field1"));
 		Assert.assertEquals("value", valuesMap.get("field2"));
-		Assert.assertEquals("aprovado", valuesMap.get("status"));
+
+		Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(
+			locale);
+
+		String modifiedDate = dateFormatDateTime.format(statusDate);
+
 		Assert.assertEquals(modifiedDate, valuesMap.get("modifiedDate"));
-		Assert.assertEquals("User Name", valuesMap.get("author"));
+
+		Assert.assertEquals("aprovado", valuesMap.get("status"));
 
 		InOrder inOrder = Mockito.inOrder(
 			ddmFormInstanceRecordExporterImpl, ddmFormInstanceRecord,
