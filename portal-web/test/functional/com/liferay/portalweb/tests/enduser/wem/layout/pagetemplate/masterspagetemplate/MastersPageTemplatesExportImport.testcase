@@ -61,7 +61,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-102207. Can export a master page template containing the layout elements and nested elements and import."
-	@priority = "4"
+	@priority = "5"
 	test ExportImportMastersPageTemplateWithCompositionOfFragments {
 		task ("Add a custom master") {
 			JSONLayoutpagetemplate.addMasterPageTemplateEntry(
@@ -179,7 +179,7 @@ definition {
 	}
 
 	@description = "This is a use case for LPS-102207. Can export a master page template containing the custom configuration settings of fragments and import."
-	@priority = "4"
+	@priority = "5"
 	test ExportImportMastersPageTemplateWithCustomConfigurationSettingOfFragments {
 		task ("Add a custom master") {
 			JSONLayoutpagetemplate.addMasterPageTemplateEntry(

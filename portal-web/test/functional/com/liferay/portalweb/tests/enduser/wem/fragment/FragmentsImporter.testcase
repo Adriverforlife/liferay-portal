@@ -369,7 +369,7 @@ definition {
 	}
 
 	@description = "This is a test case for LPS-101255. The composition of fragments can be saved in an existing collection."
-	@priority = "4"
+	@priority = "5"
 	test ExportImportFragmentCompositionWithCustomConfigurations {
 		task ("Add a content page") {
 			JSONLayout.addPublicLayout(
