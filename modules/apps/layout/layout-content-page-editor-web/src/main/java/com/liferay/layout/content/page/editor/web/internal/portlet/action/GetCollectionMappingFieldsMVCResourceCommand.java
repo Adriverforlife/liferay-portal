@@ -64,27 +64,19 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
 		String fieldType = ParamUtil.getString(resourceRequest, "fieldType");
 		String itemSubtype = ParamUtil.getString(
 			resourceRequest, "itemSubtype");
 		String itemType = ParamUtil.getString(resourceRequest, "itemType");
 
-		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		InfoItemFormProvider<?> infoItemFormProvider =
-			_infoItemServiceTracker.getFirstInfoItemService(
-				InfoItemFormProvider.class, itemType);
+		String itemSubtypeLabel = StringPool.BLANK;
 
 		InfoItemFormVariationsProvider<?> infoItemFormVariationsProvider =
 			_infoItemServiceTracker.getFirstInfoItemService(
 				InfoItemFormVariationsProvider.class, itemType);
-
-		InfoForm infoForm = infoItemFormProvider.getInfoForm();
-
-		String itemTypeLabel = infoForm.getLabel(themeDisplay.getLocale());
-
-		String itemSubtypeLabel = StringPool.BLANK;
 
 		if (infoItemFormVariationsProvider != null) {
 			Collection<InfoItemFormVariation> infoItemFormVariations =
@@ -108,6 +100,14 @@ public class GetCollectionMappingFieldsMVCResourceCommand
 					themeDisplay.getLocale());
 			}
 		}
+
+		InfoItemFormProvider<?> infoItemFormProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemFormProvider.class, itemType);
+
+		InfoForm infoForm = infoItemFormProvider.getInfoForm();
+
+		String itemTypeLabel = infoForm.getLabel(themeDisplay.getLocale());
 
 		try {
 			JSONPortletResponseUtil.writeJSON(
