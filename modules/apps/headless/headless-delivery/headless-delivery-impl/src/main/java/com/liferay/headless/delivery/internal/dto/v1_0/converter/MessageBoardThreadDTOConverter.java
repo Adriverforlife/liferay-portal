@@ -78,16 +78,13 @@ public class MessageBoardThreadDTOConverter
 			DTOConverterContext dtoConverterContext, MBThread mbThread)
 		throws Exception {
 
-		MBMessage mbMessage = _mbMessageLocalService.getMessage(
-			mbThread.getRootMessageId());
-
-		User user = _userLocalService.fetchUser(mbThread.getUserId());
-
 		String languageId = LocaleUtil.toLanguageId(
 			dtoConverterContext.getLocale());
-
+		MBMessage mbMessage = _mbMessageLocalService.getMessage(
+			mbThread.getRootMessageId());
 		Optional<UriInfo> uriInfoOptional =
 			dtoConverterContext.getUriInfoOptional();
+		User user = _userLocalService.fetchUser(mbThread.getUserId());
 
 		return new MessageBoardThread() {
 			{
