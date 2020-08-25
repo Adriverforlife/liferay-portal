@@ -10,25 +10,26 @@ definition {
 
 		User.firstLoginPG();
 
-		JSONLayout.addPublicLayout(
-			groupName = "Guest",
-			layoutName = "Portal Showcase");
+		//JSONLayout.addPublicLayout(
+		//	groupName = "Guest",
+		//	layoutName = "Portal Showcase");
 
-		ProductMenu.gotoPortlet(
-			category = "Site Builder",
-			portlet = "Pages");
+		//ProductMenu.gotoPortlet(
+		//	category = "Site Builder",
+		//	portlet = "Pages");
 
-		SitePages.configurePage(
-			columnName = "1 Column",
-			pageName = "Portal Showcase",
-			privacy = "Public Pages",
-			sitePageType = "Widget Page");
+		//SitePages.configurePage(
+		//	columnName = "1 Column",
+		//	pageName = "Portal Showcase",
+		//	privacy = "Public Pages",
+		//	sitePageType = "Widget Page");
 
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/portal-showcase");
+		//Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/portal-showcase");
 
-		Portlet.addPG(portletName = "Portal Showcase");
+		//Portlet.addPG(portletName = "Portal Showcase");
 
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/portal-showcase");
+		//Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/portal-showcase");
+
 	}
 
 	tearDown {
@@ -40,6 +41,59 @@ definition {
 		else {
 			User.logoutPG();
 		}
+	}
+
+	@priority = "5"
+	test InputRichTextGeneral {
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/guest/portal-showcase/-/portal-tag/portal/inputrichtext/general");
+
+		// InputRichTextHidden
+
+		PortalShowcase.checkText(
+			boldClose = "</strong>",
+			boldOpen = "<strong>",
+			italicClose = "</em>",
+			italicOpen = "<em>",
+			usecase = "Hidden");
+
+		// InputRichTextGeneral
+
+		AssertElementPresent(locator1 = "PortalShowcase#CHECKED_RENDERED_CHECKBOX");
+
+		PortalShowcase.checkText(
+			boldClose = "</strong>",
+			boldOpen = "<strong>",
+			italicClose = "</em>",
+			italicOpen = "<em>",
+			usecase = "General");
+
+		// InputRichTextBBCode
+
+		PortalShowcase.checkText(
+			boldClose = "[/b]",
+			boldOpen = "[b]",
+			italicClose = "[/i]",
+			italicOpen = "[i]",
+			usecase = "BBCode");
+
+		// InputRichTextCreole
+
+		PortalShowcase.checkText(
+			boldClose = "**",
+			boldOpen = "**",
+			italicClose = "//",
+			italicOpen = "//",
+			usecase = "Creole");
+
+		// InputRichTextInstantAjax
+
+		PortalShowcase.checkText(
+			boldClose = "</strong>",
+			boldOpen = "<strong>",
+			italicClose = "</em>",
+			italicOpen = "<em>",
+			usecase = "Instant Ajax");
 	}
 
 	@priority = "5"
